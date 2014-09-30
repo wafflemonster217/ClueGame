@@ -85,8 +85,7 @@ public class Board {
 		
 		System.out.println("rows : " + numRows);
 		System.out.println("cols : " + numColumns);
-		
-		
+				
 		
 		sc.close();
 		
@@ -94,6 +93,7 @@ public class Board {
 	}
 
 	public BoardCell[][] getLayout() {
+		
 		return layout;
 	}
 
@@ -120,6 +120,8 @@ public class Board {
 	{
 		Board aBoard = new Board();
 		aBoard.loadBoardConfig();
+		
+		//System.out.println(aBoard.getLayout());
 		
 		
 	}

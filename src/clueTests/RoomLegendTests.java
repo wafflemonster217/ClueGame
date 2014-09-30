@@ -28,14 +28,14 @@ public class RoomLegendTests {
 	public void numRooms()
 	{
 		int actual = 9;
-		Assert.assertTrue(board.getRooms('C').size() == actual);
+		Assert.assertTrue(board.getRooms().size() == actual);
 				
 	}
 	
 	@Test
 	public void characterMappingTest()
 	{
-		Assert.assertEquals(board.getRooms('C'), "CONSERVATORY");
+		Assert.assertEquals(board.getRooms(), "CONSERVATORY");
 		
 		
 	}

@@ -76,8 +76,27 @@ public class ClueGame {
 		
 		game.loadRoomConfig();
 		
-		//game.loadConfigFiles();
+	//	game.loadConfigFiles();
 		
 	}
+
+	public Map<Character, String> getRooms() {
+		return rooms;
+	}
+
+	public Board getBoard() {
+		return theBoard;
+	}
+
+	public String getLayoutFile() {
+		return layoutFile;
+	}
+
+	public String getConfigFile() {
+		return configFile;
+	}
+	
+	
+	
 	
 }
