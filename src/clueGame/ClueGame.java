@@ -16,10 +16,10 @@ public class ClueGame {
 	{
 		layoutFile = layout;
 		configFile = legend;
-		//loadRoomConfig();		
+		theBoard = new Board();
 	}
 	
-	public void loadRoomConfig()
+	 public void loadRoomConfig()
 	{
 		FileReader fr = null;
 		Scanner sc = null;
@@ -50,23 +50,22 @@ public class ClueGame {
 			tempValue = splitLine[1];
 
 			rooms.put(tempKey,tempValue);
-			
-			//test
-			//System.out.println(tempKey + " "  + rooms.get(tempKey));
-					
+								
 		}
 					
 		sc.close();
-		System.out.println("room key configured");
+
 	}
 	
 	public void loadConfigFiles(){
+
+		//loadRoomConfig();
+		theBoard.loadRoomConfig(configFile);
 		
-	//	theBoard.loadBoardConfig();
-		//theBoard.loadRoomConfig();
+	//	System.out.println("room config loaded : " + rooms);
+		
 		theBoard.loadBoardConfig();
-		
-		
+	
 	}
 	
 	public static void main(String[] args)
@@ -74,15 +73,10 @@ public class ClueGame {
 		
 		ClueGame game = new ClueGame("ClueLayout.csv","ClueLegend.txt");
 		
-		game.loadRoomConfig();
-		
-	//	game.loadConfigFiles();
+		game.loadConfigFiles();
 		
 	}
 
-	public Map<Character, String> getRooms() {
-		return rooms;
-	}
 
 	public Board getBoard() {
 		return theBoard;

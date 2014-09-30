@@ -60,6 +60,16 @@ public enum DoorDirection { UP, DOWN, LEFT, RIGHT, NONE};
 	{
 		return roomInitial;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "RoomCell [doorDirection=" + doorDirection + ", roomInitial="
+				+ roomInitial + "]";
+	}
+	
+	
 	
 	
 }

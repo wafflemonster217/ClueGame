@@ -14,13 +14,13 @@ import clueGame.RoomCell;
 public class RoomLegendTests {
 	
 	static Board board;
-	static RoomCell roomcell;
+	static BoardCell boardCell;
 
 	@Before
 	public void Board()
 	{
 		board = new Board();
-		roomcell = new RoomCell();
+	//	boardCell = new RoomCell();
 	}
 	
 	

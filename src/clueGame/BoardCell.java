@@ -25,6 +25,11 @@ public abstract class BoardCell {
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		return "BoardCell [column=" + column + ", row=" + row + "]";
+	}
+
 	
 	
 }
