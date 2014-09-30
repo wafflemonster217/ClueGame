@@ -1,12 +1,13 @@
 package clueGame;
 
 public abstract class BoardCell {
-	private int column;
-	private int row;
+	 int column;
+	 int row;
 	
 	public BoardCell(int r, int c)
 	{
-		//super(r,c);
+		row = r;
+		column = c;
 	}
 	
 	public Boolean isWalkway()

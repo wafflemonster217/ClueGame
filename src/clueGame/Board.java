@@ -54,7 +54,30 @@ public class Board {
 			{
 				
 				//System.out.println(splitStrings[i]);
+				if(splitStrings[i] == "X")
+				{
+				//	BoardCell temp = new BoardCell(numRows, numColumns);
+					//layout[numRows][numColumns] = temp;
+				}
+				
+				else if(splitStrings[i] == "W")
+				{
+					WalkwayCell temp = new WalkwayCell(numRows, numColumns);
+					BoardCell tempCell = temp;
+				}
+				else
+				{
+					//RoomCell temp = new RoomCell(numRows,numColumns);
+					//BoardCell tempCell = temp;
+					
+					
+				}
+				
 				BoardCell temp = new BoardCell(numRows,numColumns);
+				
+				
+				
+			//	RoomCell aRoom = temp;
 				
 				System.out.println("boardcell " + temp + " is associated with " + splitStrings[i]);
 				
