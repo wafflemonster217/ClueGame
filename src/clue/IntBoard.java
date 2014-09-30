@@ -82,6 +82,10 @@ public class IntBoard {
 	{
 		if(clearList)
 		{
+<<<<<<< HEAD
+=======
+			System.out.println("clearing list" + targets);
+>>>>>>> e1cc50371e4522ae556fe33a6a1375051136146a
 		visited.clear();
 		targets.clear();
 		}
@@ -97,9 +101,13 @@ public class IntBoard {
 			
 		LinkedList <BoardCell> temp = getAdjList(aCell);
 		LinkedList<BoardCell> tempAdj = new LinkedList<BoardCell>();
+<<<<<<< HEAD
 	
 		
 		
+=======
+			
+>>>>>>> e1cc50371e4522ae556fe33a6a1375051136146a
 		for( BoardCell b : temp)
 		{
 			//System.out.println(temp);
@@ -130,7 +138,11 @@ public class IntBoard {
 			else
 			{
 				clearList = false;
+<<<<<<< HEAD
 		        calcTargets(b, roll-1);
+=======
+					calcTargets(b, roll-1);
+>>>>>>> e1cc50371e4522ae556fe33a6a1375051136146a
 
 			}
 				
@@ -143,8 +155,11 @@ public class IntBoard {
 	}
 	
 	
+<<<<<<< HEAD
 	
 	
+=======
+>>>>>>> e1cc50371e4522ae556fe33a6a1375051136146a
 	public Set<BoardCell> getTargets()
 	{
 		
@@ -177,6 +192,11 @@ public class IntBoard {
 		//a.calcTargets(a.getCell(0,0),1);	
 	   a.calcTargets(a.getCell(0,0),4);
 		//a.calcTargets(a.getCell(0,0),3);
+<<<<<<< HEAD
+=======
+	   
+	   a.calcTargets(a.getCell(0, 0),1);
+>>>>>>> e1cc50371e4522ae556fe33a6a1375051136146a
 		
 		
 	

@@ -69,7 +69,7 @@ public class Board {
 				{
 					if(splitStrings[i] != "X")
 					{
-					BoardCell temp = new RoomCell(numRows,numColumns);
+					BoardCell temp = new RoomCell(numRows,numColumns, splitStrings[i]);
 					//System.out.println(temp);
 					layout[numRows][numColumns] = temp;
 					}
