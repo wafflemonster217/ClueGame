@@ -30,7 +30,7 @@ public class Board {
 		
 		try
 		{
-			fr = new FileReader("boardLayout.txt");
+			fr = new FileReader("ClueLayout.csv");
 			System.out.println("got file");
 		}
 		catch(FileNotFoundException e)
@@ -49,8 +49,11 @@ public class Board {
 			
 			for(int i = 0; i < splitStrings.length; i++)
 			{
+				
+				System.out.println(splitStrings[i]);
+				
 				//layout[numRows][numColumns] = splitStrings[i];
-				System.out.println("befor null");
+				//System.out.println("befor null");
 				//layout[numRows][numColumns] = IntBoard.getCell(numRows,numColumns);
 				
 				
@@ -65,7 +68,7 @@ public class Board {
 			
 		}
 		
-		
+		sc.close();
 		
 		
 	}
@@ -74,7 +77,8 @@ public class Board {
 		return layout;
 	}
 
-	public Map<Character, String> getRooms(char room) {
+	public Map<Character, String> getRooms() {
+				
 		return rooms;
 	}
 
@@ -86,26 +90,22 @@ public class Board {
 		return numColumns;
 	}
 	
-	public RoomCell getBoardCell(int r, int c)
+	public BoardCell getBoardCell(int r, int c)
 	{
 		
-		RoomCell temp = new RoomCell();
+		BoardCell temp = new BoardCell();
 		
 		return temp;
 	}
 	
-	
 	public static void main(String[] args)
 	{
+		Board aBoard = new Board();
+		aBoard.loadBoardConfig();
 		
-		Board a = new Board();
-		
-		a.loadBoardConfig();
-		
-		//System.out.println("tj");
 		
 	}
-	
+
 	
 	
 }
