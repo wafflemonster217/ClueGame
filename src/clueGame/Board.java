@@ -60,6 +60,7 @@ public class Board {
 
 				//make the value uppercase because of tests
 				//tempValue = tempValue.toUpperCase();
+				tempValue = tempValue.trim();
 				
 				rooms.put(tempKey,tempValue);
 									
@@ -125,10 +126,10 @@ public class Board {
 						
 		}
 		
-		System.out.println("rows : " + numRows);
-		System.out.println("cols : " + numColumns);
-		System.out.println("rooms: " + rooms.size());
-		System.out.println("rooms.get c" + rooms.get('C'));
+	//	System.out.println("rows : " + numRows);
+	//	System.out.println("cols : " + numColumns);
+	//	System.out.println("rooms: " + rooms.size());
+		//System.out.println("rooms.get c" + rooms.get('C'));
 		
 				
 		//System.out.println(layout[3][4]);

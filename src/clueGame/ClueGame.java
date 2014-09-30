@@ -75,6 +75,11 @@ public class ClueGame {
 		
 		game.loadConfigFiles();
 		
+	//	System.out.println(game.getBoard().getNumRows());
+	//	System.out.println(game.getBoard().getCellAt(5,5));
+		System.out.println(game.getBoard().getRooms());
+		
+		
 	}
 
 
