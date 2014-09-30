@@ -2,6 +2,7 @@ package clueGame;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -10,7 +11,8 @@ import clue.IntBoard;
 
 public class Board {
 	private BoardCell[][] layout;
-	Map<Character,String> rooms;
+	Map<Character,String> rooms = new HashMap<Character,String>();
+	
 	int numRows;
 	int numColumns;
 	
@@ -21,7 +23,8 @@ public class Board {
 	}
 	
 	public void loadBoardConfig(){
-				
+		
+			
 		FileReader fr = null;
 		Scanner sc = null;
 		String line = "";
@@ -50,7 +53,12 @@ public class Board {
 			for(int i = 0; i < splitStrings.length; i++)
 			{
 				
-				System.out.println(splitStrings[i]);
+				//System.out.println(splitStrings[i]);
+				BoardCell temp = new BoardCell(numRows,numColumns);
+				
+				System.out.println("boardcell " + temp + " is associated with " + splitStrings[i]);
+				
+				//temp.isWalkWay();
 				
 				//layout[numRows][numColumns] = splitStrings[i];
 				//System.out.println("befor null");
@@ -59,14 +67,13 @@ public class Board {
 				
 				numColumns ++;
 			}
-			
-			
-			
+						
 			numRows++;
-			
-			
-			
+						
 		}
+		
+		System.out.println("rows : " + numRows);
+		System.out.println("cols : " + numColumns);
 		
 		sc.close();
 		
@@ -90,12 +97,10 @@ public class Board {
 		return numColumns;
 	}
 	
-	public BoardCell getBoardCell(int r, int c)
+	public BoardCell getCellAt(int r, int c)
 	{
 		
-		BoardCell temp = new BoardCell();
-		
-		return temp;
+		return layout[r][c];
 	}
 	
 	public static void main(String[] args)
