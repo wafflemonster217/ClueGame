@@ -24,6 +24,7 @@ public abstract class BoardCell {
 	{
 		return false;
 	}
+
 	
 	
 }

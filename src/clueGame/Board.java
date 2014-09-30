@@ -6,11 +6,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import clue.BoardCell;
-import clue.IntBoard;
+//import clue.BoardCell;
+//import clue.IntBoard;
 
 public class Board {
-	private BoardCell[][] layout;
+	
+	public static final int MAX_ROWS = 50;
+	public static final int MAX_COLS = 50;
+	
+	private BoardCell[][] layout = new BoardCell[MAX_ROWS][MAX_COLS];
 	Map<Character,String> rooms = new HashMap<Character,String>();
 	
 	int numRows;
@@ -53,42 +57,26 @@ public class Board {
 			for(int i = 0; i < splitStrings.length; i++)
 			{
 				
-				//System.out.println(splitStrings[i]);
-				if(splitStrings[i] == "X")
+								
+			   if(splitStrings[i] == "W")
 				{
-				//	BoardCell temp = new BoardCell(numRows, numColumns);
-					//layout[numRows][numColumns] = temp;
-				}
-				
-				else if(splitStrings[i] == "W")
-				{
-					WalkwayCell temp = new WalkwayCell(numRows, numColumns);
-					BoardCell tempCell = temp;
+					BoardCell temp = new WalkwayCell(numRows, numColumns);
+				//	System.out.println(temp.toString());
+					layout[numRows][numColumns] = temp;
+					
 				}
 				else
 				{
-					//RoomCell temp = new RoomCell(numRows,numColumns);
-					//BoardCell tempCell = temp;
-					
-					
+					if(splitStrings[i] != "X")
+					{
+					BoardCell temp = new RoomCell(numRows,numColumns);
+					//System.out.println(temp);
+					layout[numRows][numColumns] = temp;
+					}
+								
 				}
-				
-				BoardCell temp = new BoardCell(numRows,numColumns);
-				
-				
-				
-			//	RoomCell aRoom = temp;
-				
-				System.out.println("boardcell " + temp + " is associated with " + splitStrings[i]);
-				
-				//temp.isWalkWay();
-				
-				//layout[numRows][numColumns] = splitStrings[i];
-				//System.out.println("befor null");
-				//layout[numRows][numColumns] = IntBoard.getCell(numRows,numColumns);
-				
-				
-				numColumns ++;
+						
+					numColumns ++;
 			}
 						
 			numRows++;
@@ -97,6 +85,8 @@ public class Board {
 		
 		System.out.println("rows : " + numRows);
 		System.out.println("cols : " + numColumns);
+		
+		
 		
 		sc.close();
 		

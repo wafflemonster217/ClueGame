@@ -30,5 +30,7 @@ public class RoomCell extends BoardCell {
 	{
 		return roomInitial;
 	}
+	
+	
 }
 
