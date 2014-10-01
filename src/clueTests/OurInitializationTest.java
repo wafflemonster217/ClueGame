@@ -1,6 +1,9 @@
 package clueTests;
 
 import static org.junit.Assert.*;
+
+import java.util.Map;
+
 import junit.framework.Assert;
 
 import org.junit.Before;
@@ -13,65 +16,81 @@ import clueGame.RoomCell;
 
 public class OurInitializationTest {
 	
-	static Board board;
-	static ClueGame game;
+	public static Board board;
+	public static ClueGame game;
+	
+	public static final int ROOM_SUM = 11;
+	public static final int ROW_SUM = 11;
+	public static final int COLUMN_SUM = 11;
 
 	@Before
 	public static void setup()
 	{
-		game = new ClueGame();
+		game = new ClueGame("ourBoardLayout.csv","ourLegend.csv");
 		board = new Board();
 
 	}
 	
-	
+	@Test 
+	public void roomLegendTests() {
+		Map<Character, String> rooms = board.getRooms();
+		assertEquals(ROOM_SUM, rooms.size());
+
+		assertEquals("Bedroom", rooms.get('R'));
+		assertEquals("Study", rooms.get('S'));
+		assertEquals("Garage", rooms.get('G'));
+
+	}
+
 	@Test
-	public void numRooms()
-	{
-		int actual = 9;
-		Assert.assertTrue(board.getRooms().size() == actual);
-				
+	public void boardSizeTests() {
+		assertEquals(board.getNumRows(), ROW_SUM);
+		assertEquals(board.getNumColumns(), COLUMN_SUM);
 	}
 	
 	@Test
-	public void characterMappingTest()
+	public void doorDirectionTests()
 	{
-		Assert.assertEquals(board.getRooms(), "CONSERVATORY");
-		
+		RoomCell room = board.getRoomCellAt();
+		assertTrue(room.isDoorway());
+		assertEquals(room.doorDirection,RoomCell.DoorDirection.DOWN);
+		room = board.getRoomCellAt();
+		assertTrue(room.isDoorway());
+		assertEquals(room.doorDirection,RoomCell.DoorDirection.UP);
+		room = board.getRoomCellAt();
+		assertTrue(room.isDoorway());
+		assertEquals(room.doorDirection,RoomCell.DoorDirection.LEFT);
+		room = board.getRoomCellAt();
+		assertTrue(room.isDoorway());
+		assertEquals(room.doorDirection,RoomCell.DoorDirection.RIGHT);
+		room = board.getRoomCellAt();
+		assertTrue(room.isDoorway());
+		assertEquals(room.doorDirection,RoomCell.DoorDirection.NONE);
 		
 	}
 	
 	@Test
-	public void boardSize()
+	public void fourRoomInitialsTests()
 	{
-		int actualRows = 23;
-		int actualCols = 	14;	
-		
-		Assert.assertEquals(board.getNumRows(), 23);
-		Assert.assertEquals(board.getNumColumns(), 14);		
-				
-	}
-	
-	@Test
-	public void doorDirection()
-	{
-		
-		Assert.assertTrue(roomcell.isDoorway());
+		RoomCell room = board.getRoomCellAt();
+		assertEquals(room.getInitial(),'G');
+		room = board.getRoomCellAt();
+		assertEquals(room.getInitial(),'G');
+		room = board.getRoomCellAt();
+		assertEquals(room.getInitial(),'G');
+		room = board.getRoomCellAt();
+		assertEquals(room.getInitial(),'G');
 		
 	}
-	
-	@Test
-	public void roomInitials()
-	{
-		roomcell = board.getBoardCell(0, 0);
-		
-		Assert.assetEquals(roomcell.getInitial(),'G');
-		
-	}
-	
 	
 	@Test (expected = BadConfigFormatException.class)
-	public void BadConfigFormatExceptionTest() throws BadConfigFormatException 
+	public void BadConfigLayoutTest() throws BadConfigFormatException 
+	{
+		
+	}
+	
+	@Test (expected = BadConfigFormatException.class)
+	public void BadConfigLegendTest() throws BadConfigFormatException 
 	{
 		
 	}

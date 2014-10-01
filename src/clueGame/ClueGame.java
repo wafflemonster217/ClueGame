@@ -19,8 +19,7 @@ public class ClueGame {
 		theBoard = new Board();
 	}
 	
-		
-	 public void loadRoomConfig()
+	public void loadRoomConfig()
 		{
 			FileReader fr = null;
 			Scanner sc = null;
@@ -65,8 +64,6 @@ public class ClueGame {
 
 		}
 	
-		
-	
 	public void loadConfigFiles(){
 
 		//loadRoomConfig();
@@ -78,6 +75,7 @@ public class ClueGame {
 	
 	}
 	
+	// need to get rid of main
 	public static void main(String[] args)
 	{
 		
@@ -111,11 +109,12 @@ public class ClueGame {
 		*/
 	}
 
-
 	public Board getBoard() {
 		return theBoard;
 	}
 
+	
+	//I dont think we need to get the filenames, we know them upon creation
 	public String getLayoutFile() {
 		return layoutFile;
 	}

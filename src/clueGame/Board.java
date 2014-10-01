@@ -16,7 +16,6 @@ public class Board {
 	
 	private BoardCell[][] layout = new BoardCell[MAX_ROWS][MAX_COLS];
 	Map<Character,String> rooms = new HashMap<Character,String>();
-//	Map<Character,String> rooms;
 	
 	
 	int numRows;
@@ -27,7 +26,6 @@ public class Board {
 	{
 		rooms = this.getRooms();
 	}
-	
 		
 	public void loadBoardConfig(){
 					

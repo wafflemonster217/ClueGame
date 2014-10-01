@@ -2,18 +2,16 @@ package clueGame;
 
 public class RoomCell extends BoardCell {
 	
-public enum DoorDirection { UP, DOWN, LEFT, RIGHT, NONE};
+	public enum DoorDirection { UP, DOWN, LEFT, RIGHT, NONE};
 	
-	DoorDirection doorDirection;
+	public final DoorDirection doorDirection;
 	char roomInitial;
-	
 	
 	public RoomCell(int r, int c, String status) {
 		super(r, c);
 		
 		if(status.length() == 1)
 		{
-			//System.out.println("made it");
 			roomInitial = status.charAt(0);
 			doorDirection = DoorDirection.NONE;
 		}
@@ -58,14 +56,9 @@ public enum DoorDirection { UP, DOWN, LEFT, RIGHT, NONE};
 			
 	}
 	
-	
+	@Override
 	public Boolean isRoom()
 	{
-		if(roomInitial == 'X')
-		{
-			return false;
-		}
-		
 		return true;
 	}
 	
