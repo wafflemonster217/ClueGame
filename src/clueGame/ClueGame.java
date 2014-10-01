@@ -19,49 +19,59 @@ public class ClueGame {
 		theBoard = new Board();
 	}
 	
+		
 	 public void loadRoomConfig()
-	{
-		FileReader fr = null;
-		Scanner sc = null;
-		String line = " ";
-		String[] splitLine;
-		Character tempKey = ' ';
-		String tempValue = " ";
-		
-		try
 		{
-			fr = new FileReader(configFile);
+			FileReader fr = null;
+			Scanner sc = null;
+			String line = " ";
+			String[] splitLine;
+			Character tempKey = ' ';
+			String tempValue = " ";
 			
-		}
-		catch(FileNotFoundException e)
-		{
-			System.out.println(e);
-		}
-		
-		sc = new Scanner(fr);
-		
-		while(sc.hasNextLine())
-		{
-			
-			line = sc.nextLine();
-			splitLine = line.split(",");
+			//System.out.println("room config");
+			try
+			{
+				fr = new FileReader(configFile);
 				
-			tempKey =  line.charAt(0);
-			tempValue = splitLine[1];
-
-			rooms.put(tempKey,tempValue);
-								
-		}
+			}
+			catch(FileNotFoundException e)
+			{
+				System.out.println(e);
+			}
+			
+			sc = new Scanner(fr);
+			
+			while(sc.hasNextLine())
+			{
+				
+				line = sc.nextLine();
+				splitLine = line.split(",");
 					
-		sc.close();
+				tempKey =  line.charAt(0);
+				tempValue = splitLine[1];
 
-	}
+				
+				//tempValue = tempValue.toUpperCase();
+				tempValue = tempValue.trim();
+				
+				rooms.put(tempKey,tempValue);
+									
+			}
+						
+			sc.close();
+			
+		//System.out.println(rooms);
+
+		}
+	
+		
 	
 	public void loadConfigFiles(){
 
 		//loadRoomConfig();
-		theBoard.loadRoomConfig(configFile);
-		
+		loadRoomConfig();
+		theBoard.rooms = rooms;
 	//	System.out.println("room config loaded : " + rooms);
 		
 		theBoard.loadBoardConfig();
@@ -75,11 +85,30 @@ public class ClueGame {
 		
 		game.loadConfigFiles();
 		
-	//	System.out.println(game.getBoard().getNumRows());
-	//	System.out.println(game.getBoard().getCellAt(5,5));
+		
+		System.out.println(game.getBoard().getNumRows());
+		System.out.println(game.getBoard().getCellAt(5,5));
 		System.out.println(game.getBoard().getRooms());
+		System.out.println(game.getBoard().getCellAt(0, 0).isRoom());
 		
 		
+		/*
+		for(int r = 0; r < game.getBoard().getNumRows(); r++)
+		{
+			
+			for(int c = 0; c < game.getBoard().getNumColumns(); c++)
+			{
+				
+				System.out.println(game.getBoard().getCellAt(r,c) +  " is it a doorway? " + game.getBoard().getCellAt(r,c).isDoorway());
+				
+				
+				
+			}
+			
+			
+			
+		}
+		*/
 	}
 
 

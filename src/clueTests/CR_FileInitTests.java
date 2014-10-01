@@ -33,19 +33,20 @@ public class CR_FileInitTests {
 		board = game.getBoard();
 		
 		//System.out.println("this was setUp");
-		System.out.println(board.getRooms());
+		//System.out.println(board.getRooms());
 		
 	}
 	@Test
 	public void testRooms() {
 		Map<Character, String> rooms = board.getRooms();
-		System.out.println(board.getRooms());
 		// Ensure we read the correct number of rooms
+		//System.out.println(rooms);
 		assertEquals(NUM_ROOMS, rooms.size());
 		// Test retrieving a few from the hash, including the first
 		// and last in the file and a few others
-		System.out.println(rooms.get('C'));
 		assertEquals("Conservatory", rooms.get('C'));
+		
+		//System.out.println("got this pring");
 		
 		assertEquals("Ballroom", rooms.get('B'));
 		assertEquals("Billiard room", rooms.get('R'));
@@ -107,6 +108,13 @@ public class CR_FileInitTests {
 	// correct.
 	@Test
 	public void testRoomInitials() {
+		
+		//System.out.println(board.getCellAt(0,0).getIntial());
+		System.out.println("room initial");
+		//System.out.println(board.getCellAt(0,0).isRoom());
+		
+		System.out.println(board.getCellAt(0, 0));
+		
 		assertEquals('C', board.getCellAt(0, 0).getInitial());
 		assertEquals('R', board.getCellAt(4, 8).getInitial());
 		assertEquals('B', board.getCellAt(9, 0).getInitial());

@@ -13,6 +13,7 @@ public enum DoorDirection { UP, DOWN, LEFT, RIGHT, NONE};
 		
 		if(status.length() == 1)
 		{
+			//System.out.println("made it");
 			roomInitial = status.charAt(0);
 			doorDirection = DoorDirection.NONE;
 		}
@@ -30,35 +31,52 @@ public enum DoorDirection { UP, DOWN, LEFT, RIGHT, NONE};
 			case 'D': doorDirection = DoorDirection.DOWN;
 			break;
 			
-			case 'R': doorDirection = doorDirection.RIGHT;
+			case 'R': doorDirection = DoorDirection.RIGHT;
 			break;
 			
-			case 'L': doorDirection = doorDirection.LEFT;
+			case 'L': doorDirection = DoorDirection.LEFT;
 						
 			}
 			
 			
 		}
 		
-		
+		//System.out.println(roomInitial);
 	}
 
 		
 	
 	public Boolean isDoorway()
 	{
+		if(doorDirection == DoorDirection.NONE || doorDirection == null)
+		{
 		return false;
+		}
+		
+		
+			return true;
+			
 	}
 	
 	
 	public Boolean isRoom()
 	{
+		if(roomInitial == 'X')
+		{
+			return false;
+		}
+		
 		return true;
 	}
 	
 	public char getInitial()
 	{
 		return roomInitial;
+	}
+	
+	public DoorDirection getDoorDirection()
+	{
+		return doorDirection;
 	}
 
 

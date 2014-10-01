@@ -25,51 +25,10 @@ public class Board {
 	
 	public Board()
 	{
-		//rooms = getRooms();
+		rooms = this.getRooms();
 	}
 	
-	 public void loadRoomConfig(String configFile)
-		{
-			FileReader fr = null;
-			Scanner sc = null;
-			String line = " ";
-			String[] splitLine;
-			Character tempKey = ' ';
-			String tempValue = " ";
-			
-			try
-			{
-				fr = new FileReader(configFile);
-				
-			}
-			catch(FileNotFoundException e)
-			{
-				System.out.println(e);
-			}
-			
-			sc = new Scanner(fr);
-			
-			while(sc.hasNextLine())
-			{
-				
-				line = sc.nextLine();
-				splitLine = line.split(",");
-					
-				tempKey =  line.charAt(0);
-				tempValue = splitLine[1];
-
-				//make the value uppercase because of tests
-				//tempValue = tempValue.toUpperCase();
-				tempValue = tempValue.trim();
-				
-				rooms.put(tempKey,tempValue);
-									
-			}
-						
-			sc.close();
-
-		}
-	
+		
 	public void loadBoardConfig(){
 					
 		FileReader fr = null;
@@ -110,12 +69,12 @@ public class Board {
 				}
 				else
 				{
-					if(splitStrings[i] != "X")
-					{
+					//this if statement isnt really doing anything
+					
 					BoardCell temp = new RoomCell(numRows,numColumns, splitStrings[i]);
 					//System.out.println(temp);
 					layout[numRows][numColumns] = temp;
-					}
+					
 								
 				}
 						
@@ -160,6 +119,8 @@ public class Board {
 	public BoardCell getCellAt(int r, int c)
 	{
 		return layout[r][c];
+		
+		//return layout[r][c];
 	}
 	
 	public static void main(String[] args)

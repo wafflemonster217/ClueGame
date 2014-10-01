@@ -30,6 +30,9 @@ public abstract class BoardCell {
 		return "BoardCell [column=" + column + ", row=" + row + "]";
 	}
 
-	
+	public char getInitial()
+	{
+		return ' ';
+	}
 	
 }

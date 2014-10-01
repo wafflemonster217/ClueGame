@@ -20,7 +20,7 @@ public class RoomLegendTests {
 	public void Board()
 	{
 		board = new Board();
-	//	boardCell = new RoomCell();
+		boardCell = new RoomCell();
 	}
 	
 	
@@ -65,7 +65,6 @@ public class RoomLegendTests {
 		roomcell = board.getBoardCell(0, 0);
 		
 		Assert.assetEquals(roomcell.getInitial(),'G');
-		//this error makes no sense we have a getInitial method
 		
 	}
 	
