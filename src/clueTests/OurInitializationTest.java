@@ -6,21 +6,22 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import clue.BoardCell;
+import clueGame.ClueGame;
 import clueGame.BadConfigFormatException;
 import clueGame.Board;
 import clueGame.RoomCell;
 
-public class RoomLegendTests {
+public class OurInitializationTest {
 	
 	static Board board;
-	static BoardCell boardCell;
+	static ClueGame game;
 
 	@Before
-	public void Board()
+	public static void setup()
 	{
+		game = new ClueGame();
 		board = new Board();
-		boardCell = new RoomCell();
+
 	}
 	
 	
