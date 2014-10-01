@@ -7,6 +7,7 @@ import java.util.Map;
 import junit.framework.Assert;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import clueGame.ClueGame;
@@ -23,8 +24,8 @@ public class OurInitializationTest {
 	public static final int ROW_SUM = 11;
 	public static final int COLUMN_SUM = 11;
 
-	@Before
-	public static void setup()
+	@BeforeClass
+	public static void setUp()
 	{
 		game = new ClueGame("ourBoardLayout.csv","ourLegend.csv");
 		board = new Board();
@@ -86,13 +87,18 @@ public class OurInitializationTest {
 	@Test (expected = BadConfigFormatException.class)
 	public void BadConfigLayoutTest() throws BadConfigFormatException 
 	{
-		
+		ClueGame badgame = new ClueGame("ourBadBoardLayout.csv","ourLegend.csv");
+		badgame.loadRoomConfig();
+		badgame.getBoard().loadBoardConfig();
 	}
 	
 	@Test (expected = BadConfigFormatException.class)
 	public void BadConfigLegendTest() throws BadConfigFormatException 
 	{
-		
+		ClueGame badgame = new ClueGame("ourBadBoardLayout.csv","ourBadLegend.csv");
+		badgame.loadRoomConfig();
+		badgame.getBoard().loadBoardConfig();
+	}
 	}
 
 }
