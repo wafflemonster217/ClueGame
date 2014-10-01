@@ -2,7 +2,6 @@ package clueTests;
 
 // Doing a static import allows me to write assertEquals rather than
 // Assert.assertEquals
-import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
@@ -31,23 +30,15 @@ public class CR_FileInitTests {
 		ClueGame game = new ClueGame("ClueLayout.csv", "ClueLegend.txt");
 		game.loadConfigFiles();
 		board = game.getBoard();
-		
-		//System.out.println("this was setUp");
-		//System.out.println(board.getRooms());
-		
 	}
 	@Test
 	public void testRooms() {
 		Map<Character, String> rooms = board.getRooms();
 		// Ensure we read the correct number of rooms
-		//System.out.println(rooms);
 		assertEquals(NUM_ROOMS, rooms.size());
 		// Test retrieving a few from the hash, including the first
 		// and last in the file and a few others
 		assertEquals("Conservatory", rooms.get('C'));
-		
-		//System.out.println("got this pring");
-		
 		assertEquals("Ballroom", rooms.get('B'));
 		assertEquals("Billiard room", rooms.get('R'));
 		assertEquals("Dining room", rooms.get('D'));
@@ -67,20 +58,20 @@ public class CR_FileInitTests {
 	@Test
 	public void FourDoorDirections() {
 		// Test one each RIGHT/LEFT/UP/DOWN
-		RoomCell room = board.getCellAt(4, 3);
+		RoomCell room = board.getRoomCellAt(4, 3);
 		assertTrue(room.isDoorway());
 		assertEquals(RoomCell.DoorDirection.RIGHT, room.getDoorDirection());
-		room = board.getCellAt(4, 8);
+		room = board.getRoomCellAt(4, 8);
 		assertTrue(room.isDoorway());
 		assertEquals(RoomCell.DoorDirection.DOWN, room.getDoorDirection());
-		room = board.getCellAt(15, 18);
+		room = board.getRoomCellAt(15, 18);
 		assertTrue(room.isDoorway());
 		assertEquals(RoomCell.DoorDirection.LEFT, room.getDoorDirection());
-		room = board.getCellAt(14, 11);
+		room = board.getRoomCellAt(14, 11);
 		assertTrue(room.isDoorway());
 		assertEquals(RoomCell.DoorDirection.UP, room.getDoorDirection());
 		// Test that room pieces that aren't doors know it
-		room = board.getCellAt(14, 14);
+		room = board.getRoomCellAt(14, 14);
 		assertFalse(room.isDoorway());	
 		// Test that walkways are not doors
 		BoardCell cell = board.getCellAt(0, 6);
@@ -108,18 +99,11 @@ public class CR_FileInitTests {
 	// correct.
 	@Test
 	public void testRoomInitials() {
-		
-		//System.out.println(board.getCellAt(0,0).getIntial());
-		System.out.println("room initial");
-		//System.out.println(board.getCellAt(0,0).isRoom());
-		
-		System.out.println(board.getCellAt(0, 0));
-		
-		assertEquals('C', board.getCellAt(0, 0).getInitial());
-		assertEquals('R', board.getCellAt(4, 8).getInitial());
-		assertEquals('B', board.getCellAt(9, 0).getInitial());
-		assertEquals('O', board.getCellAt(21, 22).getInitial());
-		assertEquals('K', board.getCellAt(21, 0).getInitial());
+		assertEquals('C', board.getRoomCellAt(0, 0).getInitial());
+		assertEquals('R', board.getRoomCellAt(4, 8).getInitial());
+		assertEquals('B', board.getRoomCellAt(9, 0).getInitial());
+		assertEquals('O', board.getRoomCellAt(21, 22).getInitial());
+		assertEquals('K', board.getRoomCellAt(21, 0).getInitial());
 	}
 	
 	// Test that an exception is thrown for a bad config file
@@ -142,10 +126,11 @@ public class CR_FileInitTests {
 		game.getBoard().loadBoardConfig();
 	}
 	// Test that an exception is thrown for a bad config file
-//	@Test (expected = BadConfigFormatException.class)
-	/*public void testBadRoomFormat() throws BadConfigFormatException, FileNotFoundException {
+	@Test (expected = BadConfigFormatException.class)
+	public void testBadRoomFormat() throws BadConfigFormatException, FileNotFoundException {
 		// overloaded Board ctor takes config file name
 		ClueGame game = new ClueGame("ClueLayout.csv", "ClueLegendBadFormat.txt");
 		game.loadRoomConfig();
-		game.getBoard().loadBoardConfig();*/
+		game.getBoard().loadBoardConfig();
 	}
+}

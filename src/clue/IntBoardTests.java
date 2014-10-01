@@ -1,4 +1,4 @@
-package clueTests;
+package clue;
 
 import static org.junit.Assert.*;
 
@@ -11,7 +11,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import clue.BoardCell;
-import clue.IntBoard;
 
 
 
