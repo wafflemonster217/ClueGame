@@ -25,12 +25,11 @@ public class OurInitializationTest {
 	public static final int COLUMN_SUM = 11;
 
 	@BeforeClass
-	public static void setUp()
-	{
+	public static void setUp() {
 		game = new ClueGame("ourBoardLayout.csv","ourLegend.csv");
 		board = new Board();
-
 	}
+	
 	
 	@Test 
 	public void roomLegendTests() {
@@ -40,18 +39,18 @@ public class OurInitializationTest {
 		assertEquals("Bedroom", rooms.get('R'));
 		assertEquals("Study", rooms.get('S'));
 		assertEquals("Garage", rooms.get('G'));
-
 	}
 
+	
 	@Test
 	public void boardSizeTests() {
 		assertEquals(board.getNumRows(), ROW_SUM);
 		assertEquals(board.getNumColumns(), COLUMN_SUM);
 	}
 	
+	
 	@Test
-	public void doorDirectionTests()
-	{
+	public void doorDirectionTests() {
 		RoomCell room = board.getRoomCellAt();
 		assertTrue(room.isDoorway());
 		assertEquals(room.doorDirection,RoomCell.DoorDirection.DOWN);
@@ -67,12 +66,11 @@ public class OurInitializationTest {
 		room = board.getRoomCellAt();
 		assertTrue(room.isDoorway());
 		assertEquals(room.doorDirection,RoomCell.DoorDirection.NONE);
-		
 	}
 	
+	
 	@Test
-	public void fourRoomInitialsTests()
-	{
+	public void fourRoomInitialsTests() {
 		RoomCell room = board.getRoomCellAt();
 		assertEquals(room.getInitial(),'G');
 		room = board.getRoomCellAt();
@@ -81,24 +79,19 @@ public class OurInitializationTest {
 		assertEquals(room.getInitial(),'G');
 		room = board.getRoomCellAt();
 		assertEquals(room.getInitial(),'G');
-		
 	}
 	
 	@Test (expected = BadConfigFormatException.class)
-	public void BadConfigLayoutTest() throws BadConfigFormatException 
-	{
+	public void BadConfigLayoutTest() throws BadConfigFormatException {
 		ClueGame badgame = new ClueGame("ourBadBoardLayout.csv","ourLegend.csv");
 		badgame.loadRoomConfig();
 		badgame.getBoard().loadBoardConfig();
 	}
 	
 	@Test (expected = BadConfigFormatException.class)
-	public void BadConfigLegendTest() throws BadConfigFormatException 
-	{
+	public void BadConfigLegendTest() throws BadConfigFormatException {
 		ClueGame badgame = new ClueGame("ourBadBoardLayout.csv","ourBadLegend.csv");
 		badgame.loadRoomConfig();
-		badgame.getBoard().loadBoardConfig();
-	}
 	}
 
 }

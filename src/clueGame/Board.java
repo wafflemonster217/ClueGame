@@ -97,12 +97,10 @@ public class Board {
 	}
 
 	public BoardCell[][] getLayout() {
-		
 		return layout;
 	}
 
 	public Map<Character, String> getRooms() {
-				
 		return rooms;
 	}
 
@@ -114,15 +112,11 @@ public class Board {
 		return numColumns;
 	}
 	
-	public BoardCell getCellAt(int r, int c)
-	{
-		return layout[r][c];
-		
-		//return layout[r][c];
+	public RoomCell getRoomCellAt(int r, int c) {
+		return (RoomCell) layout[r][c];
 	}
 	
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		//Board aBoard = new Board();
 		//aBoard.loadBoardConfig();
 		

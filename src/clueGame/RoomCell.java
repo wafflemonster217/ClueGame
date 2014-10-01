@@ -5,55 +5,35 @@ public class RoomCell extends BoardCell {
 	public enum DoorDirection { UP, DOWN, LEFT, RIGHT, NONE};
 	
 	public final DoorDirection doorDirection;
-	char roomInitial;
+	private char roomInitial;
 	
 	public RoomCell(int r, int c, String status) {
 		super(r, c);
-		
+		roomInitial = status.charAt(0);
 		if(status.length() == 1)
 		{
-			roomInitial = status.charAt(0);
 			doorDirection = DoorDirection.NONE;
 		}
 		else
-		{
-			roomInitial = status.charAt(0);
-			
-			char temp = status.charAt(1);
-			
-			switch(temp)
-			{
+		{	
+			switch(status.charAt(1)) {
 			case 'U': doorDirection = DoorDirection.UP;
-			break;
-			
+				break;
 			case 'D': doorDirection = DoorDirection.DOWN;
-			break;
-			
+				break;
 			case 'R': doorDirection = DoorDirection.RIGHT;
-			break;
-			
+				break;
 			case 'L': doorDirection = DoorDirection.LEFT;
-						
+				break;
+			default: doorDirection = DoorDirection.NONE;
+				break;
 			}
-			
-			
 		}
-		
-		//System.out.println(roomInitial);
 	}
 
-		
-	
-	public Boolean isDoorway()
-	{
-		if(doorDirection == DoorDirection.NONE || doorDirection == null)
-		{
-		return false;
-		}
-		
-		
-			return true;
-			
+	@Override
+	public Boolean isDoorway() {
+		return !(doorDirection == DoorDirection.NONE);	
 	}
 	
 	@Override
@@ -71,8 +51,6 @@ public class RoomCell extends BoardCell {
 	{
 		return doorDirection;
 	}
-
-
 
 	@Override
 	public String toString() {
