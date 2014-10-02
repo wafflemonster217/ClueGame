@@ -2,6 +2,7 @@ package clueGame;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -14,88 +15,87 @@ public class Board {
 	public static final int MAX_ROWS = 50;
 	public static final int MAX_COLS = 50;
 	
-	private BoardCell[][] layout = new BoardCell[MAX_ROWS][MAX_COLS];
-	Map<Character,String> rooms = new HashMap<Character,String>();
+	private String layoutFile;
+	private BoardCell[][] layout;
+	Map<Character,String> rooms;
 	
 	
 	int numRows;
 	int numColumns;
 	
 	
-	public Board()
-	{
-		rooms = this.getRooms();
+	public Board() {
+		rooms = new HashMap<Character,String>();
+	}
+	
+	public Board(String lF) {
+		layoutFile = lF;
 	}
 		
-	public void loadBoardConfig(){
-					
-		FileReader fr = null;
-		Scanner sc = null;
-		String line = "";
-		String comma = ",";
-		String[] splitStrings;
+	public void loadBoardConfig() throws BadConfigFormatException, FileNotFoundException{
 		
-		try
-		{
-			fr = new FileReader("ClueLayout.csv");
-			//System.out.println("got file");
-		}
-		catch(FileNotFoundException e)
-		{
-			System.out.println(e);
-		}
-				
-		sc = new Scanner(fr);
+		ArrayList<ArrayList<String>> tempBoard = new ArrayList<ArrayList<String>>();
+		Scanner boardRead = new Scanner( new FileReader(layoutFile));
 		
-		while(sc.hasNextLine())
-		{
-			numColumns = 0;
+		numRows = 0;
+		while(boardRead.hasNextLine()) {
 			
-			line = sc.nextLine();
-			splitStrings = line.split(comma);
+			tempBoard.add(new ArrayList<String>());
+			String readLine = boardRead.nextLine();
+			String[] letters = readLine.split(",");
 			
-			for(int i = 0; i < splitStrings.length; i++)
-			{
-				
-								
-			   if(splitStrings[i] == "W")
-				{
-					BoardCell temp = new WalkwayCell(numRows, numColumns);
-				//	System.out.println(temp.toString());
-					layout[numRows][numColumns] = temp;
-					
-				}
-				else
-				{
-					//this if statement isnt really doing anything
-					
-					BoardCell temp = new RoomCell(numRows,numColumns, splitStrings[i]);
-					//System.out.println(temp);
-					layout[numRows][numColumns] = temp;
-					
-								
-				}
-						
-					numColumns ++;
+			for(int i = 0; i < letters.length; i++) {
+				tempBoard.get(numRows).add(letters[i]);
 			}
-						
+			
+			if(numColumns != 0 && numColumns != letters.length){
+				boardRead.close();
+				throw new BadConfigFormatException("Row lengths are inconsistant in layout config file.");
+			} else {
+				numColumns = letters.length;
+			}
+			
 			numRows++;
-						
+		}
+		boardRead.close();
+		
+		layout = new BoardCell[numRows][numColumns];
+		
+		for(int i = 0; i < numRows; i++) {
+			for(int j = 0; j < numColumns; j++) {
+				if(i > tempBoard.size()) {
+					throw new BadConfigFormatException("Temp board row count doesn't match config file");
+				}
+				if(j > tempBoard.get(0).size()) {
+					throw new BadConfigFormatException("Temp board column count doesn't match config file");
+				}
+				if(!rooms.containsKey(tempBoard.get(i).get(j).charAt(0))) {
+					throw new BadConfigFormatException("Found undefined key in layout file");
+				}
+				
+				switch(tempBoard.get(i).get(j)) {
+				case "W":
+					layout[i][j] = new WalkwayCell(i, j);
+					break;
+				default:
+					layout[i][j] = new RoomCell(i, j, tempBoard.get(i).get(j));
+					break;
+				}
+			}
 		}
 		
-	//	System.out.println("rows : " + numRows);
-	//	System.out.println("cols : " + numColumns);
-	//	System.out.println("rooms: " + rooms.size());
-		//System.out.println("rooms.get c" + rooms.get('C'));
-		
-				
-		//System.out.println(layout[3][4]);
-		
-		sc.close();
-		
-		
+
 	}
 
+	
+	public void setRooms(Map<Character,String> inRooms) throws BadConfigFormatException {
+		if(inRooms == null){
+			throw new BadConfigFormatException();
+		} else {
+			rooms = inRooms;
+		}
+	}
+	
 	public BoardCell[][] getLayout() {
 		return layout;
 	}
@@ -116,15 +116,10 @@ public class Board {
 		return (RoomCell) layout[r][c];
 	}
 	
-	public static void main(String[] args) {
-		//Board aBoard = new Board();
-		//aBoard.loadBoardConfig();
-		
-		//System.out.println(aBoard.getLayout());
-		
-		
+	public BoardCell getCellAt(int r, int c) {
+		return layout[r][c];
 	}
-
+	
 	
 	
 }

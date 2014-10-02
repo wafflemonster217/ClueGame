@@ -14,7 +14,7 @@ public class ClueGame {
 	
 	public ClueGame(String layout,String legend)
 	{
-		rooms = new HashMap<Character,String>()
+		rooms = new HashMap<Character,String>();
 		layoutFile = layout;
 		configFile = legend;
 		theBoard = new Board(layout);
@@ -36,40 +36,38 @@ public class ClueGame {
 			tempValue = splitLine[1];
 
 			tempValue = tempValue.trim();
+			if(splitLine.length != 2) {
+				scan.close();
+				throw new BadConfigFormatException("Bad legend line formatting.");
+			}
+			if(splitLine[0].length() > 1) {
+				scan.close();
+				throw new BadConfigFormatException("Room Cymbol is too long.");
+			}
 
 			rooms.put(tempKey,tempValue);				
 		}
 
 		scan.close();
-	}
-
-	
-	
-	public void loadConfigFiles() throws FileNotFoundException, BadConfigFormatException{
-		loadRoomConfig();
 		theBoard.setRooms(rooms);
-
-		
-		theBoard.loadBoardConfig();
-	
 	}
 
+	
+	
+	public void loadConfigFiles() {
+	
+		try {
+			loadRoomConfig();
+			theBoard.loadBoardConfig();
+		} catch (FileNotFoundException | BadConfigFormatException e) {
+			
+			//
+		}
+		
+	
+	}
 
 	public Board getBoard() {
 		return theBoard;
-	}
-
-	
-	//I dont think we need to get the filenames, we know them upon creation
-	public String getLayoutFile() {
-		return layoutFile;
-	}
-
-	public String getConfigFile() {
-		return configFile;
-	}
-	
-	
-	
-	
+	}	
 }

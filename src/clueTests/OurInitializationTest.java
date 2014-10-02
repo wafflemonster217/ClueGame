@@ -2,6 +2,7 @@ package clueTests;
 
 import static org.junit.Assert.*;
 
+import java.io.FileNotFoundException;
 import java.util.Map;
 
 import junit.framework.Assert;
@@ -21,8 +22,8 @@ public class OurInitializationTest {
 	public static ClueGame game;
 	
 	public static final int ROOM_SUM = 11;
-	public static final int ROW_SUM = 11;
-	public static final int COLUMN_SUM = 11;
+	public static final int ROW_SUM = 23;
+	public static final int COLUMN_SUM = 21;
 
 	@BeforeClass
 	public static void setUp() {
@@ -51,19 +52,19 @@ public class OurInitializationTest {
 	
 	@Test
 	public void doorDirectionTests() {
-		RoomCell room = board.getRoomCellAt();
+		RoomCell room = board.getRoomCellAt(4,1);
 		assertTrue(room.isDoorway());
 		assertEquals(room.doorDirection,RoomCell.DoorDirection.DOWN);
-		room = board.getRoomCellAt();
+		room = board.getRoomCellAt(16,11);
 		assertTrue(room.isDoorway());
 		assertEquals(room.doorDirection,RoomCell.DoorDirection.UP);
-		room = board.getRoomCellAt();
+		room = board.getRoomCellAt(15,16);
 		assertTrue(room.isDoorway());
 		assertEquals(room.doorDirection,RoomCell.DoorDirection.LEFT);
-		room = board.getRoomCellAt();
+		room = board.getRoomCellAt(10,5);
 		assertTrue(room.isDoorway());
 		assertEquals(room.doorDirection,RoomCell.DoorDirection.RIGHT);
-		room = board.getRoomCellAt();
+		room = board.getRoomCellAt(3,9);
 		assertTrue(room.isDoorway());
 		assertEquals(room.doorDirection,RoomCell.DoorDirection.NONE);
 	}
@@ -71,25 +72,25 @@ public class OurInitializationTest {
 	
 	@Test
 	public void fourRoomInitialsTests() {
-		RoomCell room = board.getRoomCellAt();
+		RoomCell room = board.getRoomCellAt(2,2);
 		assertEquals(room.getInitial(),'G');
-		room = board.getRoomCellAt();
-		assertEquals(room.getInitial(),'G');
-		room = board.getRoomCellAt();
-		assertEquals(room.getInitial(),'G');
-		room = board.getRoomCellAt();
-		assertEquals(room.getInitial(),'G');
+		room = board.getRoomCellAt(1,10);
+		assertEquals(room.getInitial(),'S');
+		room = board.getRoomCellAt(3,17);
+		assertEquals(room.getInitial(),'C');
+		room = board.getRoomCellAt(20,3);
+		assertEquals(room.getInitial(),'L');
 	}
 	
 	@Test (expected = BadConfigFormatException.class)
-	public void BadConfigLayoutTest() throws BadConfigFormatException {
+	public void BadConfigLayoutTest() throws BadConfigFormatException, FileNotFoundException {
 		ClueGame badgame = new ClueGame("ourBadBoardLayout.csv","ourLegend.csv");
 		badgame.loadRoomConfig();
 		badgame.getBoard().loadBoardConfig();
 	}
 	
 	@Test (expected = BadConfigFormatException.class)
-	public void BadConfigLegendTest() throws BadConfigFormatException {
+	public void BadConfigLegendTest() throws BadConfigFormatException, FileNotFoundException {
 		ClueGame badgame = new ClueGame("ourBadBoardLayout.csv","ourBadLegend.csv");
 		badgame.loadRoomConfig();
 	}
