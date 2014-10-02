@@ -70,6 +70,10 @@ public class OurInitializationTest {
 		assertEquals(room.doorDirection,RoomCell.DoorDirection.NONE);
 	}
 	
+	//@Test
+	//public void testWalkwayCells()
+	
+	
 	
 	@Test
 	public void fourRoomInitialsTests() {

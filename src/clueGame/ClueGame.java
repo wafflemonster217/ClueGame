@@ -39,7 +39,7 @@ public class ClueGame {
 			}
 			if(splitLine[0].length() > 1) {
 				scan.close();
-				throw new BadConfigFormatException("Room Cymbol is too long.");
+				throw new BadConfigFormatException("Room Symbol is too long.");
 			}
 			tempKey =  line.charAt(0);
 			tempValue = splitLine[1];
