@@ -120,6 +120,8 @@ public class Board {
 		return layout[r][c];
 	}
 	
-	
+	public WalkwayCell getWalkwayCellAt(int r, int c) {
+		return (WalkwayCell) layout[r][c];
+	}
 	
 }

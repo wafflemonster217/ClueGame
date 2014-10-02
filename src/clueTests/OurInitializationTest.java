@@ -15,6 +15,7 @@ import clueGame.ClueGame;
 import clueGame.BadConfigFormatException;
 import clueGame.Board;
 import clueGame.RoomCell;
+import clueGame.WalkwayCell;
 
 public class OurInitializationTest {
 	
@@ -70,8 +71,20 @@ public class OurInitializationTest {
 		assertEquals(room.doorDirection,RoomCell.DoorDirection.NONE);
 	}
 	
-	//@Test
-	//public void testWalkwayCells()
+	@Test
+	public void testWalkwayCells() {
+		WalkwayCell walk = board.getWalkwayCellAt(0, 5);
+		assertTrue(walk.isWalkway());
+		walk = board.getWalkwayCellAt(6, 2);
+		assertTrue(walk.isWalkway());
+		walk = board.getWalkwayCellAt(4, 11);
+		assertTrue(walk.isWalkway());
+		walk = board.getWalkwayCellAt(21, 8);
+		assertTrue(walk.isWalkway());
+		walk = board.getWalkwayCellAt(13, 19);
+		assertTrue(walk.isWalkway());
+		
+	}
 	
 	
 	
