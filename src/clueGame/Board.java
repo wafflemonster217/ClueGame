@@ -17,6 +17,7 @@ public class Board {
 	
 	private Map<BoardCell, LinkedList<BoardCell>> adjMtx;
 	private Set<BoardCell> targets;
+	private BoardCell current;
 	
 	private static String layoutFile;
 	private BoardCell[][] layout;
@@ -190,10 +191,16 @@ public class Board {
 	}
 	
 	public void calcTargets(int i, int j, int steps) {
-
+		// current cell set here 
+		// call targethelper with current
+	}
+	
+	public void targetHelper(int i, int j, int steps) {
+		//This is recursive func
 	}
 	
 	public Set<BoardCell> getTargets() {
+		targets.remove(current);
 		return targets;
 	}
 	
