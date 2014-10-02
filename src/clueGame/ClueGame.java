@@ -12,6 +12,14 @@ public class ClueGame {
 	private String layoutFile;
 	private String configFile;
 	
+	public ClueGame()
+	{
+		rooms = new HashMap<Character,String>();
+		layoutFile = "ClueLayout.csv";
+		configFile = "ClueLegend.txt";
+		theBoard = new Board(layoutFile);
+	}
+	
 	public ClueGame(String layout,String legend)
 	{
 		rooms = new HashMap<Character,String>();
