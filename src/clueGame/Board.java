@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
@@ -192,15 +193,37 @@ public class Board {
 	
 	public void calcTargets(int i, int j, int steps) {
 		// current cell set here 
+		
+		targets = new HashSet<BoardCell>();
+		
+		current = layout[i][j];
+		//System.out.println(current);
+		
+		targetHelper(current.row, current.column, steps);
+		
 		// call targethelper with current
 	}
 	
 	public void targetHelper(int i, int j, int steps) {
 		//This is recursive func
+		
+		if(steps == 1)
+		{
+			targets.add(layout[i][j]);
+			//System.out.println("added target " +  );
+		}
+		
+		
+		else
+		{
+			targetHelper(i,j,steps-1);
+		}
+		
+		
 	}
 	
 	public Set<BoardCell> getTargets() {
-		targets.remove(current);
+		//targets.remove(current);
 		return targets;
 	}
 	

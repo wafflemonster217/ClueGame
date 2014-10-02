@@ -80,6 +80,7 @@ public class OurAdjacencentAndTargetTests {
 		assertTrue(adjList.contains(board.getCellAt(6, 16)));
 		assertTrue(adjList.contains(board.getCellAt(6, 18)));
 		assertTrue(!adjList.contains(board.getCellAt(7, 17))); 
+		//System.out.println(adjList.contains(board.getCellAt(5,71)));
 		assertTrue(!adjList.contains(board.getCellAt(5, 71))); 
 	}
 	
