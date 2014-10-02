@@ -66,7 +66,7 @@ public class OurInitializationTest {
 		assertTrue(room.isDoorway());
 		assertEquals(room.doorDirection,RoomCell.DoorDirection.RIGHT);
 		room = board.getRoomCellAt(3,9);
-		assertTrue(room.isDoorway());
+		assertFalse(room.isDoorway());
 		assertEquals(room.doorDirection,RoomCell.DoorDirection.NONE);
 	}
 	

@@ -32,10 +32,7 @@ public class ClueGame {
 			line = scan.nextLine();
 			splitLine = line.split(",");
 
-			tempKey =  line.charAt(0);
-			tempValue = splitLine[1];
-
-			tempValue = tempValue.trim();
+			
 			if(splitLine.length != 2) {
 				scan.close();
 				throw new BadConfigFormatException("Bad legend line formatting.");
@@ -44,7 +41,10 @@ public class ClueGame {
 				scan.close();
 				throw new BadConfigFormatException("Room Cymbol is too long.");
 			}
+			tempKey =  line.charAt(0);
+			tempValue = splitLine[1];
 
+			tempValue = tempValue.trim();
 			rooms.put(tempKey,tempValue);				
 		}
 
