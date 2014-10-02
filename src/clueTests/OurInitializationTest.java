@@ -28,7 +28,8 @@ public class OurInitializationTest {
 	@BeforeClass
 	public static void setUp() {
 		game = new ClueGame("ourBoardLayout.csv","ourLegend.csv");
-		board = new Board();
+		game.loadConfigFiles();
+		board = game.getBoard();
 	}
 	
 	
