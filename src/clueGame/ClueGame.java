@@ -12,6 +12,14 @@ public class ClueGame {
 	private String layoutFile;
 	private String configFile;
 	
+	public ClueGame()
+	{
+		rooms = new HashMap<Character,String>();
+		layoutFile = "ClueLayout.csv";
+		configFile = "ClueLegend.txt";
+		theBoard = new Board(layoutFile);
+	}
+	
 	public ClueGame(String layout,String legend)
 	{
 		rooms = new HashMap<Character,String>();
@@ -39,7 +47,7 @@ public class ClueGame {
 			}
 			if(splitLine[0].length() > 1) {
 				scan.close();
-				throw new BadConfigFormatException("Room Cymbol is too long.");
+				throw new BadConfigFormatException("Room Symbol is too long.");
 			}
 			tempKey =  line.charAt(0);
 			tempValue = splitLine[1];

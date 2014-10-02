@@ -4,8 +4,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 //import clue.BoardCell;
 //import clue.IntBoard;
@@ -15,7 +17,10 @@ public class Board {
 	public static final int MAX_ROWS = 50;
 	public static final int MAX_COLS = 50;
 	
-	private String layoutFile;
+	private Map<BoardCell, LinkedList<BoardCell>> adjMtx;
+	private Set<BoardCell> targets;
+	
+	private static String layoutFile;
 	private BoardCell[][] layout;
 	Map<Character,String> rooms;
 	
@@ -120,6 +125,21 @@ public class Board {
 		return layout[r][c];
 	}
 	
+	public void calcAdjacencies() { 
+		
+	}
+	
+	public void calcTargets(int i, int j, int steps) {
+
+	}
+	
+	public Set<BoardCell> getTargets() {
+		return targets;
+	}
+	
+	public LinkedList<BoardCell> getAdjList(int i, int j) {
+		return null;
+	}
 	
 	
 }
