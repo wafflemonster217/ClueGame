@@ -13,9 +13,7 @@ import java.util.Set;
 //import clue.IntBoard;
 
 public class Board {
-	
-	public static final int MAX_ROWS = 50;
-	public static final int MAX_COLS = 50;
+
 	
 	private Map<BoardCell, LinkedList<BoardCell>> adjMtx;
 	private Set<BoardCell> targets;
@@ -35,6 +33,7 @@ public class Board {
 	
 	public Board(String lF) {
 		layoutFile = lF;
+		rooms = new HashMap<Character,String>();
 	}
 		
 	public void loadBoardConfig() throws BadConfigFormatException, FileNotFoundException{
@@ -130,8 +129,64 @@ public class Board {
 		return (WalkwayCell) layout[r][c];
 	}
 
-	public void calcAdjacencies() { 
-		
+	public void calcAdjacencies() {
+		adjMtx = new HashMap<BoardCell, LinkedList<BoardCell>>();
+		for(int i=0;i<numRows;i++) {
+			for(int j=0;j<numColumns;j++) {
+				LinkedList<BoardCell> adjList = new LinkedList<BoardCell>();
+				if(layout[i][j].isDoorway()){
+					switch(((RoomCell) layout[i][j]).getDoorDirection()) {
+					case UP:
+						adjList.add(layout[i-1][j]);
+						break;
+					case DOWN:
+						adjList.add(layout[i+1][j]);
+						break;
+					case LEFT:
+						adjList.add(layout[i][j-1]);
+						break;
+					case RIGHT:
+						adjList.add(layout[i][j+1]);
+						break;
+					case NONE:
+						break;
+					}
+				} else if (layout[i][j].isWalkway()) {
+					if(i>0 && layout[i-1][j].isWalkway()){
+						adjList.add(layout[i-1][j]);
+					} else if (i>0 && layout[i-1][j].isDoorway()){
+						if( ((RoomCell) layout[i-1][j]).getDoorDirection()==RoomCell.DoorDirection.DOWN) {
+							adjList.add(layout[i-1][j]);
+						}
+					}
+					if(i<numRows-1 && layout[i+1][j].isWalkway()){
+						adjList.add(layout[i+1][j]);
+					} else if (i<numRows-1 && layout[i+1][j].isDoorway()){
+						if( ((RoomCell) layout[i+1][j]).getDoorDirection()==RoomCell.DoorDirection.UP) {
+							adjList.add(layout[i+1][j]);
+						}
+					}
+					if(j>0 && layout[i][j-1].isWalkway()){
+						adjList.add(layout[i][j-1]);
+					} else if (j>0 && layout[i][j-1].isDoorway()){
+						if( ((RoomCell) layout[i][j-1]).getDoorDirection()==RoomCell.DoorDirection.RIGHT) {
+							adjList.add(layout[i][j-1]);
+						}
+					}
+					if(j<numColumns-1 && layout[i][j+1].isWalkway()){
+						adjList.add(layout[i][j+1]);
+					} else if (j<numColumns-1 && layout[i][j+1].isDoorway()){
+						if( ((RoomCell) layout[i][j+1]).getDoorDirection()==RoomCell.DoorDirection.LEFT) {
+							adjList.add(layout[i][j+1]);
+						}
+					}
+				} else {
+					
+				}
+				adjMtx.put(layout[i][j], adjList);
+			}
+		}
+				
 	}
 	
 	public void calcTargets(int i, int j, int steps) {
@@ -143,7 +198,7 @@ public class Board {
 	}
 	
 	public LinkedList<BoardCell> getAdjList(int i, int j) {
-		return null;
+		return adjMtx.get(layout[i][j]);
 	}
 	
 
