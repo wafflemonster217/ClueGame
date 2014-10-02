@@ -18,6 +18,7 @@ public class Board {
 	
 	private Map<BoardCell, LinkedList<BoardCell>> adjMtx;
 	private Set<BoardCell> targets;
+	private ArrayList<BoardCell> visited;
 	private BoardCell current;
 	
 	private static String layoutFile;
@@ -29,13 +30,10 @@ public class Board {
 	int numColumns;
 	
 	
-	public Board() {
-		rooms = new HashMap<Character,String>();
-	}
-	
+
 	public Board(String lF) {
 		layoutFile = lF;
-		rooms = new HashMap<Character,String>();
+		targets = new HashSet<BoardCell>();
 	}
 		
 	public void loadBoardConfig() throws BadConfigFormatException, FileNotFoundException{
@@ -95,6 +93,7 @@ public class Board {
 
 	
 	public void setRooms(Map<Character,String> inRooms) throws BadConfigFormatException {
+		rooms = new HashMap<Character,String>();
 		if(inRooms == null){
 			throw new BadConfigFormatException();
 		} else {
@@ -192,38 +191,40 @@ public class Board {
 	}
 	
 	public void calcTargets(int i, int j, int steps) {
-		// current cell set here 
-		
-		targets = new HashSet<BoardCell>();
-		
+		targets.clear();
 		current = layout[i][j];
-		//System.out.println(current);
-		
-		targetHelper(current.row, current.column, steps);
-		
-		// call targethelper with current
+		visited = new ArrayList<BoardCell>();
+		if(steps > 0 ) {
+			targetHelper(current.getRow(), current.getColumn(), steps);
+		}
+
 	}
 	
 	public void targetHelper(int i, int j, int steps) {
-		//This is recursive func
-		
-		if(steps == 1)
-		{
-			targets.add(layout[i][j]);
-			//System.out.println("added target " +  );
-		}
-		
-		
-		else
-		{
-			targetHelper(i,j,steps-1);
+		if(steps == 0) {
+			if (!targets.contains(layout[i][j])) {
+				targets.add(layout[i][j]);
+			}
+		} else if(layout[i][j].isDoorway() && layout[i][j]!=current) {
+			if (!targets.contains(layout[i][j])) {
+				targets.add(layout[i][j]);
+			}
+		} else { 
+			LinkedList<BoardCell> nextList = adjMtx.get(layout[i][j]);
+			for(BoardCell e : nextList) {
+				if(!visited.contains(e) && !e.equals(current)){
+					visited.add(e);
+					targetHelper(e.getRow(),e.getColumn(),steps-1);
+				}
+				visited.remove(e);
+			}
 		}
 		
 		
 	}
 	
 	public Set<BoardCell> getTargets() {
-		//targets.remove(current);
+		targets.remove(current);
 		return targets;
 	}
 	

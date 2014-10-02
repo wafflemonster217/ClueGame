@@ -1,9 +1,9 @@
 package clueGame;
 
 public abstract class BoardCell {
-	 int column;
-	 int row;
-	
+	private int column;
+	private int row;
+
 	public BoardCell(int r, int c)
 	{
 		row = r;
@@ -28,6 +28,14 @@ public abstract class BoardCell {
 	@Override
 	public String toString() {
 		return "BoardCell [column=" + column + ", row=" + row + "]";
+	}
+	
+	public int getColumn() {
+		return column;
+	}
+
+	public int getRow() {
+		return row;
 	}
 
 	

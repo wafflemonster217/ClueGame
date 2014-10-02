@@ -80,8 +80,7 @@ public class OurAdjacencentAndTargetTests {
 		assertTrue(adjList.contains(board.getCellAt(6, 16)));
 		assertTrue(adjList.contains(board.getCellAt(6, 18)));
 		assertTrue(!adjList.contains(board.getCellAt(7, 17))); 
-		//System.out.println(adjList.contains(board.getCellAt(5,71)));
-		assertTrue(!adjList.contains(board.getCellAt(5, 71))); 
+		assertTrue(!adjList.contains(board.getCellAt(5, 17))); 
 	}
 	
 	@Test
@@ -167,7 +166,7 @@ public class OurAdjacencentAndTargetTests {
 		
 		board.calcTargets(22,14,3);
 		targets= board.getTargets();
-		assertEquals(4, targets.size());
+		assertEquals(5, targets.size());
 		assertTrue(targets.contains(board.getCellAt(19,14)));
 		assertTrue(targets.contains(board.getCellAt(20,15)));
 		assertTrue(targets.contains(board.getCellAt(21,14)));
@@ -177,7 +176,7 @@ public class OurAdjacencentAndTargetTests {
 		targets= board.getTargets();
 		assertEquals(4, targets.size());
 		assertTrue(targets.contains(board.getCellAt(15,0)));
-		assertTrue(targets.contains(board.getCellAt(15,21)));
+		assertTrue(targets.contains(board.getCellAt(15,2)));
 		assertTrue(targets.contains(board.getCellAt(16,1)));
 		assertTrue(targets.contains(board.getCellAt(16,3)));
 
@@ -194,7 +193,7 @@ public class OurAdjacencentAndTargetTests {
 	public void testTargetEnterRoom() {
 		board.calcTargets(8,6,3);
 		Set<BoardCell> targets= board.getTargets();
-		assertEquals(8, targets.size());
+		assertEquals(9, targets.size());
 		assertTrue(targets.contains(board.getCellAt(10,5)));
 		
 		board.calcTargets(19,15,1);
