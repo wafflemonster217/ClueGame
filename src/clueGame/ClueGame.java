@@ -2,6 +2,7 @@ package clueGame;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -11,20 +12,28 @@ public class ClueGame {
 	private Board theBoard;
 	private String layoutFile;
 	private String configFile;
+	private String playerConfigFile;
+	private String deckConfigFile;
+	private ArrayList<Player> players;
 	
 	public ClueGame()
 	{
 		rooms = new HashMap<Character,String>();
 		layoutFile = "ClueLayout.csv";
 		configFile = "ClueLegend.txt";
+		playerConfigFile = "CluePlayers.txt";
+		deckConfigFile = "ClueDeck.txt";
 		theBoard = new Board(layoutFile);
+		
 	}
 	
-	public ClueGame(String layout,String legend)
+	public ClueGame(String layout, String legend)
 	{
-		rooms = new HashMap<Character,String>();
+		rooms = new HashMap<Character, String>();
 		layoutFile = layout;
 		configFile = legend;
+		playerConfigFile = "CluePlayers.txt";
+		deckConfigFile = "ClueDeck.txt";
 		theBoard = new Board(layout);
 	}
 	
@@ -58,6 +67,14 @@ public class ClueGame {
 
 		scan.close();
 		theBoard.setRooms(rooms);
+	}
+	
+	public void loadDeckConfig() throws FileNotFoundException, BadConfigFormatException {
+		
+	}
+	
+	public void loadPlayerConfig() throws FileNotFoundException, BadConfigFormatException {
+		
 	}
 
 	
