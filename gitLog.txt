@@ -1,0 +1,269 @@
+Our repository is : https://github.com/kitemongerer/ClueGame
+
+commit d7c625d8115cc70e31e2412aee93e40af804f8e0
+Author: Max Eshleman <meshlema@mines.edu>
+Date:   Tue Oct 14 16:45:05 2014 -0600
+
+    Passed accusation tests
+
+commit dfcd001a87e2e4d8fb614ff6c2b5202bf09a117e
+Author: Max Eshleman <meshlema@mines.edu>
+Date:   Tue Oct 14 16:40:25 2014 -0600
+
+    Created failing accusation test
+
+commit be7e08871c10dbb83efafe3e6e855386bb182400
+Author: Max Eshleman <meshlema@mines.edu>
+Date:   Tue Oct 14 16:33:00 2014 -0600
+
+    Passed card dealing tests
+
+commit 8f71c414c0610bc86d61d07c71bb16f7f682e51a
+Author: Max Eshleman <meshlema@mines.edu>
+Date:   Tue Oct 14 16:24:33 2014 -0600
+
+    Wrote failing tests for dealing
+
+commit 8690ed1e4d99637205b550295c40c6df7bdd4f5a
+Author: Max Eshleman <meshlema@mines.edu>
+Date:   Tue Oct 14 16:20:56 2014 -0600
+
+    Passed deck loading tests
+
+commit d3da87899372339669353bcbf23dfe99b23c014c
+Author: Max Eshleman <meshlema@mines.edu>
+Date:   Tue Oct 14 16:00:40 2014 -0600
+
+    Passed loading people tests
+
+commit cd8c8f35abc6a0a9790a81c5f239cace28e4117b
+Author: Max Eshleman <meshlema@mines.edu>
+Date:   Tue Oct 14 15:14:37 2014 -0600
+
+    Added player and deck failing tests
+
+commit 9f12d9b77dc7e01566c36d84c574793efb2ac6b7
+Author: Max Eshleman <meshlema@mines.edu>
+Date:   Thu Oct 9 12:03:12 2014 -0600
+
+    Added empty classes for players and cards
+
+commit f5f838f347f880aa3667dc0d3eee6c4366a8ceb1
+Author: Nate Keller <nkeller@mines.edu>
+Date:   Thu Oct 2 00:46:11 2014 -0600
+
+    Passes all tests
+
+commit 820416d90ffa62a943ac2376ca9597674e4f701d
+Author: mtzimour <mtzimour@BB316A-22.adit.mines.edu>
+Date:   Wed Oct 1 21:58:43 2014 -0600
+
+    getting kicked out of lab because computers are shutting down
+
+commit 000cc40a7beb9fb6dee4f021f21377ef91a72061
+Author: Nate Keller <nkeller@mines.edu>
+Date:   Wed Oct 1 21:41:29 2014 -0600
+
+    Started Targets
+
+commit 82c1ba5371cd3fb0051c0b2cb46f71518a4633d2
+Merge: d74dd1c 22e6334
+Author: Nate Keller <nkeller@mines.edu>
+Date:   Wed Oct 1 21:34:17 2014 -0600
+
+    Merge branch 'master' of https://github.com/mtzimour/ClueGame
+
+commit d74dd1cbb4bdc7f86e3ac0ada8a92c13b4b77da1
+Author: Nate Keller <nkeller@mines.edu>
+Date:   Wed Oct 1 21:34:10 2014 -0600
+
+    Done all but targets
+
+commit 22e63342f17dd454723761cdc1dc1504ae4d05e9
+Author: mtzimour <mtzimour@BB316A-22.adit.mines.edu>
+Date:   Wed Oct 1 21:30:47 2014 -0600
+
+    fixed clue layout some more
+
+commit e5973b35650f7d675eda336abfe384003df4735a
+Merge: 7d97bad e3a77d4
+Author: mtzimour <mtzimour@BB316A-22.adit.mines.edu>
+Date:   Wed Oct 1 20:42:33 2014 -0600
+
+    trying to fix merge issues
+
+commit 7d97badf801aae88be657356d4244dd488eca8b2
+Author: mtzimour <mtzimour@BB316A-22.adit.mines.edu>
+Date:   Wed Oct 1 20:37:31 2014 -0600
+
+    Changes to spreadsheet, added tests for walkways
+
+commit e3a77d431f2ac62a50eb9412657bef8e8414585e
+Author: Nate Keller <nkeller@mines.edu>
+Date:   Wed Oct 1 20:36:44 2014 -0600
+
+    Failing Tests done
+
+commit bfa3e5460326af8e28fbe55a7c84ebf92320ac2f
+Merge: ca98361 ef44d90
+Author: Nate Keller <nkeller@mines.edu>
+Date:   Wed Oct 1 19:52:09 2014 -0600
+
+    Merge branch 'master' of https://github.com/mtzimour/ClueGame
+
+commit ef44d90be38e8f81eca05e91cda882398db01a89
+Author: mtzimour <mtzimour@BB316A-22.adit.mines.edu>
+Date:   Wed Oct 1 19:51:51 2014 -0600
+
+    Edited excell spreadsheet color code
+
+commit ca98361e1d9e3d9376f56e0aa109d47688c704a6
+Author: Nate Keller <nkeller@mines.edu>
+Date:   Wed Oct 1 19:51:25 2014 -0600
+
+    Adding failing tests
+
+commit 530d3b25b4d0dbd6dcf7dd34601f1433378421e6
+Author: Nate Keller <nkeller@mines.edu>
+Date:   Wed Oct 1 19:26:36 2014 -0600
+
+    Added bad files
+
+commit 9cb4810598b1f969ab13764390005545faf9c63a
+Author: Nate Keller <nkeller@mines.edu>
+Date:   Wed Oct 1 19:23:55 2014 -0600
+
+    All init tests work
+
+commit eba41cbfa6d435625db7ecb9ca28cd127a01c845
+Author: Nate Keller <nkeller@mines.edu>
+Date:   Wed Oct 1 19:19:17 2014 -0600
+
+    3 more working
+
+commit b0f37a791ed0852be7d6fac9c871de2be6bdef6a
+Author: Nate Keller <nkeller@mines.edu>
+Date:   Wed Oct 1 19:07:04 2014 -0600
+
+    Work on passing test and config files
+
+commit cd8831596b9716e244136c1da7bb03134ee6f319
+Author: Nate Keller <nkeller@mines.edu>
+Date:   Wed Oct 1 17:32:36 2014 -0600
+
+    Work on passing tests
+
+commit 79ba989ff0f3d1c8e715aee7350a3981ffd3be81
+Author: Nate Keller <nkeller@mines.edu>
+Date:   Wed Oct 1 14:33:43 2014 -0600
+
+    Tweaks to cell classes
+
+commit 7f108a52d7fa26209730e90bd836f66b7c1b42da
+Author: Nate Keller <nkeller@mines.edu>
+Date:   Wed Oct 1 14:09:36 2014 -0600
+
+    Fixed all init tests, still need to change some stubs
+
+commit 09c1652aeb4ba70e4f31800443a9c0996e24f3b3
+Author: Nate Keller <nkeller@mines.edu>
+Date:   Wed Oct 1 13:13:14 2014 -0600
+
+    More work on tests
+
+commit 573f5a075191ccc5a16b72cc2a88ed1266794d1c
+Author: Nate Keller <nkeller@mines.edu>
+Date:   Wed Oct 1 12:23:03 2014 -0600
+
+    Fixing init tests setup
+
+commit 52a5304059ea131cfc598f94d580132e5525263f
+Author: Nate Keller <nkeller@mines.edu>
+Date:   Wed Oct 1 12:17:23 2014 -0600
+
+    Cleaning up filesystem
+
+commit dae6825fd09a72c37a43448ccb3771fa69fe49a9
+Author: mtzimour <mtzimour@BB316A-08.adit.mines.edu>
+Date:   Tue Sep 30 20:01:32 2014 -0600
+
+    added the rest of the files
+
+commit 3a6fe9e069202db08155a817ac2735843031e2da
+Author: mtzimour <mtzimour@BB316A-08.adit.mines.edu>
+Date:   Tue Sep 30 20:00:21 2014 -0600
+
+    Fixed tests for rooms and room initials
+
+commit a97731ad505e9b8e11af97e428f61bc0ffab5082
+Author: mtzimour <mtzimour@MZ022-38.adit.mines.edu>
+Date:   Tue Sep 30 12:11:49 2014 -0600
+
+    passing room tests, continuing work
+
+commit 2c4fbf27abc5e13cc4c4d7c2ec7cacdfee742e79
+Author: mtzimour <mtzimour@MZ022-38.adit.mines.edu>
+Date:   Tue Sep 30 12:00:10 2014 -0600
+
+    working to get files inputted correctly
+
+commit e9899099745582b1131a2f7ac0a063b7202cab15
+Author: mtzimour <mtzimour@MZ022-38.adit.mines.edu>
+Date:   Tue Sep 30 11:04:06 2014 -0600
+
+    tracked more files
+
+commit d92177500ce0bb900afe593efdb7b9b56fe885d3
+Merge: bfd1882 e1cc503
+Author: mtzimour <mtzimour@MZ022-38.adit.mines.edu>
+Date:   Tue Sep 30 10:58:28 2014 -0600
+
+    trying to commit agian
+
+commit bfd1882e4a758661351ff26c083eb18419fe7a68
+Author: mtzimour <mtzimour@BB316A-08.adit.mines.edu>
+Date:   Mon Sep 29 22:41:46 2014 -0600
+
+    about to get kicked out of lab, making progress but still failing all tests, need more time.
+
+commit 6ef5cb0a5b07b8ceaada046de7833710d4194976
+Author: mtzimour <mtzimour@BB316A-08.adit.mines.edu>
+Date:   Mon Sep 29 22:22:14 2014 -0600
+
+    fixed inheritence problem, moving on slowly
+
+commit fb560cae84b319eaba0b853c0f5267a7dc9e6376
+Author: mtzimour <mtzimour@BB316A-08.adit.mines.edu>
+Date:   Mon Sep 29 21:58:54 2014 -0600
+
+    having difficulties with inheritance for the Boardcell
+
+commit afdca0bf57109d0741f442cbbb5e773b1a471d7b
+Author: mtzimour <mtzimour@BB316A-08.adit.mines.edu>
+Date:   Mon Sep 29 19:16:37 2014 -0600
+
+    working on loadBoardConfig, about to break for food
+
+commit 13bdec3a0ff603f764ba3823f3464befb5752b1d
+Author: mtzimour <mtzimour@BB316A-08.adit.mines.edu>
+Date:   Mon Sep 29 18:42:20 2014 -0600
+
+    ClueGame now loads config file correctly to rooms map
+
+commit d89461418ba8d4d3111af8bd5ca1a7d5522bcd55
+Author: unknown <mtzimour@BB316A-08.adit.mines.edu>
+Date:   Mon Sep 29 17:33:35 2014 -0600
+
+    Created new repository after partner left with current progress
+
+commit e1cc50371e4522ae556fe33a6a1375051136146a
+Author: Milton Tzimourakas <mtzimour@mines.edu>
+Date:   Fri Sep 26 15:55:22 2014 -0600
+
+    added a .gitignore
+
+commit 70cbaee4abb0c823c92f66fafb76032af7c75748
+Author: Milton Tzimourakas <mtzimour@mines.edu>
+Date:   Fri Sep 26 15:50:32 2014 -0600
+
+    First commit
