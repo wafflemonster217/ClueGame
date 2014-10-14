@@ -1,6 +1,6 @@
-Ted black 20 8
-Lily red 1 7
-Marshall blue 15 6
-Barney green 17 15
-Robin purple 12 15
-Carl yellow 1 20 
+Ted,black,20,8
+Lily,red,1,7
+Marshall,blue,15,6
+Barney,green,17,15
+Robin,pink,12,15
+Carl,yellow,1,20

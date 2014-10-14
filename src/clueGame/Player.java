@@ -21,8 +21,9 @@ public class Player {
 			this.color = (Color)field.get(null); } 
 		catch (Exception e) {  
 			this.color = null; // Not defined } 
-			System.out.println("Error setting player color");
+			System.out.println("Error setting player color for: " + name);
 		}
+		hand = new ArrayList<Card>();
 	}
 	
 	public Card disproveSuggestion(String person, String room, String weapon) {
@@ -45,6 +46,11 @@ public class Player {
 	public int getCol() {
 		return col;
 	}
+	
+	
+	public ArrayList<Card> getHand() {
+		return hand;
+	}
 
-
+	
 }

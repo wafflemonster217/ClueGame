@@ -82,10 +82,27 @@ public class ClueGame {
 	}
 	
 	public void loadPlayerConfig() throws FileNotFoundException, BadConfigFormatException {
-		for(int i = 0; i < 6; i++) {
-			Player player = new Player("Hi", "green", 7, 15);
-			players.add(player);
+		String line;
+		String[] splitLine;
+		Character tempKey;
+		String tempValue;
+
+		Scanner scan = new Scanner(new FileReader(playerConfigFile));
+
+		while(scan.hasNextLine()) {
+			line = scan.nextLine();
+			splitLine = line.split(",");
+	
+			if(splitLine.length != 4) {
+				scan.close();
+				throw new BadConfigFormatException("Bad player line formatting.");
+			}
+			
+			players.add(new Player(splitLine[0], splitLine[1], Integer.valueOf(splitLine[2]), Integer.valueOf(splitLine[3])));
 		}
+
+		scan.close();
+		theBoard.setRooms(rooms);
 	}
 
 	
@@ -104,7 +121,15 @@ public class ClueGame {
 		
 	
 	}
+	
+	public void deal(){
+		
+	}
 
+	public boolean checkAccusation(Solution solution) {
+		return true;
+	}
+	
 	public Board getBoard() {
 		return theBoard;
 	}
