@@ -23,7 +23,7 @@ public class ClueGame {
 		layoutFile = "ClueLayout.csv";
 		configFile = "ClueLegend.txt";
 		playerConfigFile = "CluePlayers.txt";
-		deckConfigFile = "ClueDeck.txt";
+		deckConfigFile = "Deck.txt";
 		theBoard = new Board(layoutFile);
 		players = new ArrayList<Player>();
 		deck = new ArrayList<Card>();
@@ -36,7 +36,7 @@ public class ClueGame {
 		layoutFile = layout;
 		configFile = legend;
 		playerConfigFile = "CluePlayers.txt";
-		deckConfigFile = "ClueDeck.txt";
+		deckConfigFile = "Deck.txt";
 		theBoard = new Board(layout);
 		players = new ArrayList<Player>();
 		deck = new ArrayList<Card>();
@@ -75,17 +75,32 @@ public class ClueGame {
 	}
 	
 	public void loadDeckConfig() throws FileNotFoundException, BadConfigFormatException {
-		for(int i = 0; i < 21; i++) {
-			Card card = new Card("Hi", CardType.PERSON);
-			deck.add(card);
+		String line;
+
+		Scanner scan = new Scanner(new FileReader(deckConfigFile));
+
+		//read room cards
+		for(int i = 0; i < 9; i++) {
+			line = scan.nextLine();
+			deck.add(new Card(line, CardType.ROOM));
 		}
+		//read person cards
+		for(int i = 0; i < 6; i++) {
+			line = scan.nextLine();
+			deck.add(new Card(line, CardType.PERSON));
+		}
+		//read weapon cards
+		for(int i = 0; i < 6; i++) {
+			line = scan.nextLine();
+			deck.add(new Card(line, CardType.WEAPON));
+		}
+
+		scan.close();
 	}
 	
 	public void loadPlayerConfig() throws FileNotFoundException, BadConfigFormatException {
 		String line;
 		String[] splitLine;
-		Character tempKey;
-		String tempValue;
 
 		Scanner scan = new Scanner(new FileReader(playerConfigFile));
 
@@ -102,7 +117,6 @@ public class ClueGame {
 		}
 
 		scan.close();
-		theBoard.setRooms(rooms);
 	}
 
 	
