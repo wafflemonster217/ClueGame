@@ -1,0 +1,21 @@
+Garage
+Kitchen
+Lounge
+Study
+Pool Room
+Conservatory
+Bedroom
+Ball Room
+Dining Room
+Lily
+Marshall
+Barney
+Ted
+Robin
+Carl
+Knife
+Candlestick
+Lead pipe
+Revolver
+Rope
+Wrench 

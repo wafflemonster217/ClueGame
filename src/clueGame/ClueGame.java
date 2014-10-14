@@ -15,6 +15,7 @@ public class ClueGame {
 	private String playerConfigFile;
 	private String deckConfigFile;
 	private ArrayList<Player> players;
+	private ArrayList<Card> deck;
 	
 	public ClueGame()
 	{
@@ -24,6 +25,8 @@ public class ClueGame {
 		playerConfigFile = "CluePlayers.txt";
 		deckConfigFile = "ClueDeck.txt";
 		theBoard = new Board(layoutFile);
+		players = new ArrayList<Player>();
+		deck = new ArrayList<Card>();
 		
 	}
 	
@@ -35,6 +38,8 @@ public class ClueGame {
 		playerConfigFile = "CluePlayers.txt";
 		deckConfigFile = "ClueDeck.txt";
 		theBoard = new Board(layout);
+		players = new ArrayList<Player>();
+		deck = new ArrayList<Card>();
 	}
 	
 	public void loadRoomConfig() throws FileNotFoundException, BadConfigFormatException {
@@ -70,11 +75,17 @@ public class ClueGame {
 	}
 	
 	public void loadDeckConfig() throws FileNotFoundException, BadConfigFormatException {
-		
+		for(int i = 0; i < 21; i++) {
+			Card card = new Card("Hi", CardType.PERSON);
+			deck.add(card);
+		}
 	}
 	
 	public void loadPlayerConfig() throws FileNotFoundException, BadConfigFormatException {
-		
+		for(int i = 0; i < 6; i++) {
+			Player player = new Player("Hi", "green", 7, 15);
+			players.add(player);
+		}
 	}
 
 	
@@ -84,6 +95,8 @@ public class ClueGame {
 		try {
 			loadRoomConfig();
 			theBoard.loadBoardConfig();
+			loadPlayerConfig();
+			loadDeckConfig();
 		} catch (FileNotFoundException | BadConfigFormatException e) {
 			
 			//
@@ -94,5 +107,14 @@ public class ClueGame {
 
 	public Board getBoard() {
 		return theBoard;
-	}	
+	}
+
+	public ArrayList<Player> getPlayers() {
+		return players;
+	}
+	
+	public ArrayList<Card> getDeck() {
+		return deck;
+	}
+
 }
