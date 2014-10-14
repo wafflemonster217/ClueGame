@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -137,7 +138,15 @@ public class ClueGame {
 	}
 	
 	public void deal(){
-		
+		HashSet<Integer> dealt = new HashSet<Integer>();
+		int random = (int)(Math.random()*21);
+		for(int i = 0; i < deck.size(); i++) {
+			while (dealt.contains(random)) {
+				random = (int)(Math.random()*21);
+			}
+			dealt.add(random);
+			players.get(i % players.size()).dealCard(deck.get(random));
+		}
 	}
 
 	public boolean checkAccusation(Solution solution) {
