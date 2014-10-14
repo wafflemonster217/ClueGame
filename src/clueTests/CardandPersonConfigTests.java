@@ -20,6 +20,7 @@ import clueGame.Card;
 import clueGame.CardType;
 import clueGame.ClueGame;
 import clueGame.Player;
+import clueGame.Solution;
 
 public class CardandPersonConfigTests {
 
@@ -140,8 +141,16 @@ public class CardandPersonConfigTests {
 		
 		@Test 
 		public void accusationTest() {
+			game.setSolution(new Solution("Ted", "Knife", "Lounge"));
 			
+			//Check that the correct accusation returns true
+			assertTrue(game.checkAccusation(new Solution("Ted", "Knife", "Lounge")));
 			
+			//Check that various wrong accusations return false
+			assertFalse(game.checkAccusation(new Solution("Robin", "Knife", "Lounge")));
+			assertFalse(game.checkAccusation(new Solution("Ted", "Rope", "Lounge")));
+			assertFalse(game.checkAccusation(new Solution("Ted", "Knife", "Bedroom")));
+			assertFalse(game.checkAccusation(new Solution("Barney", "Wrench", "Garage")));
 		}
 
 }

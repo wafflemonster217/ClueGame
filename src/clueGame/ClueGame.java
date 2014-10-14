@@ -17,6 +17,7 @@ public class ClueGame {
 	private String deckConfigFile;
 	private ArrayList<Player> players;
 	private ArrayList<Card> deck;
+	private Solution solution;
 	
 	public ClueGame()
 	{
@@ -149,7 +150,7 @@ public class ClueGame {
 		}
 	}
 
-	public boolean checkAccusation(Solution solution) {
+	public boolean checkAccusation(Solution accusation) {
 		return true;
 	}
 	
@@ -163,6 +164,10 @@ public class ClueGame {
 	
 	public ArrayList<Card> getDeck() {
 		return deck;
+	}
+
+	public void setSolution(Solution solution) {
+		this.solution = solution;
 	}
 
 }

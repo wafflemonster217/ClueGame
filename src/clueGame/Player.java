@@ -31,6 +31,10 @@ public class Player {
 		return new Card("card", CardType.PERSON);
 	}
 	
+	public void dealCard(Card card) {
+		hand.add(card);
+	}
+	
 	public String getName() {
 		return name;
 	}
