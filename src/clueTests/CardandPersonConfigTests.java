@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
@@ -32,6 +33,7 @@ public class CardandPersonConfigTests {
 			game.loadConfigFiles();
 			board = game.getBoard();
 			board.calcAdjacencies();
+			game.deal();
 		}
 		
 		@Test 
@@ -85,37 +87,61 @@ public class CardandPersonConfigTests {
 		@Test 
 		public void deckContentsTest() {
 			ArrayList<Card> deck = game.getDeck();
-			assertTrue(deck.contains("Ted"));
-			assertTrue(deck.contains("Lounge"));
-			assertTrue(deck.contains("Knife"));
+			assertTrue(deck.contains(new Card("Ted", CardType.PERSON)));
+			assertTrue(deck.contains(new Card("Lounge", CardType.ROOM)));
+			assertTrue(deck.contains(new Card("Knife", CardType.WEAPON)));
 		}
 		
-		/*// Test that an exception is thrown for a bad config file
-		@Test (expected = BadConfigFormatException.class)
-		public void testBadColumns() throws BadConfigFormatException, FileNotFoundException {
-			// overloaded Game ctor takes config file names
-			ClueGame game = new ClueGame("ClueLayoutBadColumns.csv", "ClueLegend.txt");
-			// You may change these calls if needed to match your function names
-			// My loadConfigFiles has a try/catch, so I can't call it directly to
-			// see test throwing the BadConfigFormatException
-			game.loadRoomConfig();
-			game.getBoard().loadBoardConfig();
+		@Test 
+		public void allCardsDealtTest() {
+			ArrayList<Player> players = game.getPlayers();
+			HashSet<Card> allCards = new HashSet<Card>();
+			ArrayList<Card> deck = game.getDeck();
+			int numDealt = 0;
+			for(Player player : players) {
+				numDealt += player.getHand().size();
+				for(Card card : player.getHand()) {
+					allCards.add(card);
+				}
+			}
+			
+			//Checks that every card was dealt
+			for(Card card : deck) {
+				assertTrue(allCards.contains(card));
+			}
+			
+			//check the entire deck was dealt
+			assertEquals(numDealt, 21);
 		}
-		// Test that an exception is thrown for a bad config file
-		@Test (expected = BadConfigFormatException.class)
-		public void testBadRoom() throws BadConfigFormatException, FileNotFoundException {
-			// overloaded Board ctor takes config file name
-			ClueGame game = new ClueGame("ClueLayoutBadRoom.csv", "ClueLegend.txt");
-			game.loadRoomConfig();
-			game.getBoard().loadBoardConfig();
+		
+		@Test 
+		public void noDuplicatesTest() {
+			ArrayList<Player> players = game.getPlayers();
+			HashSet<Card> allCards = new HashSet<Card>();
+			for(Player player : players) {
+				for(Card card : player.getHand()) {
+					allCards.add(card);
+				}
+			}
+			//The set can't contain duplicates so if the size is still 21, there are no duplicates
+			assertEquals(allCards.size(), 21);
 		}
-		// Test that an exception is thrown for a bad config file
-		@Test (expected = BadConfigFormatException.class)
-		public void testBadRoomFormat() throws BadConfigFormatException, FileNotFoundException {
-			// overloaded Board ctor takes config file name
-			ClueGame game = new ClueGame("ClueLayout.csv", "ClueLegendBadFormat.txt");
-			game.loadRoomConfig();
-			game.getBoard().loadBoardConfig();
-		}*/
+		
+		@Test 
+		public void playersHaveSameNumCardsTest() {
+			ArrayList<Player> players = game.getPlayers();
+			ArrayList<Card> deck = game.getDeck();
+			double amountCards = deck.size() / players.size();
+			for(Player player : players) {
+				// shows the number of cards in the hand is equal to average num cards plus or minus 1
+				assertEquals(amountCards, player.getHand().size(), 1);
+			}
+		}
+		
+		@Test 
+		public void accusationTest() {
+			
+			
+		}
 
 }
