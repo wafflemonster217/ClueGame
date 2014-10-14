@@ -151,7 +151,7 @@ public class ClueGame {
 	}
 
 	public boolean checkAccusation(Solution accusation) {
-		return true;
+		return accusation.equals(solution);
 	}
 	
 	public Board getBoard() {
