@@ -422,9 +422,8 @@ public class CardandPersonConfigTests {
 			ArrayList<Card> deck = game.getDeck();
 			
 			//Put player in Kitchen
-			players.get(2).setRow(10);
-			players.get(2).setCol(5);
-			
+			((ComputerPlayer)(players.get(2))).setLastRoomVisited('K');
+		
 			//Computer player hand
 			//Add Robin
 			players.get(2).dealCard(deck.get(13));
@@ -450,7 +449,7 @@ public class CardandPersonConfigTests {
 			//Add Lead Pipe
 			game.seenCard(deck.get(17));
 			
-			Solution suggestion = ((ComputerPlayer)(players.get(2))).createSuggestion(game.getSeen());
+			Solution suggestion = ((ComputerPlayer)(players.get(2))).createSuggestion(game.getSeen(), game.getDeck(), game.getLegend());
 			
 			//Makes sure the cards in the player hand are not in suggestion
 			//Kitchen can be in suggestion because it is the room the player is in

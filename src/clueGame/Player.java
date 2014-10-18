@@ -9,7 +9,7 @@ public class Player {
 	private Color color;
 	private int row;
 	private int col;
-	private ArrayList<Card> hand;
+	protected ArrayList<Card> hand;
 	
 	public Player(String name, String color, int row, int col) {
 		this.name = name;

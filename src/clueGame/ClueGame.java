@@ -193,6 +193,10 @@ public class ClueGame {
 	public ArrayList<Card> getSeen() {
 		return seen;
 	}
+	
+	public Map<Character,String> getLegend() {
+		return rooms;
+	}
 
 	public void setSolution(Solution solution) {
 		this.solution = solution;

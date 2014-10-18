@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Set;
 
 public class ComputerPlayer extends Player {
@@ -41,8 +42,28 @@ public class ComputerPlayer extends Player {
 		return null;
 	}
 
-	public Solution createSuggestion (ArrayList<Card> seen) {
-		return new Solution("no", "no", "no");
+	public Solution createSuggestion (ArrayList<Card> seen, ArrayList<Card> deck, Map<Character,String> legend) {
+		int random = (int)(Math.random() * deck.size());
+		String person = null;
+		String room = null;
+		String weapon = null;
+		
+		while(person == null && weapon == null) {
+			Card card = deck.get(random);
+			if (person == null && card.type == CardType.PERSON) {
+				if (!seen.contains(card) && !hand.contains(card)) {
+					person = card.name;
+				}
+			} else if (weapon == null && card.type == CardType.WEAPON) {
+				if (!seen.contains(card) && !hand.contains(card)) {
+					weapon = card.name;
+				}
+			}
+			random = (int)(Math.random() * (deck.size() + 1));
+		}
+
+		room = legend.get(lastRoomVisited);
+		return new Solution(person, weapon, room);
 	}
 
 	public char getLastRoomVisited() {
