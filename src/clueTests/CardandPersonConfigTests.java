@@ -56,21 +56,21 @@ public class CardandPersonConfigTests {
 		//Check the same info as human player for computer player 1
 		@Test 
 		public void computerPlayerTest1() {
-			Player human = game.getPlayers().get(1);
-			assertEquals(human.getName(), "Lily");
-			assertEquals(human.getRow(), 1);
-			assertEquals(human.getCol(), 7);
-			assertEquals(human.getColor(), Color.red);
+			Player computer = game.getPlayers().get(1);
+			assertEquals(computer.getName(), "Lily");
+			assertEquals(computer.getRow(), 1);
+			assertEquals(computer.getCol(), 7);
+			assertEquals(computer.getColor(), Color.red);
 		}
 		
 		//Check the same info for computer player 2
 		@Test 
 		public void computerPlayerTest2() {
-			Player human = game.getPlayers().get(5);
-			assertEquals(human.getName(), "Carl");
-			assertEquals(human.getRow(), 1);
-			assertEquals(human.getCol(), 20);
-			assertEquals(human.getColor(), Color.yellow);
+			Player computer = game.getPlayers().get(5);
+			assertEquals(computer.getName(), "Carl");
+			assertEquals(computer.getRow(), 1);
+			assertEquals(computer.getCol(), 20);
+			assertEquals(computer.getColor(), Color.yellow);
 		}
 		
 		@Test 
@@ -414,6 +414,63 @@ public class CardandPersonConfigTests {
 			
 			//Ensure closest player disproves other player in this case player 1 disproves by showing kitchen
 			assertTrue((game.handleSuggestion(players.get(5), "Marshall", "Kitchen", "Knife")).equals(deck.get(1)));
+		}
+		
+		@Test 
+		public void computerSuggestionTest() {
+			ArrayList<Player> players = game.getPlayers();
+			ArrayList<Card> deck = game.getDeck();
+			
+			//Put player in Kitchen
+			players.get(2).setRow(10);
+			players.get(2).setCol(5);
+			
+			//Computer player hand
+			//Add Robin
+			players.get(2).dealCard(deck.get(13));
+			//Add Kitchen
+			players.get(2).dealCard(deck.get(1));
+			//Add Lounge
+			players.get(2).dealCard(deck.get(2));
+			//Add Rope
+			players.get(2).dealCard(deck.get(19));
+			
+			
+			//Seen Cards
+			//Add Barney
+			game.seenCard(deck.get(11));
+			//Add Pool Room
+			game.seenCard(deck.get(4));
+			//Add Candlestick
+			game.seenCard(deck.get(16));
+			//Add Marshall
+			game.seenCard(deck.get(10));
+			//Add Study
+			game.seenCard(deck.get(3));
+			//Add Lead Pipe
+			game.seenCard(deck.get(17));
+			
+			Solution suggestion = ((ComputerPlayer)(players.get(2))).createSuggestion(game.getSeen());
+			
+			//Makes sure the cards in the player hand are not in suggestion
+			//Kitchen can be in suggestion because it is the room the player is in
+			assertNotEquals(suggestion.person, deck.get(13).name);
+			assertNotEquals(suggestion.weapon, deck.get(19).name);
+			assertNotEquals(suggestion.room, deck.get(2).name);
+			
+			//Check that room is correct
+			assertEquals(suggestion.room, deck.get(1).name);
+			
+			//Makes sure the cards that have been seen are not in suggestion
+			//Kitchen can be in suggestion because it is the room the player is in
+			assertNotEquals(suggestion.person, deck.get(11).name);
+			assertNotEquals(suggestion.weapon, deck.get(16).name);
+			assertNotEquals(suggestion.room, deck.get(4).name);
+			assertNotEquals(suggestion.person, deck.get(10).name);
+			assertNotEquals(suggestion.weapon, deck.get(17).name);
+			assertNotEquals(suggestion.room, deck.get(3).name);
+			
+			
 		}
 
 }

@@ -17,6 +17,7 @@ public class ClueGame {
 	private String deckConfigFile;
 	private ArrayList<Player> players;
 	private ArrayList<Card> deck;
+	private ArrayList<Card> seen;
 	private Solution solution;
 	
 	public ClueGame()
@@ -29,7 +30,7 @@ public class ClueGame {
 		theBoard = new Board(layoutFile);
 		players = new ArrayList<Player>();
 		deck = new ArrayList<Card>();
-		
+		seen = new ArrayList<Card>();
 	}
 	
 	public ClueGame(String layout, String legend)
@@ -42,6 +43,7 @@ public class ClueGame {
 		theBoard = new Board(layout);
 		players = new ArrayList<Player>();
 		deck = new ArrayList<Card>();
+		seen = new ArrayList<Card>();
 	}
 	
 	public void loadRoomConfig() throws FileNotFoundException, BadConfigFormatException {
@@ -141,8 +143,6 @@ public class ClueGame {
 			
 			//
 		}
-		
-	
 	}
 	
 	public void deal(){
@@ -169,6 +169,10 @@ public class ClueGame {
 		return null;
 		
 	}
+	
+	public void seenCard(Card card) {
+		seen.add(card);
+	}
 
 	public boolean checkAccusation(Solution accusation) {
 		return accusation.equals(solution);
@@ -184,6 +188,10 @@ public class ClueGame {
 	
 	public ArrayList<Card> getDeck() {
 		return deck;
+	}
+	
+	public ArrayList<Card> getSeen() {
+		return seen;
 	}
 
 	public void setSolution(Solution solution) {

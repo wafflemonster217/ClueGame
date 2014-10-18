@@ -1,8 +1,6 @@
 package clueGame;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Set;
 
 public class ComputerPlayer extends Player {
@@ -43,12 +41,8 @@ public class ComputerPlayer extends Player {
 		return null;
 	}
 
-	public void createSuggestion () {
-
-	}
-
-	public void updateSeen (Card seen) {
-
+	public Solution createSuggestion (ArrayList<Card> seen) {
+		return new Solution("no", "no", "no");
 	}
 
 	public char getLastRoomVisited() {
