@@ -106,6 +106,7 @@ public class ClueGame {
 
 		Scanner scan = new Scanner(new FileReader(playerConfigFile));
 
+		boolean isFirstRound = true;
 		while(scan.hasNextLine()) {
 			line = scan.nextLine();
 			splitLine = line.split(",");
@@ -115,7 +116,13 @@ public class ClueGame {
 				throw new BadConfigFormatException("Bad player line formatting.");
 			}
 			
-			players.add(new Player(splitLine[0], splitLine[1], Integer.valueOf(splitLine[2]), Integer.valueOf(splitLine[3])));
+			if (isFirstRound) {
+				players.add(new HumanPlayer(splitLine[0], splitLine[1], Integer.valueOf(splitLine[2]), Integer.valueOf(splitLine[3])));
+			} else {
+				players.add(new ComputerPlayer(splitLine[0], splitLine[1], Integer.valueOf(splitLine[2]), Integer.valueOf(splitLine[3])));
+			}
+			
+			isFirstRound = false;
 		}
 
 		scan.close();
@@ -148,6 +155,19 @@ public class ClueGame {
 			dealt.add(random);
 			players.get(i % players.size()).dealCard(deck.get(random));
 		}
+	}
+	
+	public Card handleSuggestion(Player suggestee, String person, String room, String weapon) {
+		for(int i = players.indexOf(suggestee); i < players.indexOf(suggestee) + players.size() - 1; i++) {
+			Card disprove = players.get(i % players.size()).disproveSuggestion(person, room, weapon);
+			if (disprove != null) {
+				return disprove;
+			}
+		}
+		
+		//No one can disprove so return null
+		return null;
+		
 	}
 
 	public boolean checkAccusation(Solution accusation) {

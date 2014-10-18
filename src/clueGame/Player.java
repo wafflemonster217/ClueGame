@@ -55,6 +55,20 @@ public class Player {
 	public ArrayList<Card> getHand() {
 		return hand;
 	}
+	
+	public void setHand(ArrayList<Card> hand) {
+		this.hand = hand;
+	}
+	
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Player)) {
+			return false;	
+		}
+		if (obj == this) {
+			return true;
+		}
+		return this.name.equals(((Player) obj).name);
+	}
 
 	
 }

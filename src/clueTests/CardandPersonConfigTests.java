@@ -276,5 +276,146 @@ public class CardandPersonConfigTests {
 			assertTrue(10 < loc_12_7);
 			assertTrue(10 < loc_10_7);
 		}
+		
+		@Test 
+		public void disproveSuggestionOnePlayerOneMatchTest() {
+			ArrayList<Player> players = game.getPlayers();
+			ArrayList<Card> deck = game.getDeck();
+			
+			//empty everyone's hand
+			for (Player player : players) {
+				player.setHand(new ArrayList<Card>());
+			}
+			
+			//Add Ted
+			players.get(0).dealCard(deck.get(12));
+			//Add Robin
+			players.get(0).dealCard(deck.get(13));
+			//Add Garage
+			players.get(0).dealCard(deck.get(0));
+			//Add Kitchen
+			players.get(0).dealCard(deck.get(1));
+			//Add Rope
+			players.get(0).dealCard(deck.get(19));
+			//Add Wrench
+			players.get(0).dealCard(deck.get(20));
+			
+			//Should show Ted
+			assertEquals(players.get(0).disproveSuggestion("Ted", "Lounge", "Knife"), deck.get(12));
+			//Should show Garage
+			assertEquals(players.get(0).disproveSuggestion("Carl", "Garage", "Knife"), deck.get(0));
+			//Should show Rope
+			assertEquals(players.get(0).disproveSuggestion("Carl", "Lounge", "Rope"), deck.get(19));
+			//Should show null
+			assertEquals(players.get(0).disproveSuggestion("Carl", "Lounge", "Knife"), null);
+		}
+		
+		@Test 
+		public void disproveSuggestionOnePlayerMultipleMatchTest() {
+			ArrayList<Player> players = game.getPlayers();
+			ArrayList<Card> deck = game.getDeck();
+			
+			//empty everyone's hand
+			for (Player player : players) {
+				player.setHand(new ArrayList<Card>());
+			}
+			
+			//Extra cards to ensure unwanted cards don't get returned
+			//Add Ted
+			players.get(0).dealCard(deck.get(12));
+			//Add Robin
+			players.get(0).dealCard(deck.get(13));
+			//Add Garage
+			players.get(0).dealCard(deck.get(0));
+			//Add Kitchen
+			players.get(0).dealCard(deck.get(1));
+			//Add Rope
+			players.get(0).dealCard(deck.get(19));
+			//Add Wrench
+			players.get(0).dealCard(deck.get(20));
+			
+			int countTed = 0;
+			int countGarage = 0;
+			int countRope = 0;
+			
+			for (int i = 0; i < 100; i++) {
+				Card disprove = players.get(0).disproveSuggestion("Ted", "Garage", "Rope");
+				if (disprove.equals(deck.get(12))) {
+					countTed++;
+				} else if (disprove.equals(deck.get(0))) {
+					countGarage++;
+				} else if (disprove.equals(deck.get(19))) {
+					countRope++;
+				}
+			}
+			
+			//Ensure those were the only cards returned
+			assertEquals(100, countTed + countGarage + countRope);
+			
+			//Ensure each response is picked a decent amount of times
+			assertTrue(10 < countTed);
+			assertTrue(10 < countGarage);
+			assertTrue(10 < countRope);
+		}
+		
+		@Test 
+		public void disproveSuggestionAllPlayersRequired() {
+			ArrayList<Player> players = game.getPlayers();
+			ArrayList<Card> deck = game.getDeck();
+			
+			//empty everyone's hand
+			for (Player player : players) {
+				player.setHand(new ArrayList<Card>());
+			}
+			//Human hand
+			//Add Ted
+			players.get(0).dealCard(deck.get(12));
+			//Add Garage
+			players.get(0).dealCard(deck.get(0));
+			//Add Wrench
+			players.get(0).dealCard(deck.get(20));
+			
+			//Computer player hand
+			//Add Robin
+			players.get(1).dealCard(deck.get(13));
+			//Add Kitchen
+			players.get(1).dealCard(deck.get(1));
+			//Add Rope
+			players.get(1).dealCard(deck.get(19));
+			
+			//Computer player hand
+			//Add Barney
+			players.get(5).dealCard(deck.get(11));
+			//Add Pool Room
+			players.get(5).dealCard(deck.get(4));
+			//Add Candlestick
+			players.get(5).dealCard(deck.get(16));
+			
+			//Computer player hand
+			//Add Marshall
+			players.get(4).dealCard(deck.get(10));
+			//Add Study
+			players.get(4).dealCard(deck.get(3));
+			//Add Lead Pipe
+			players.get(4).dealCard(deck.get(17));
+			
+			
+			
+			//Ensure no one can disprove suggestion
+			assertTrue((game.handleSuggestion(players.get(1), "Carl", "Lounge", "Knife")).equals(null));
+			
+			//Ensure only human can disprove suggestion
+			//Also ensures player farthest from suggestee is used
+			assertTrue((game.handleSuggestion(players.get(1), "Ted", "Lounge", "Knife")).equals(deck.get(12)));
+			
+			//Ensure no one can disprove suggestion except person who made suggestion
+			assertTrue((game.handleSuggestion(players.get(1), "Robin", "Kitchen", "Rope")).equals(null));
+			
+			//Ensure closest player disproves in this case player 4 disproves by showing study
+			assertTrue((game.handleSuggestion(players.get(1), "Barney", "Study", "Knife")).equals(deck.get(3)));
+			
+			//Ensure closest player disproves other player in this case player 1 disproves by showing kitchen
+			assertTrue((game.handleSuggestion(players.get(5), "Marshall", "Kitchen", "Knife")).equals(deck.get(1)));
+		}
 
 }
