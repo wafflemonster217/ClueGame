@@ -399,17 +399,15 @@ public class CardandPersonConfigTests {
 			//Add Lead Pipe
 			players.get(4).dealCard(deck.get(17));
 			
-			
-			
 			//Ensure no one can disprove suggestion
-			assertTrue((game.handleSuggestion(players.get(1), "Carl", "Lounge", "Knife")).equals(null));
+			assertTrue((game.handleSuggestion(players.get(1), "Carl", "Lounge", "Knife")) == null);
 			
 			//Ensure only human can disprove suggestion
 			//Also ensures player farthest from suggestee is used
 			assertTrue((game.handleSuggestion(players.get(1), "Ted", "Lounge", "Knife")).equals(deck.get(12)));
 			
 			//Ensure no one can disprove suggestion except person who made suggestion
-			assertTrue((game.handleSuggestion(players.get(1), "Robin", "Kitchen", "Rope")).equals(null));
+			assertTrue((game.handleSuggestion(players.get(1), "Robin", "Kitchen", "Rope")) == null);
 			
 			//Ensure closest player disproves in this case player 4 disproves by showing study
 			assertTrue((game.handleSuggestion(players.get(1), "Barney", "Study", "Knife")).equals(deck.get(3)));

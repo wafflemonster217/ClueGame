@@ -158,7 +158,7 @@ public class ClueGame {
 	}
 	
 	public Card handleSuggestion(Player suggestee, String person, String room, String weapon) {
-		for(int i = players.indexOf(suggestee); i < players.indexOf(suggestee) + players.size() - 1; i++) {
+		for(int i = players.indexOf(suggestee) + 1; i < players.indexOf(suggestee) + players.size(); i++) {
 			Card disprove = players.get(i % players.size()).disproveSuggestion(person, room, weapon);
 			if (disprove != null) {
 				return disprove;

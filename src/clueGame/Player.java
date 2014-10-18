@@ -27,8 +27,19 @@ public class Player {
 	}
 	
 	public Card disproveSuggestion(String person, String room, String weapon) {
-		//TODO remove this
-		return new Card("card", CardType.PERSON);
+		int random = (int)(Math.random() * (hand.size() + 1));
+		//Go through hand randomly to ensure random result
+		for(int i = random; i < random + hand.size(); i++) {
+			if (hand.get(i % hand.size()).name.equals(person) ||
+				hand.get(i % hand.size()).name.equals(room) ||
+				hand.get(i % hand.size()).name.equals(weapon)) {
+				
+				return hand.get(i % hand.size());
+			}
+		}
+		
+		//If no match found return null
+		return null;
 	}
 	
 	public void dealCard(Card card) {
