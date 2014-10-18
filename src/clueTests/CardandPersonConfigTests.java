@@ -221,30 +221,31 @@ public class CardandPersonConfigTests {
 		@Test 
 		public void targetLocationIsDoorTest() {
 			ComputerPlayer cp = new ComputerPlayer("Lily", "red", 2, 7);
-			cp.setLastRoomVisited('K');
+
 			board.calcTargets(11, 6 , 2);
 			
 			//This room has two doors so check both of them for selections
 			int top_door_105 = 0;
 			int bot_door_115 = 0;
 			Set<BoardCell> targets = board.getTargets();
-			for (int i = 0; i < 100; i++) {
-				BoardCell target = cp.pickLocation(targets);
-				if(target == board.getCellAt(10, 5)) {
-					top_door_105++;
-				} else if (target == board.getCellAt(11, 5)) {
-					bot_door_115++;
-				}
+
+			BoardCell target = cp.pickLocation(targets);
+			//System.out.println(target.getRow() + ", " + target.getColumn());
+			if(target == board.getCellAt(10, 5)) {
+				top_door_105++;
+			} else if (target == board.getCellAt(11, 5)) {
+				bot_door_115++;
 			}
 			
-			//Since both doors are an option, make sure their sum is 100
-			assertEquals(100, bot_door_115 + top_door_105);
+			//It has to pick one of the doors so their sum must be 1
+			assertEquals(1, bot_door_115 + top_door_105);
 		}
 		
 		@Test 
 		public void targetLocationIsDoorLastUsedTest() {
 			ComputerPlayer cp = new ComputerPlayer("Lily", "red", 2, 7);
 			board.calcTargets(11, 6 , 2);
+			cp.setLastRoomVisited('K');
 			
 			//This room has two doors so check both of them for selections
 			int loc_9_6 = 0;
