@@ -19,6 +19,7 @@ import clueGame.BoardCell;
 import clueGame.Card;
 import clueGame.CardType;
 import clueGame.ClueGame;
+import clueGame.ComputerPlayer;
 import clueGame.Player;
 import clueGame.Solution;
 
@@ -164,6 +165,115 @@ public class CardandPersonConfigTests {
 			assertFalse(game.checkAccusation(new Solution("Ted", "Rope", "Lounge")));
 			assertFalse(game.checkAccusation(new Solution("Ted", "Knife", "Bedroom")));
 			assertFalse(game.checkAccusation(new Solution("Barney", "Wrench", "Garage")));
+		}
+		
+		@Test 
+		public void targetLocationNoDoorTest() {
+			ComputerPlayer cp = new ComputerPlayer("Lily", "red", 2, 7);
+			board.calcTargets(5, 6 , 2);
+			
+			//This room has two doors so check both of them for selections
+			int loc_3_6 = 0;
+			int loc_7_6 = 0;
+			int loc_5_8 = 0;
+			int loc_5_4 = 0;
+			int loc_4_5 = 0;
+			int loc_4_7 = 0;
+			int loc_6_7 = 0;
+			int loc_6_5 = 0;
+			
+			Set<BoardCell> targets = board.getTargets();
+			for (int i = 0; i < 100; i++) {
+				BoardCell target = cp.pickLocation(targets);
+				if(target == board.getCellAt(3, 6)) {
+					loc_3_6++;
+				} else if (target == board.getCellAt(7, 6)) {
+					loc_7_6++;
+				} else if (target == board.getCellAt(5, 8)) {
+					loc_5_8++;
+				} else if (target == board.getCellAt(5, 4)) {
+					loc_5_4++;
+				} else if (target == board.getCellAt(4, 5)) {
+					loc_4_5++;
+				} else if (target == board.getCellAt(4, 7)) {
+					loc_4_7++;
+				} else if (target == board.getCellAt(6, 7)) {
+					loc_6_7++;
+				} else if (target == board.getCellAt(6, 5)) {
+					loc_6_5++;
+				}
+			}
+			
+			//Make sure total count is 100
+			assertEquals(100, loc_3_6 + loc_7_6 + loc_5_8 + loc_5_4 + loc_4_5 + loc_4_7 + loc_6_7 + loc_6_5);
+			
+			//Make sure each spot is picked at least 5 times
+			assertTrue(5 < loc_3_6);
+			assertTrue(5 < loc_7_6);
+			assertTrue(5 < loc_5_8);
+			assertTrue(5 < loc_5_4);
+			assertTrue(5 < loc_4_5);
+			assertTrue(5 < loc_4_7);
+			assertTrue(5 < loc_6_7);
+			assertTrue(5 < loc_6_5);
+		}
+		
+		@Test 
+		public void targetLocationIsDoorTest() {
+			ComputerPlayer cp = new ComputerPlayer("Lily", "red", 2, 7);
+			cp.setLastRoomVisited('K');
+			board.calcTargets(11, 6 , 2);
+			
+			//This room has two doors so check both of them for selections
+			int top_door_105 = 0;
+			int bot_door_115 = 0;
+			Set<BoardCell> targets = board.getTargets();
+			for (int i = 0; i < 100; i++) {
+				BoardCell target = cp.pickLocation(targets);
+				if(target == board.getCellAt(10, 5)) {
+					top_door_105++;
+				} else if (target == board.getCellAt(11, 5)) {
+					bot_door_115++;
+				}
+			}
+			
+			//Since both doors are an option, make sure their sum is 100
+			assertEquals(100, bot_door_115 + top_door_105);
+		}
+		
+		@Test 
+		public void targetLocationIsDoorLastUsedTest() {
+			ComputerPlayer cp = new ComputerPlayer("Lily", "red", 2, 7);
+			board.calcTargets(11, 6 , 2);
+			
+			//This room has two doors so check both of them for selections
+			int loc_9_6 = 0;
+			int loc_13_6 = 0;
+			int loc_12_7 = 0;
+			int loc_10_7 = 0;
+			
+			Set<BoardCell> targets = board.getTargets();
+			for (int i = 0; i < 100; i++) {
+				BoardCell target = cp.pickLocation(targets);
+				if(target == board.getCellAt(9, 6)) {
+					loc_9_6++;
+				} else if (target == board.getCellAt(13, 6)) {
+					loc_13_6++;
+				} else if (target == board.getCellAt(12, 7)) {
+					loc_12_7++;
+				} else if (target == board.getCellAt(10, 7)) {
+					loc_10_7++;
+				}
+			}
+			
+			//Make sure total count is 100
+			assertEquals(100, loc_9_6 + loc_13_6 + loc_12_7 + loc_10_7);
+			
+			//Make sure each spot is picked at least 10 times
+			assertTrue(10 < loc_9_6);
+			assertTrue(10 < loc_13_6);
+			assertTrue(10 < loc_12_7);
+			assertTrue(10 < loc_10_7);
 		}
 
 }

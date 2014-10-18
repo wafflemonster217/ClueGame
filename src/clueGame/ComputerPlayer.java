@@ -10,7 +10,8 @@ public class ComputerPlayer extends Player {
 
 	private char lastRoomVisited;
 	
-	public void pickLocation (Set<BoardCell> targets) {
+	public BoardCell pickLocation (Set<BoardCell> targets) {
+		return null;
 
 	}
 
@@ -20,5 +21,13 @@ public class ComputerPlayer extends Player {
 
 	public void updateSeen (Card seen) {
 
+	}
+
+	public char getLastRoomVisited() {
+		return lastRoomVisited;
+	}
+
+	public void setLastRoomVisited(char lastRoomVisited) {
+		this.lastRoomVisited = lastRoomVisited;
 	}
 }
