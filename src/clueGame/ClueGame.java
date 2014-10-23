@@ -227,6 +227,9 @@ public class ClueGame extends JFrame {
 		// This will cause rectangle to display in new location
 		board.setPlayers(game.getPlayers());
 		board.repaint();
+		
+		DetectiveNotes dN = new DetectiveNotes(game.getDeck());
+		dN.setVisible(true);
 	}
 
 }
