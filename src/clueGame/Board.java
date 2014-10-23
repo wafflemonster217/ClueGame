@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 //import clue.BoardCell;
@@ -251,10 +253,10 @@ public class Board extends JPanel {
 		for(Player player : players) {
 			player.draw(g);
 		}
-		
-		
-
 	}
+	
+	
+
 
 	
 }

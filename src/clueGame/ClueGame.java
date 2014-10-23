@@ -1,6 +1,8 @@
 package clueGame;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -11,6 +13,9 @@ import java.util.Scanner;
 import java.util.Timer;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 public class ClueGame extends JFrame {
 	private Map<Character,String> rooms;
@@ -24,6 +29,7 @@ public class ClueGame extends JFrame {
 	private ArrayList<Card> seen;
 	private Solution solution;
 	public static final int CELL_SIZE = 26;
+	private DetectiveNotes dN;
 	
 	public ClueGame()
 	{
@@ -38,6 +44,9 @@ public class ClueGame extends JFrame {
 		seen = new ArrayList<Card>();
 		add(theBoard);
 		setSize(800, 800);
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		menuBar.add(createFileMenu());
 	}
 	
 	public ClueGame(String layout, String legend)
@@ -53,6 +62,9 @@ public class ClueGame extends JFrame {
 		seen = new ArrayList<Card>();
 		add(theBoard);
 		setSize(800, 800);
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		menuBar.add(createFileMenu());
 	}
 	
 	public void loadRoomConfig() throws FileNotFoundException, BadConfigFormatException {
@@ -210,6 +222,45 @@ public class ClueGame extends JFrame {
 		this.solution = solution;
 	}
 	
+	public DetectiveNotes getNotes() {
+		return dN;
+	}
+	
+	public void setNotes(DetectiveNotes dN) {
+		this.dN = dN;
+	}
+	
+	private JMenu createFileMenu() {
+		JMenu menu = new JMenu("File"); 
+		menu.add(createDetectiveNotesItem());
+		menu.add(createFileExitItem());
+		return menu;
+	}
+
+	private JMenuItem createFileExitItem() {
+		JMenuItem item = new JMenuItem("Exit");
+		class MenuItemListener implements ActionListener {
+			public void actionPerformed(ActionEvent e)
+			{
+				System.exit(0);
+			}
+		}
+		item.addActionListener(new MenuItemListener());
+		return item;
+	}
+	
+	private JMenuItem createDetectiveNotesItem() {
+		JMenuItem item = new JMenuItem("Show Detective Notes");
+		class MenuItemListener implements ActionListener {
+			public void actionPerformed(ActionEvent e)
+			{
+				dN.setVisible(true);
+			}
+		}
+		item.addActionListener(new MenuItemListener());
+		return item;
+	}
+	
 	public static void main(String[] args) {
 /*		ClueGame game = new ClueGame();
 		Board board = game.getBoard();
@@ -228,8 +279,8 @@ public class ClueGame extends JFrame {
 		board.setPlayers(game.getPlayers());
 		board.repaint();
 		
-		DetectiveNotes dN = new DetectiveNotes(game.getDeck());
-		dN.setVisible(true);
+		game.setNotes(new DetectiveNotes(game.getDeck()));
+		game.getNotes().setVisible(false);
 	}
 
 }
