@@ -26,7 +26,7 @@ public class Board extends JPanel {
 	private ArrayList<Player> players;
 	private static String layoutFile;
 	private BoardCell[][] board;
-	Map<Character,String> rooms;
+	private Map<Character,String> rooms;
 	
 	
 	int numRows;
@@ -244,7 +244,7 @@ public class Board extends JPanel {
 		super.paintComponent(g);
 		for(int row = 0; row < numRows; row++) {
 			for(int col = 0; col < numColumns; col++) {
-				board[row][col].draw(g);
+				board[row][col].draw(g, this);
 			}
 		}
 		
