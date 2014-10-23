@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.awt.Dimension;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -7,8 +8,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Timer;
 
-public class ClueGame {
+import javax.swing.JFrame;
+
+public class ClueGame extends JFrame {
 	private Map<Character,String> rooms;
 	private Board theBoard;
 	private String layoutFile;
@@ -19,6 +23,7 @@ public class ClueGame {
 	private ArrayList<Card> deck;
 	private ArrayList<Card> seen;
 	private Solution solution;
+	public static final int CELL_SIZE = 26;
 	
 	public ClueGame()
 	{
@@ -31,6 +36,8 @@ public class ClueGame {
 		players = new ArrayList<Player>();
 		deck = new ArrayList<Card>();
 		seen = new ArrayList<Card>();
+		add(theBoard);
+		setSize(800, 800);
 	}
 	
 	public ClueGame(String layout, String legend)
@@ -44,6 +51,8 @@ public class ClueGame {
 		players = new ArrayList<Player>();
 		deck = new ArrayList<Card>();
 		seen = new ArrayList<Card>();
+		add(theBoard);
+		setSize(800, 800);
 	}
 	
 	public void loadRoomConfig() throws FileNotFoundException, BadConfigFormatException {
@@ -126,7 +135,6 @@ public class ClueGame {
 			
 			isFirstRound = false;
 		}
-
 		scan.close();
 	}
 
@@ -200,6 +208,25 @@ public class ClueGame {
 
 	public void setSolution(Solution solution) {
 		this.solution = solution;
+	}
+	
+	public static void main(String[] args) {
+/*		ClueGame game = new ClueGame();
+		Board board = game.getBoard();
+		game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		game.setVisible(true);*/
+		
+		ClueGame game = new ClueGame("ourBoardLayout.csv", "ourLegend.csv");
+		game.loadConfigFiles();
+		Board board = game.getBoard();
+		board.calcAdjacencies();
+		game.deal();
+		
+		game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		game.setVisible(true);
+		// This will cause rectangle to display in new location
+		board.setPlayers(game.getPlayers());
+		board.repaint();
 	}
 
 }

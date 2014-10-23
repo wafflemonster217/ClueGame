@@ -1,4 +1,46 @@
-Our repository is : https://github.com/kitemongerer/ClueGame
+our repository is at: https://github.com/kitemongerer/ClueGame
+
+commit f93cb0bc0aae461893f51949a664a5d5e62010e0
+Author: Max Eshleman <meshlema@mines.edu>
+Date:   Sat Oct 18 12:45:53 2014 -0600
+
+    Passed computer suggestion making tests
+
+commit a9697107b7b90142f0e4141b5cd81ddccec78bd2
+Author: Max Eshleman <meshlema@mines.edu>
+Date:   Sat Oct 18 12:23:29 2014 -0600
+
+    Created failing tests for computer making a suggestion
+
+commit 47f25cebcb85bc48327daad79f63e01c8f02d517
+Author: Max Eshleman <meshlema@mines.edu>
+Date:   Sat Oct 18 11:56:21 2014 -0600
+
+    Passed tests for disproving a suggestion
+
+commit b09cdd08ba2b84b534d93bd96736c39f71e84585
+Author: Max Eshleman <meshlema@mines.edu>
+Date:   Sat Oct 18 11:39:32 2014 -0600
+
+    Added tests for disproving a suggestion
+
+commit 2e11e04ecec943831c0298c4c09df31584d4acad
+Author: Max Eshleman <meshlema@mines.edu>
+Date:   Sat Oct 18 10:42:10 2014 -0600
+
+    Passed target tests
+
+commit e8d05bb2bbd9ef0b71065673b85c44f768990fa0
+Author: Max Eshleman <meshlema@mines.edu>
+Date:   Sat Oct 18 09:59:29 2014 -0600
+
+    Added failing tests for selecting target location
+
+commit 7c4b3f0d81e2d8bb8f16e4cc1aaa8f00df48ec96
+Author: Max Eshleman <meshlema@mines.edu>
+Date:   Tue Oct 14 16:51:16 2014 -0600
+
+    Added comments to tests
 
 commit d7c625d8115cc70e31e2412aee93e40af804f8e0
 Author: Max Eshleman <meshlema@mines.edu>

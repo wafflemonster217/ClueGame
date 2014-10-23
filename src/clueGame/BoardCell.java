@@ -1,8 +1,10 @@
 package clueGame;
 
+import java.awt.Graphics;
+
 public abstract class BoardCell {
-	private int column;
-	private int row;
+	protected int column;
+	protected int row;
 
 	public BoardCell(int r, int c)
 	{
@@ -37,6 +39,8 @@ public abstract class BoardCell {
 	public int getRow() {
 		return row;
 	}
+	
+	public abstract void draw(Graphics g);
 
 	
 }

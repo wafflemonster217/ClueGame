@@ -1,6 +1,9 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
@@ -88,6 +91,17 @@ public class Player {
 		}
 		return this.name.equals(((Player) obj).name);
 	}
-
+	
+	
+	public void draw(Graphics g) {
+		g.setColor(color);
+		Graphics2D g2d = (Graphics2D)g;
+		// Assume x, y, and diameter are instance variables.
+		Ellipse2D.Double circle = new Ellipse2D.Double(ClueGame.CELL_SIZE * col, ClueGame.CELL_SIZE * row, ClueGame.CELL_SIZE, ClueGame.CELL_SIZE);
+		g2d.fill(circle);
+		g.setColor(Color.BLACK);
+		g.drawOval(ClueGame.CELL_SIZE * col, ClueGame.CELL_SIZE * row, ClueGame.CELL_SIZE, ClueGame.CELL_SIZE);
+		
+	}
 	
 }
