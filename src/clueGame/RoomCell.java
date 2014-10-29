@@ -15,12 +15,9 @@ public class RoomCell extends BoardCell {
 	public RoomCell(int r, int c, String status) {
 		super(r, c);
 		roomInitial = status.charAt(0);
-		if(status.length() == 1)
-		{
+		if(status.length() == 1) {
 			doorDirection = DoorDirection.NONE;
-		}
-		else
-		{	
+		} else {	
 			switch(status.charAt(1)) {
 			case 'U': doorDirection = DoorDirection.UP;
 				break;
@@ -45,18 +42,15 @@ public class RoomCell extends BoardCell {
 	}
 	
 	@Override
-	public Boolean isRoom()
-	{
+	public Boolean isRoom() {
 		return true;
 	}
 	
-	public char getInitial()
-	{
+	public char getInitial() {
 		return roomInitial;
 	}
 	
-	public DoorDirection getDoorDirection()
-	{
+	public DoorDirection getDoorDirection() {
 		return doorDirection;
 	}
 

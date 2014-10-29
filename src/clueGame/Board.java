@@ -41,7 +41,7 @@ public class Board extends JPanel {
 		targets = new HashSet<BoardCell>();
 	}
 		
-	public void loadBoardConfig() throws BadConfigFormatException, FileNotFoundException{
+	public void loadBoardConfig() throws BadConfigFormatException, FileNotFoundException {
 		
 		ArrayList<ArrayList<String>> tempBoard = new ArrayList<ArrayList<String>>();
 		Scanner boardRead = new Scanner( new FileReader(layoutFile));
@@ -53,10 +53,9 @@ public class Board extends JPanel {
 			String readLine = boardRead.nextLine();
 			String[] letters = readLine.split(",");
 			
-			for(int i = 0; i < letters.length; i++) {
+			for(int i = 0; i < letters.length; i++)
 				tempBoard.get(numRows).add(letters[i]);
-			}
-			
+		
 			if(numColumns != 0 && numColumns != letters.length){
 				boardRead.close();
 				throw new BadConfigFormatException("Row lengths are inconsistant in layout config file.");
@@ -72,15 +71,14 @@ public class Board extends JPanel {
 		
 		for(int i = 0; i < numRows; i++) {
 			for(int j = 0; j < numColumns; j++) {
-				if(i > tempBoard.size()) {
+				if(i > tempBoard.size())
 					throw new BadConfigFormatException("Temp board row count doesn't match config file");
-				}
-				if(j > tempBoard.get(0).size()) {
+				
+				if(j > tempBoard.get(0).size())
 					throw new BadConfigFormatException("Temp board column count doesn't match config file");
-				}
-				if(!rooms.containsKey(tempBoard.get(i).get(j).charAt(0))) {
+				
+				if(!rooms.containsKey(tempBoard.get(i).get(j).charAt(0)))
 					throw new BadConfigFormatException("Found undefined key in layout file");
-				}
 				
 				switch(tempBoard.get(i).get(j)) {
 				case "W":
@@ -99,11 +97,10 @@ public class Board extends JPanel {
 	
 	public void setRooms(Map<Character,String> inRooms) throws BadConfigFormatException {
 		rooms = new HashMap<Character,String>();
-		if(inRooms == null){
+		if(inRooms == null)
 			throw new BadConfigFormatException();
-		} else {
+		else
 			rooms = inRooms;
-		}
 	}
 	
 	public BoardCell[][] getBoard() {
@@ -161,23 +158,20 @@ public class Board extends JPanel {
 					if(i>0 && board[i-1][j].isWalkway()){
 						adjList.add(board[i-1][j]);
 					} else if (i>0 && board[i-1][j].isDoorway()){
-						if( ((RoomCell) board[i-1][j]).getDoorDirection()==RoomCell.DoorDirection.DOWN) {
+						if( ((RoomCell) board[i-1][j]).getDoorDirection()==RoomCell.DoorDirection.DOWN)
 							adjList.add(board[i-1][j]);
-						}
 					}
 					if(i<numRows-1 && board[i+1][j].isWalkway()){
 						adjList.add(board[i+1][j]);
 					} else if (i<numRows-1 && board[i+1][j].isDoorway()){
-						if( ((RoomCell) board[i+1][j]).getDoorDirection()==RoomCell.DoorDirection.UP) {
+						if( ((RoomCell) board[i+1][j]).getDoorDirection()==RoomCell.DoorDirection.UP)
 							adjList.add(board[i+1][j]);
-						}
 					}
 					if(j>0 && board[i][j-1].isWalkway()){
 						adjList.add(board[i][j-1]);
 					} else if (j>0 && board[i][j-1].isDoorway()){
-						if( ((RoomCell) board[i][j-1]).getDoorDirection()==RoomCell.DoorDirection.RIGHT) {
+						if( ((RoomCell) board[i][j-1]).getDoorDirection()==RoomCell.DoorDirection.RIGHT)
 							adjList.add(board[i][j-1]);
-						}
 					}
 					if(j<numColumns-1 && board[i][j+1].isWalkway()){
 						adjList.add(board[i][j+1]);
@@ -199,21 +193,18 @@ public class Board extends JPanel {
 		targets.clear();
 		current = board[i][j];
 		visited = new ArrayList<BoardCell>();
-		if(steps > 0 ) {
+		if(steps > 0 )
 			targetHelper(current.getRow(), current.getColumn(), steps);
-		}
 
 	}
 	
 	public void targetHelper(int i, int j, int steps) {
 		if(steps == 0) {
-			if (!targets.contains(board[i][j])) {
+			if (!targets.contains(board[i][j]))
 				targets.add(board[i][j]);
-			}
 		} else if(board[i][j].isDoorway() && board[i][j]!=current) {
-			if (!targets.contains(board[i][j])) {
+			if (!targets.contains(board[i][j]))
 				targets.add(board[i][j]);
-			}
 		} else { 
 			LinkedList<BoardCell> nextList = adjMtx.get(board[i][j]);
 			for(BoardCell e : nextList) {
@@ -244,11 +235,9 @@ public class Board extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for(int row = 0; row < numRows; row++) {
-			for(int col = 0; col < numColumns; col++) {
+		for(int row = 0; row < numRows; row++)
+			for(int col = 0; col < numColumns; col++)
 				board[row][col].draw(g, this);
-			}
-		}
 		
 		for(Player player : players) {
 			player.draw(g);

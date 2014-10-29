@@ -6,24 +6,20 @@ public abstract class BoardCell {
 	protected int column;
 	protected int row;
 
-	public BoardCell(int r, int c)
-	{
+	public BoardCell(int r, int c) {
 		row = r;
 		column = c;
 	}
 	
-	public Boolean isWalkway()
-	{
+	public Boolean isWalkway() {
 		return false;	
 	}
 	
-	public Boolean isRoom()
-	{
+	public Boolean isRoom() {
 		return false;
 	}
 	
-	public Boolean isDoorway()
-	{
+	public Boolean isDoorway() {
 		return false;
 	}
 

@@ -139,11 +139,10 @@ public class ClueGame extends JFrame {
 				throw new BadConfigFormatException("Bad player line formatting.");
 			}
 			
-			if (isFirstRound) {
+			if (isFirstRound)
 				players.add(new HumanPlayer(splitLine[0], splitLine[1], Integer.valueOf(splitLine[2]), Integer.valueOf(splitLine[3])));
-			} else {
+			else
 				players.add(new ComputerPlayer(splitLine[0], splitLine[1], Integer.valueOf(splitLine[2]), Integer.valueOf(splitLine[3])));
-			}
 			
 			isFirstRound = false;
 		}
@@ -180,9 +179,8 @@ public class ClueGame extends JFrame {
 	public Card handleSuggestion(Player suggestee, String person, String room, String weapon) {
 		for(int i = players.indexOf(suggestee) + 1; i < players.indexOf(suggestee) + players.size(); i++) {
 			Card disprove = players.get(i % players.size()).disproveSuggestion(person, room, weapon);
-			if (disprove != null) {
+			if (disprove != null)
 				return disprove;
-			}
 		}
 		
 		//No one can disprove so return null
@@ -240,8 +238,7 @@ public class ClueGame extends JFrame {
 	private JMenuItem createFileExitItem() {
 		JMenuItem item = new JMenuItem("Exit");
 		class MenuItemListener implements ActionListener {
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		}
@@ -252,8 +249,7 @@ public class ClueGame extends JFrame {
 	private JMenuItem createDetectiveNotesItem() {
 		JMenuItem item = new JMenuItem("Show Detective Notes");
 		class MenuItemListener implements ActionListener {
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				dN.setVisible(true);
 			}
 		}

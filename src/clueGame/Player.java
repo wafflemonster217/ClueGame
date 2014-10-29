@@ -21,8 +21,8 @@ public class Player {
 		try {     
 			// We can use reflection to convert the string to a color
 			Field field = Class.forName("java.awt.Color").getField(color.trim());     
-			this.color = (Color)field.get(null); } 
-		catch (Exception e) {  
+			this.color = (Color)field.get(null);
+		} catch (Exception e) {  
 			this.color = null; // Not defined } 
 			System.out.println("Error setting player color for: " + name);
 		}
@@ -35,10 +35,9 @@ public class Player {
 		for(int i = random; i < random + hand.size(); i++) {
 			if (hand.get(i % hand.size()).name.equals(person) ||
 				hand.get(i % hand.size()).name.equals(room) ||
-				hand.get(i % hand.size()).name.equals(weapon)) {
+				hand.get(i % hand.size()).name.equals(weapon))
 				
-				return hand.get(i % hand.size());
-			}
+					return hand.get(i % hand.size());
 		}
 		
 		//If no match found return null

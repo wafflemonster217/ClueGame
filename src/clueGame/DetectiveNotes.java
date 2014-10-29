@@ -115,9 +115,10 @@ public class DetectiveNotes extends JDialog {
 		//guess.setPreferredSize(new Dimension(150, 180));
 		guess.setFont(new Font("TimesRoman", Font.BOLD, 32));
 		guess.addItem("Unsure");
-		for (String name : people) {
+		
+		for (String name : people)
 			guess.addItem(name);
-		}
+		
 		panel.add(guess);
 		return panel;
 	}
@@ -130,9 +131,10 @@ public class DetectiveNotes extends JDialog {
 		//guess.setPreferredSize(new Dimension(150, 180));
 		guess.setFont(new Font("TimesRoman", Font.BOLD, 32));
 		guess.addItem("Unsure");
-		for (String name : rooms) {
+		
+		for (String name : rooms)
 			guess.addItem(name);
-		}
+		
 		panel.add(guess);
 		return panel;
 	}
@@ -145,9 +147,10 @@ public class DetectiveNotes extends JDialog {
 		//guess.setPreferredSize(new Dimension(150, 180));
 		guess.setFont(new Font("TimesRoman", Font.BOLD, 32));
 		guess.addItem("Unsure");
-		for (String name : weapons) {
+		
+		for (String name : weapons)
 			guess.addItem(name);
-		}
+			
 		panel.add(guess);
 		return panel;
 	}

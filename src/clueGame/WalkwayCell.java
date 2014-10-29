@@ -12,8 +12,7 @@ public class WalkwayCell extends BoardCell {
 	}
 
 	@Override
-	public Boolean isWalkway()
-	{
+	public Boolean isWalkway() {
 		return true;
 	}
 

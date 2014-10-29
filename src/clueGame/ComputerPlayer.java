@@ -28,15 +28,14 @@ public class ComputerPlayer extends Player {
 		}
 		
 		//remove any doors that shouldn't be targets
-		for (BoardCell cell : roomCells) {
+		for (BoardCell cell : roomCells)
 			targets.remove(cell);
-		}
+		
 		int random = (int)(Math.random() * targets.size());
 		
 		for (BoardCell cell : targets) {
-			if (random == 0) {
+			if (random == 0)
 				return cell;
-			}
 			random--;
 		}
 		return null;
@@ -51,13 +50,11 @@ public class ComputerPlayer extends Player {
 		while(person == null && weapon == null) {
 			Card card = deck.get(random);
 			if (person == null && card.type == CardType.PERSON) {
-				if (!seen.contains(card) && !hand.contains(card)) {
+				if (!seen.contains(card) && !hand.contains(card))
 					person = card.name;
-				}
 			} else if (weapon == null && card.type == CardType.WEAPON) {
-				if (!seen.contains(card) && !hand.contains(card)) {
+				if (!seen.contains(card) && !hand.contains(card))
 					weapon = card.name;
-				}
 			}
 			random = (int)(Math.random() * (deck.size() + 1));
 		}
