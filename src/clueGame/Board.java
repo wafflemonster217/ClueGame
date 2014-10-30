@@ -23,7 +23,7 @@ public class Board extends JPanel {
 	private ArrayList<BoardCell> visited;
 	private BoardCell current;
 	private ArrayList<Player> players;
-	private static String layoutFile;
+	private String layoutFile;
 	private BoardCell[][] board;
 	private Map<Character,String> rooms;
 	
@@ -33,8 +33,8 @@ public class Board extends JPanel {
 	
 	
 
-	public Board(String lF) {
-		layoutFile = lF;
+	public Board(String layoutFile) {
+		this.layoutFile = layoutFile;
 		targets = new HashSet<BoardCell>();
 	}
 		
