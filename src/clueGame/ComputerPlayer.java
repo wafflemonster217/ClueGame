@@ -57,7 +57,7 @@ public class ComputerPlayer extends Player {
 				if (!seen.contains(card) && !hand.contains(card))
 					weapon = card.name;
 			}
-			random = (int) (Math.random() * (deck.size() + 1));
+			random = (int) (Math.random() * (deck.size()));
 		}
 
 		room = legend.get(lastRoomVisited);

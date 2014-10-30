@@ -263,7 +263,7 @@ public class ClueGame extends JFrame {
 		
 		game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		game.setVisible(true);
-		// This will cause rectangle to display in new location
+
 		board.setPlayers(game.getPlayers());
 		board.repaint();
 		
