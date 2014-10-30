@@ -14,7 +14,7 @@ import javax.swing.border.TitledBorder;
 public class DetectiveNotes extends JDialog {
 	public DetectiveNotes(ArrayList<Card> deck) {
 		setTitle("Detective Notes");
-		setSize((int) (.75 * ClueGame.WINDOW_SIZE), ClueGame.WINDOW_SIZE);
+		setSize((int) (.75 * ClueGame.WINDOW_SIZE), (int) (.75 * ClueGame.WINDOW_SIZE));
 		setLayout(new GridLayout(3, 2));
 		
 		ArrayList<String> people = new ArrayList<String>();
@@ -32,26 +32,25 @@ public class DetectiveNotes extends JDialog {
 					break;
 			}
 		}
-		JPanel panel = drawPeoplePanel(people);
+		JPanel panel = drawChoicesPanel(people, "People");
 		add(panel);
-		panel = drawPersonGuess(people);
+		panel = drawGuessPanel(people, "Person Guess");
 		add(panel);
-		panel = drawRoomsPanel(rooms);
+		panel = drawChoicesPanel(rooms, "Rooms");
 		add(panel);
-		panel = drawRoomGuess(rooms);
+		panel = drawGuessPanel(rooms, "Room Guess");
 		add(panel);
-		panel = drawWeaponsPanel(weapons);
+		panel = drawChoicesPanel(weapons, "Weapons");
 		add(panel);
-		panel = drawWeaponGuess(weapons);
+		panel = drawGuessPanel(weapons, "Weapon Guess");
 		add(panel);
 	}
 	
-	public JPanel drawPeoplePanel(ArrayList<String> people)	{	
+	public JPanel drawChoicesPanel(ArrayList<String> choices, String title)	{	
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(3, 2));
-		panel.setBorder(new TitledBorder(new EtchedBorder(), "People"));
-		for (String name : people) {
-
+		panel.setLayout(new GridLayout((int) (((choices.size() + 1) / 2) + .5), 2));
+		panel.setBorder(new TitledBorder(new EtchedBorder(), title));
+		for (String name : choices) {
 			// Create the buttons
 			JCheckBox box = new JCheckBox(name);
 			
@@ -62,91 +61,20 @@ public class DetectiveNotes extends JDialog {
 			panel.add(box);
 		}
 		return panel;
-
-	}
-	
-	public JPanel drawRoomsPanel(ArrayList<String> rooms)	{	
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(5, 2));
-		panel.setBorder(new TitledBorder(new EtchedBorder(), "Rooms"));
-		for (String name : rooms) {
-
-			// Create the buttons
-			JCheckBox box = new JCheckBox(name);
-			
-			// Set them to not be selected by default
-			box.setSelected(false);
-			
-			// Add the buttons to the panel
-			panel.add(box);
-		}
-		return panel;
-
-	}
-	
-	public JPanel drawWeaponsPanel(ArrayList<String> weapons) {	
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(3, 2));
-		panel.setBorder(new TitledBorder(new EtchedBorder(), "Weapons"));
-		for (String name : weapons) {
-
-			// Create the buttons
-			JCheckBox box = new JCheckBox(name);
-			
-			// Set them to not be selected by default
-			box.setSelected(false);
-			
-			// Add the buttons to the panel
-			panel.add(box);
-		}
-		return panel;
-
 	}
 
-	public JPanel drawPersonGuess(ArrayList<String> people)	{	
+	public JPanel drawGuessPanel(ArrayList<String> guesses, String title)	{	
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(new EtchedBorder(), "Person Guess"));
+		panel.setBorder(new TitledBorder(new EtchedBorder(), title));
 		panel.setLayout(new GridLayout(1, 2));
 		JComboBox<String> guess = new JComboBox<String>();
-		guess.setFont(new Font("TimesRoman", Font.BOLD, 32));
+		guess.setFont(new Font("TimesRoman", Font.BOLD, 20));
 		guess.addItem("Unsure");
 		
-		for (String name : people) {
+		for (String name : guesses) {
 			guess.addItem(name);
 		}
 		
-		panel.add(guess);
-		return panel;
-	}
-	
-	public JPanel drawRoomGuess(ArrayList<String> rooms) {	
-		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(new EtchedBorder(), "Room Guess"));
-		panel.setLayout(new GridLayout(1, 2));
-		JComboBox<String> guess = new JComboBox<String>();
-		guess.setFont(new Font("TimesRoman", Font.BOLD, 32));
-		guess.addItem("Unsure");
-		
-		for (String name : rooms) {
-			guess.addItem(name);
-		}
-		
-		panel.add(guess);
-		return panel;
-	}
-	
-	public JPanel drawWeaponGuess(ArrayList<String> weapons) {	
-		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(new EtchedBorder(), "Weapon Guess"));
-		panel.setLayout(new GridLayout(1, 2));
-		JComboBox<String> guess = new JComboBox<String>();
-		guess.setFont(new Font("TimesRoman", Font.BOLD, 32));
-		guess.addItem("Unsure");
-		
-		for (String name : weapons) {
-			guess.addItem(name);
-		}
-			
 		panel.add(guess);
 		return panel;
 	}
