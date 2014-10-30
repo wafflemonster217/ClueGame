@@ -179,8 +179,7 @@ public class Board extends JPanel {
 				}
 				adjMtx.put(board[i][j], adjList);
 			}
-		}
-				
+		}		
 	}
 	
 	public void calcTargets(int i, int j, int steps) {
@@ -189,7 +188,6 @@ public class Board extends JPanel {
 		visited = new ArrayList<BoardCell>();
 		if (steps > 0)
 			targetHelper(current.getRow(), current.getColumn(), steps);
-
 	}
 	
 	public void targetHelper(int i, int j, int steps) {
@@ -201,16 +199,14 @@ public class Board extends JPanel {
 				targets.add(board[i][j]);
 		} else { 
 			LinkedList<BoardCell> nextList = adjMtx.get(board[i][j]);
-			for (BoardCell e : nextList) {
-				if (!visited.contains(e) && !e.equals(current)) {
-					visited.add(e);
-					targetHelper(e.getRow(), e.getColumn(), steps - 1);
+			for (BoardCell cell : nextList) {
+				if (!visited.contains(cell) && !cell.equals(current)) {
+					visited.add(cell);
+					targetHelper(cell.getRow(), cell.getColumn(), steps - 1);
 				}
-				visited.remove(e);
+				visited.remove(cell);
 			}
 		}
-		
-		
 	}
 	
 	public Set<BoardCell> getTargets() {
