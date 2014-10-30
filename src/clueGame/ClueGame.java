@@ -1,6 +1,5 @@
 package clueGame;
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -10,7 +9,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Timer;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -29,6 +27,7 @@ public class ClueGame extends JFrame {
 	private ArrayList<Card> seen;
 	private Solution solution;
 	public static final int CELL_SIZE = 26;
+	public static final int DECK_SIZE = 21;
 	private DetectiveNotes dN;
 	
 	public ClueGame() {
@@ -150,24 +149,22 @@ public class ClueGame extends JFrame {
 	
 	
 	public void loadConfigFiles() {
-	
 		try {
 			loadRoomConfig();
 			theBoard.loadBoardConfig();
 			loadPlayerConfig();
 			loadDeckConfig();
 		} catch (FileNotFoundException | BadConfigFormatException e) {
-			
-			//
+			System.out.println(e.getMessage());
 		}
 	}
 	
 	public void deal() {
 		HashSet<Integer> dealt = new HashSet<Integer>();
-		int random = (int)(Math.random()*21);
+		int random = (int)(Math.random() * deck.size());
 		for(int i = 0; i < deck.size(); i++) {
 			while (dealt.contains(random)) {
-				random = (int)(Math.random()*21);
+				random = (int)(Math.random() * deck.size());
 			}
 			dealt.add(random);
 			players.get(i % players.size()).dealCard(deck.get(random));
