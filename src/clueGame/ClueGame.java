@@ -31,8 +31,7 @@ public class ClueGame extends JFrame {
 	public static final int CELL_SIZE = 26;
 	private DetectiveNotes dN;
 	
-	public ClueGame()
-	{
+	public ClueGame() {
 		rooms = new HashMap<Character,String>();
 		layoutFile = "ClueLayout.csv";
 		configFile = "ClueLegend.txt";
@@ -49,8 +48,7 @@ public class ClueGame extends JFrame {
 		menuBar.add(createFileMenu());
 	}
 	
-	public ClueGame(String layout, String legend)
-	{
+	public ClueGame(String layout, String legend) {
 		rooms = new HashMap<Character, String>();
 		layoutFile = layout;
 		configFile = legend;
@@ -164,7 +162,7 @@ public class ClueGame extends JFrame {
 		}
 	}
 	
-	public void deal(){
+	public void deal() {
 		HashSet<Integer> dealt = new HashSet<Integer>();
 		int random = (int)(Math.random()*21);
 		for(int i = 0; i < deck.size(); i++) {
@@ -258,10 +256,6 @@ public class ClueGame extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-/*		ClueGame game = new ClueGame();
-		Board board = game.getBoard();
-		game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		game.setVisible(true);*/
 		
 		ClueGame game = new ClueGame("ourBoardLayout.csv", "ourLegend.csv");
 		game.loadConfigFiles();

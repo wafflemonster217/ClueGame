@@ -112,7 +112,6 @@ public class DetectiveNotes extends JDialog {
 		panel.setBorder(new TitledBorder (new EtchedBorder(), "Person Guess"));
 		panel.setLayout(new GridLayout(1, 2));
 		JComboBox<String> guess = new JComboBox<String>();
-		//guess.setPreferredSize(new Dimension(150, 180));
 		guess.setFont(new Font("TimesRoman", Font.BOLD, 32));
 		guess.addItem("Unsure");
 		
@@ -128,7 +127,6 @@ public class DetectiveNotes extends JDialog {
 		panel.setBorder(new TitledBorder (new EtchedBorder(), "Room Guess"));
 		panel.setLayout(new GridLayout(1, 2));
 		JComboBox<String> guess = new JComboBox<String>();
-		//guess.setPreferredSize(new Dimension(150, 180));
 		guess.setFont(new Font("TimesRoman", Font.BOLD, 32));
 		guess.addItem("Unsure");
 		
@@ -144,7 +142,6 @@ public class DetectiveNotes extends JDialog {
 		panel.setBorder(new TitledBorder (new EtchedBorder(), "Weapon Guess"));
 		panel.setLayout(new GridLayout(1, 2));
 		JComboBox<String> guess = new JComboBox<String>();
-		//guess.setPreferredSize(new Dimension(150, 180));
 		guess.setFont(new Font("TimesRoman", Font.BOLD, 32));
 		guess.addItem("Unsure");
 		
