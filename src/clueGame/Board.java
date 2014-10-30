@@ -25,13 +25,10 @@ public class Board extends JPanel {
 	private ArrayList<Player> players;
 	private String layoutFile;
 	private BoardCell[][] board;
-	private Map<Character,String> rooms;
+	private Map<Character, String> rooms;
 	
-	
-	int numRows;
-	int numColumns;
-	
-	
+	private int numRows;
+	private int numColumns;
 
 	public Board(String layoutFile) {
 		this.layoutFile = layoutFile;
@@ -41,43 +38,43 @@ public class Board extends JPanel {
 	public void loadBoardConfig() throws BadConfigFormatException, FileNotFoundException {
 		
 		ArrayList<ArrayList<String>> tempBoard = new ArrayList<ArrayList<String>>();
-		Scanner boardRead = new Scanner( new FileReader(layoutFile));
+		Scanner boardRead = new Scanner(new FileReader(layoutFile));
 		
 		numRows = 0;
-		while(boardRead.hasNextLine()) {
+		while (boardRead.hasNextLine()) {
 			
 			tempBoard.add(new ArrayList<String>());
 			String readLine = boardRead.nextLine();
 			String[] letters = readLine.split(",");
 			
-			for(int i = 0; i < letters.length; i++)
+			for (int i = 0; i < letters.length; i++) {
 				tempBoard.get(numRows).add(letters[i]);
+			}
 		
-			if(numColumns != 0 && numColumns != letters.length){
+			if (numColumns != 0 && numColumns != letters.length) {
 				boardRead.close();
 				throw new BadConfigFormatException("Row lengths are inconsistant in layout config file.");
 			} else {
 				numColumns = letters.length;
 			}
-			
 			numRows++;
 		}
 		boardRead.close();
 		
 		board = new BoardCell[numRows][numColumns];
 		
-		for(int i = 0; i < numRows; i++) {
-			for(int j = 0; j < numColumns; j++) {
-				if(i > tempBoard.size())
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numColumns; j++) {
+				if (i > tempBoard.size())
 					throw new BadConfigFormatException("Temp board row count doesn't match config file");
 				
-				if(j > tempBoard.get(0).size())
+				if (j > tempBoard.get(0).size())
 					throw new BadConfigFormatException("Temp board column count doesn't match config file");
 				
-				if(!rooms.containsKey(tempBoard.get(i).get(j).charAt(0)))
+				if (!rooms.containsKey(tempBoard.get(i).get(j).charAt(0)))
 					throw new BadConfigFormatException("Found undefined key in layout file");
 				
-				switch(tempBoard.get(i).get(j)) {
+				switch (tempBoard.get(i).get(j)) {
 				case "W":
 					board[i][j] = new WalkwayCell(i, j);
 					break;
@@ -92,9 +89,9 @@ public class Board extends JPanel {
 	}
 
 	
-	public void setRooms(Map<Character,String> inRooms) throws BadConfigFormatException {
-		rooms = new HashMap<Character,String>();
-		if(inRooms == null)
+	public void setRooms(Map<Character, String> inRooms) throws BadConfigFormatException {
+		rooms = new HashMap<Character, String>();
+		if (inRooms == null)
 			throw new BadConfigFormatException();
 		else
 			rooms = inRooms;
@@ -131,50 +128,50 @@ public class Board extends JPanel {
 
 	public void calcAdjacencies() {
 		adjMtx = new HashMap<BoardCell, LinkedList<BoardCell>>();
-		for(int i=0;i<numRows;i++) {
-			for(int j=0;j<numColumns;j++) {
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numColumns; j++) {
 				LinkedList<BoardCell> adjList = new LinkedList<BoardCell>();
-				if(board[i][j].isDoorway()){
-					switch(((RoomCell) board[i][j]).getDoorDirection()) {
+				if (board[i][j].isDoorway()) {
+					switch (((RoomCell) board[i][j]).getDoorDirection()) {
 					case UP:
-						adjList.add(board[i-1][j]);
+						adjList.add(board[i - 1][j]);
 						break;
 					case DOWN:
-						adjList.add(board[i+1][j]);
+						adjList.add(board[i + 1][j]);
 						break;
 					case LEFT:
-						adjList.add(board[i][j-1]);
+						adjList.add(board[i][j - 1]);
 						break;
 					case RIGHT:
-						adjList.add(board[i][j+1]);
+						adjList.add(board[i][j + 1]);
 						break;
 					case NONE:
 						break;
 					}
 				} else if (board[i][j].isWalkway()) {
-					if(i>0 && board[i-1][j].isWalkway()){
-						adjList.add(board[i-1][j]);
-					} else if (i>0 && board[i-1][j].isDoorway()){
-						if( ((RoomCell) board[i-1][j]).getDoorDirection()==RoomCell.DoorDirection.DOWN)
-							adjList.add(board[i-1][j]);
+					if (i > 0 && board[i - 1][j].isWalkway()) {
+						adjList.add(board[i - 1][j]);
+					} else if (i > 0 && board[i - 1][j].isDoorway()) {
+						if (((RoomCell) board[i - 1][j]).getDoorDirection() == RoomCell.DoorDirection.DOWN)
+							adjList.add(board[i - 1][j]);
 					}
-					if(i<numRows-1 && board[i+1][j].isWalkway()){
-						adjList.add(board[i+1][j]);
-					} else if (i<numRows-1 && board[i+1][j].isDoorway()){
-						if( ((RoomCell) board[i+1][j]).getDoorDirection()==RoomCell.DoorDirection.UP)
-							adjList.add(board[i+1][j]);
+					if (i < numRows - 1 && board[i + 1][j].isWalkway()) {
+						adjList.add(board[i + 1][j]);
+					} else if (i < numRows - 1 && board[i + 1][j].isDoorway()) {
+						if (((RoomCell) board[i + 1][j]).getDoorDirection() == RoomCell.DoorDirection.UP)
+							adjList.add(board[i + 1][j]);
 					}
-					if(j>0 && board[i][j-1].isWalkway()){
-						adjList.add(board[i][j-1]);
-					} else if (j>0 && board[i][j-1].isDoorway()){
-						if( ((RoomCell) board[i][j-1]).getDoorDirection()==RoomCell.DoorDirection.RIGHT)
-							adjList.add(board[i][j-1]);
+					if (j > 0 && board[i][j - 1].isWalkway()) {
+						adjList.add(board[i][j - 1]);
+					} else if (j > 0 && board[i][j - 1].isDoorway()) {
+						if (((RoomCell) board[i][j - 1]).getDoorDirection() == RoomCell.DoorDirection.RIGHT)
+							adjList.add(board[i][j - 1]);
 					}
-					if(j<numColumns-1 && board[i][j+1].isWalkway()){
-						adjList.add(board[i][j+1]);
-					} else if (j<numColumns-1 && board[i][j+1].isDoorway()){
-						if( ((RoomCell) board[i][j+1]).getDoorDirection()==RoomCell.DoorDirection.LEFT) {
-							adjList.add(board[i][j+1]);
+					if (j < numColumns - 1 && board[i][j + 1].isWalkway()) {
+						adjList.add(board[i][j + 1]);
+					} else if (j < numColumns - 1 && board[i][j + 1].isDoorway()) {
+						if (((RoomCell) board[i][j + 1]).getDoorDirection() == RoomCell.DoorDirection.LEFT) {
+							adjList.add(board[i][j + 1]);
 						}
 					}
 				} else {
@@ -190,24 +187,24 @@ public class Board extends JPanel {
 		targets.clear();
 		current = board[i][j];
 		visited = new ArrayList<BoardCell>();
-		if(steps > 0 )
+		if (steps > 0)
 			targetHelper(current.getRow(), current.getColumn(), steps);
 
 	}
 	
 	public void targetHelper(int i, int j, int steps) {
-		if(steps == 0) {
+		if (steps == 0) {
 			if (!targets.contains(board[i][j]))
 				targets.add(board[i][j]);
-		} else if(board[i][j].isDoorway() && board[i][j]!=current) {
+		} else if (board[i][j].isDoorway() && board[i][j]!=current) {
 			if (!targets.contains(board[i][j]))
 				targets.add(board[i][j]);
 		} else { 
 			LinkedList<BoardCell> nextList = adjMtx.get(board[i][j]);
-			for(BoardCell e : nextList) {
-				if(!visited.contains(e) && !e.equals(current)){
+			for (BoardCell e : nextList) {
+				if (!visited.contains(e) && !e.equals(current)) {
 					visited.add(e);
-					targetHelper(e.getRow(),e.getColumn(),steps-1);
+					targetHelper(e.getRow(), e.getColumn(), steps - 1);
 				}
 				visited.remove(e);
 			}
@@ -232,11 +229,13 @@ public class Board extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for(int row = 0; row < numRows; row++)
-			for(int col = 0; col < numColumns; col++)
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numColumns; col++) {
 				board[row][col].draw(g, this);
+			}
+		}
 		
-		for(Player player : players) {
+		for (Player player : players) {
 			player.draw(g);
 		}
 	}

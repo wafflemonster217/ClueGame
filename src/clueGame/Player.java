@@ -21,7 +21,7 @@ public class Player {
 		try {     
 			// We can use reflection to convert the string to a color
 			Field field = Class.forName("java.awt.Color").getField(color.trim());     
-			this.color = (Color)field.get(null);
+			this.color = (Color) field.get(null);
 		} catch (Exception e) {  
 			this.color = null; // Not defined } 
 			System.out.println("Error setting player color for: " + name);
@@ -30,14 +30,15 @@ public class Player {
 	}
 	
 	public Card disproveSuggestion(String person, String room, String weapon) {
-		int random = (int)(Math.random() * (hand.size() + 1));
+		int random = (int) (Math.random() * (hand.size() + 1));
 		//Go through hand randomly to ensure random result
-		for(int i = random; i < random + hand.size(); i++) {
+		for (int i = random; i < random + hand.size(); i++) {
 			if (hand.get(i % hand.size()).name.equals(person) ||
 				hand.get(i % hand.size()).name.equals(room) ||
-				hand.get(i % hand.size()).name.equals(weapon))
+				hand.get(i % hand.size()).name.equals(weapon)) {
 				
 					return hand.get(i % hand.size());
+			}
 		}
 		
 		//If no match found return null
@@ -91,16 +92,13 @@ public class Player {
 		return this.name.equals(((Player) obj).name);
 	}
 	
-	
 	public void draw(Graphics g) {
 		g.setColor(color);
-		Graphics2D g2d = (Graphics2D)g;
+		Graphics2D g2d = (Graphics2D) g;
 		// Assume x, y, and diameter are instance variables.
 		Ellipse2D.Double circle = new Ellipse2D.Double(ClueGame.CELL_SIZE * col, ClueGame.CELL_SIZE * row, ClueGame.CELL_SIZE, ClueGame.CELL_SIZE);
 		g2d.fill(circle);
 		g.setColor(Color.BLACK);
 		g.drawOval(ClueGame.CELL_SIZE * col, ClueGame.CELL_SIZE * row, ClueGame.CELL_SIZE, ClueGame.CELL_SIZE);
-		
 	}
-	
 }

@@ -14,7 +14,7 @@ import javax.swing.border.TitledBorder;
 public class DetectiveNotes extends JDialog {
 	public DetectiveNotes(ArrayList<Card> deck) {
 		setTitle("Detective Notes");
-		setSize(600, 800);
+		setSize((int) (.75 * ClueGame.WINDOW_SIZE), ClueGame.WINDOW_SIZE);
 		setLayout(new GridLayout(3, 2));
 		
 		ArrayList<String> people = new ArrayList<String>();
@@ -49,7 +49,7 @@ public class DetectiveNotes extends JDialog {
 	public JPanel drawPeoplePanel(ArrayList<String> people)	{	
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(3, 2));
-		panel.setBorder(new TitledBorder (new EtchedBorder(), "People"));
+		panel.setBorder(new TitledBorder(new EtchedBorder(), "People"));
 		for (String name : people) {
 
 			// Create the buttons
@@ -68,7 +68,7 @@ public class DetectiveNotes extends JDialog {
 	public JPanel drawRoomsPanel(ArrayList<String> rooms)	{	
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(5, 2));
-		panel.setBorder(new TitledBorder (new EtchedBorder(), "Rooms"));
+		panel.setBorder(new TitledBorder(new EtchedBorder(), "Rooms"));
 		for (String name : rooms) {
 
 			// Create the buttons
@@ -84,10 +84,10 @@ public class DetectiveNotes extends JDialog {
 
 	}
 	
-	public JPanel drawWeaponsPanel(ArrayList<String> weapons)	{	
+	public JPanel drawWeaponsPanel(ArrayList<String> weapons) {	
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(3, 2));
-		panel.setBorder(new TitledBorder (new EtchedBorder(), "Weapons"));
+		panel.setBorder(new TitledBorder(new EtchedBorder(), "Weapons"));
 		for (String name : weapons) {
 
 			// Create the buttons
@@ -105,47 +105,49 @@ public class DetectiveNotes extends JDialog {
 
 	public JPanel drawPersonGuess(ArrayList<String> people)	{	
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder (new EtchedBorder(), "Person Guess"));
+		panel.setBorder(new TitledBorder(new EtchedBorder(), "Person Guess"));
 		panel.setLayout(new GridLayout(1, 2));
 		JComboBox<String> guess = new JComboBox<String>();
 		guess.setFont(new Font("TimesRoman", Font.BOLD, 32));
 		guess.addItem("Unsure");
 		
-		for (String name : people)
+		for (String name : people) {
 			guess.addItem(name);
+		}
 		
 		panel.add(guess);
 		return panel;
 	}
 	
-	public JPanel drawRoomGuess(ArrayList<String> rooms)	{	
+	public JPanel drawRoomGuess(ArrayList<String> rooms) {	
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder (new EtchedBorder(), "Room Guess"));
+		panel.setBorder(new TitledBorder(new EtchedBorder(), "Room Guess"));
 		panel.setLayout(new GridLayout(1, 2));
 		JComboBox<String> guess = new JComboBox<String>();
 		guess.setFont(new Font("TimesRoman", Font.BOLD, 32));
 		guess.addItem("Unsure");
 		
-		for (String name : rooms)
+		for (String name : rooms) {
 			guess.addItem(name);
+		}
 		
 		panel.add(guess);
 		return panel;
 	}
 	
-	public JPanel drawWeaponGuess(ArrayList<String> weapons)	{	
+	public JPanel drawWeaponGuess(ArrayList<String> weapons) {	
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder (new EtchedBorder(), "Weapon Guess"));
+		panel.setBorder(new TitledBorder(new EtchedBorder(), "Weapon Guess"));
 		panel.setLayout(new GridLayout(1, 2));
 		JComboBox<String> guess = new JComboBox<String>();
 		guess.setFont(new Font("TimesRoman", Font.BOLD, 32));
 		guess.addItem("Unsure");
 		
-		for (String name : weapons)
+		for (String name : weapons) {
 			guess.addItem(name);
+		}
 			
 		panel.add(guess);
 		return panel;
 	}
-
 }

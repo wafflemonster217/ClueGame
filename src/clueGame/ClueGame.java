@@ -16,7 +16,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 public class ClueGame extends JFrame {
-	private Map<Character,String> rooms;
+	private Map<Character, String> rooms;
 	private Board theBoard;
 	private String layoutFile;
 	private String configFile;
@@ -28,10 +28,14 @@ public class ClueGame extends JFrame {
 	private Solution solution;
 	public static final int CELL_SIZE = 26;
 	public static final int DECK_SIZE = 21;
+	public static final int WINDOW_SIZE = 800;
+	public static final int NUM_ROOMS = 9;
+	public static final int NUM_WEAPONS = 6;
+	public static final int NUM_PEOPLE = 6;
 	private DetectiveNotes dN;
 	
 	public ClueGame() {
-		rooms = new HashMap<Character,String>();
+		rooms = new HashMap<Character, String>();
 		layoutFile = "ClueLayout.csv";
 		configFile = "ClueLegend.txt";
 		playerConfigFile = "CluePlayers.txt";
@@ -41,7 +45,7 @@ public class ClueGame extends JFrame {
 		deck = new ArrayList<Card>();
 		seen = new ArrayList<Card>();
 		add(theBoard);
-		setSize(800, 800);
+		setSize(WINDOW_SIZE, WINDOW_SIZE);
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
@@ -58,7 +62,7 @@ public class ClueGame extends JFrame {
 		deck = new ArrayList<Card>();
 		seen = new ArrayList<Card>();
 		add(theBoard);
-		setSize(800, 800);
+		setSize(WINDOW_SIZE, WINDOW_SIZE);
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
@@ -72,16 +76,16 @@ public class ClueGame extends JFrame {
 
 		Scanner scan = new Scanner(new FileReader(configFile));
 
-		while(scan.hasNextLine()) {
+		while (scan.hasNextLine()) {
 			line = scan.nextLine();
 			splitLine = line.split(",");
 
 			
-			if(splitLine.length != 2) {
+			if (splitLine.length != 2) {
 				scan.close();
 				throw new BadConfigFormatException("Bad legend line formatting.");
 			}
-			if(splitLine[0].length() > 1) {
+			if (splitLine[0].length() > 1) {
 				scan.close();
 				throw new BadConfigFormatException("Room Symbol is too long.");
 			}
@@ -89,7 +93,7 @@ public class ClueGame extends JFrame {
 			tempValue = splitLine[1];
 
 			tempValue = tempValue.trim();
-			rooms.put(tempKey,tempValue);				
+			rooms.put(tempKey, tempValue);				
 		}
 
 		scan.close();
@@ -102,17 +106,17 @@ public class ClueGame extends JFrame {
 		Scanner scan = new Scanner(new FileReader(deckConfigFile));
 
 		//read room cards
-		for(int i = 0; i < 9; i++) {
+		for (int i = 0; i < NUM_ROOMS; i++) {
 			line = scan.nextLine();
 			deck.add(new Card(line, CardType.ROOM));
 		}
 		//read person cards
-		for(int i = 0; i < 6; i++) {
+		for (int i = 0; i < NUM_PEOPLE; i++) {
 			line = scan.nextLine();
 			deck.add(new Card(line, CardType.PERSON));
 		}
 		//read weapon cards
-		for(int i = 0; i < 6; i++) {
+		for (int i = 0; i < NUM_WEAPONS; i++) {
 			line = scan.nextLine();
 			deck.add(new Card(line, CardType.WEAPON));
 		}
@@ -127,11 +131,11 @@ public class ClueGame extends JFrame {
 		Scanner scan = new Scanner(new FileReader(playerConfigFile));
 
 		boolean isFirstRound = true;
-		while(scan.hasNextLine()) {
+		while (scan.hasNextLine()) {
 			line = scan.nextLine();
 			splitLine = line.split(",");
 	
-			if(splitLine.length != 4) {
+			if (splitLine.length != 4) {
 				scan.close();
 				throw new BadConfigFormatException("Bad player line formatting.");
 			}
@@ -161,10 +165,10 @@ public class ClueGame extends JFrame {
 	
 	public void deal() {
 		HashSet<Integer> dealt = new HashSet<Integer>();
-		int random = (int)(Math.random() * deck.size());
-		for(int i = 0; i < deck.size(); i++) {
+		int random = (int) (Math.random() * deck.size());
+		for (int i = 0; i < deck.size(); i++) {
 			while (dealt.contains(random)) {
-				random = (int)(Math.random() * deck.size());
+				random = (int) (Math.random() * deck.size());
 			}
 			dealt.add(random);
 			players.get(i % players.size()).dealCard(deck.get(random));
@@ -172,15 +176,13 @@ public class ClueGame extends JFrame {
 	}
 	
 	public Card handleSuggestion(Player suggestee, String person, String room, String weapon) {
-		for(int i = players.indexOf(suggestee) + 1; i < players.indexOf(suggestee) + players.size(); i++) {
+		for (int i = players.indexOf(suggestee) + 1; i < players.indexOf(suggestee) + players.size(); i++) {
 			Card disprove = players.get(i % players.size()).disproveSuggestion(person, room, weapon);
 			if (disprove != null)
 				return disprove;
 		}
-		
 		//No one can disprove so return null
 		return null;
-		
 	}
 	
 	public void seenCard(Card card) {
@@ -207,7 +209,7 @@ public class ClueGame extends JFrame {
 		return seen;
 	}
 	
-	public Map<Character,String> getLegend() {
+	public Map<Character, String> getLegend() {
 		return rooms;
 	}
 
@@ -253,7 +255,6 @@ public class ClueGame extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		
 		ClueGame game = new ClueGame("ourBoardLayout.csv", "ourLegend.csv");
 		game.loadConfigFiles();
 		Board board = game.getBoard();
@@ -269,5 +270,4 @@ public class ClueGame extends JFrame {
 		game.setNotes(new DetectiveNotes(game.getDeck()));
 		game.getNotes().setVisible(false);
 	}
-
 }
