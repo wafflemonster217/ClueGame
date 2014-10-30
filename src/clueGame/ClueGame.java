@@ -198,14 +198,17 @@ public class ClueGame extends JFrame {
 		return deck;
 	}
 	
+	// Dev only
 	public ArrayList<Card> getSeen() {
 		return seen;
 	}
 	
+	// Dev only
 	public Map<Character, String> getLegend() {
 		return rooms;
 	}
 
+	// Dev only
 	public void setSolution(Solution solution) {
 		this.solution = solution;
 	}

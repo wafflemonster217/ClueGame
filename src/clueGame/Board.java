@@ -105,23 +105,27 @@ public class Board extends JPanel {
 		return rooms;
 	}
 
+	// Dev only
 	public int getNumRows() {
 		return numRows;
 	}
 
+	// Dev only
 	public int getNumColumns() {
 		return numColumns;
 	}
 	
+	// Dev only
 	public RoomCell getRoomCellAt(int r, int c) {
 		return (RoomCell) board[r][c];
 	}
 	
+	// Dev only
 	public BoardCell getCellAt(int r, int c) {
 		return board[r][c];
 	}
 	
-
+	// Dev only
 	public WalkwayCell getWalkwayCellAt(int r, int c) {
 		return (WalkwayCell) board[r][c];
 	}
