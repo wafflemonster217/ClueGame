@@ -35,29 +35,22 @@ public class ClueGame extends JFrame {
 	private DetectiveNotes dN;
 	
 	public ClueGame() {
-		rooms = new HashMap<Character, String>();
 		layoutFile = "ClueLayout.csv";
 		configFile = "ClueLegend.txt";
-		playerConfigFile = "CluePlayers.txt";
-		deckConfigFile = "Deck.txt";
-		theBoard = new Board(layoutFile);
-		players = new ArrayList<Player>();
-		deck = new ArrayList<Card>();
-		seen = new ArrayList<Card>();
-		add(theBoard);
-		setSize(WINDOW_SIZE, WINDOW_SIZE);
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-		menuBar.add(createFileMenu());
+		commonCtor();
 	}
 	
 	public ClueGame(String layout, String legend) {
-		rooms = new HashMap<Character, String>();
 		layoutFile = layout;
 		configFile = legend;
+		commonCtor();
+	}
+	
+	private void commonCtor() {
+		rooms = new HashMap<Character, String>();
 		playerConfigFile = "CluePlayers.txt";
 		deckConfigFile = "Deck.txt";
-		theBoard = new Board(layout);
+		theBoard = new Board(layoutFile);
 		players = new ArrayList<Player>();
 		deck = new ArrayList<Card>();
 		seen = new ArrayList<Card>();
