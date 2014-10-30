@@ -5,8 +5,8 @@ import java.awt.Graphics;
 
 public class WalkwayCell extends BoardCell {
 	
-	public WalkwayCell(int r, int c) {
-		super(r, c);
+	public WalkwayCell(int row, int col) {
+		super(row, col);
 	}
 
 	@Override
