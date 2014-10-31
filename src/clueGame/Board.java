@@ -132,56 +132,56 @@ public class Board extends JPanel {
 
 	public void calcAdjacencies() {
 		adjMtx = new HashMap<BoardCell, LinkedList<BoardCell>>();
-		for (int i = 0; i < numRows; i++) {
-			for (int j = 0; j < numColumns; j++) {
+		for (int row = 0; row < numRows; row++) {
+			for (int column = 0; column < numColumns; column++) {
 				LinkedList<BoardCell> adjList = new LinkedList<BoardCell>();
-				if (board[i][j].isDoorway()) {
-					switch (((RoomCell) board[i][j]).getDoorDirection()) {
+				if (board[row][column].isDoorway()) {
+					switch (((RoomCell) board[row][column]).getDoorDirection()) {
 					case UP:
-						adjList.add(board[i - 1][j]);
+						adjList.add(board[row - 1][column]);
 						break;
 					case DOWN:
-						adjList.add(board[i + 1][j]);
+						adjList.add(board[row + 1][column]);
 						break;
 					case LEFT:
-						adjList.add(board[i][j - 1]);
+						adjList.add(board[row][column - 1]);
 						break;
 					case RIGHT:
-						adjList.add(board[i][j + 1]);
+						adjList.add(board[row][column + 1]);
 						break;
 					case NONE:
 						break;
 					}
-				} else if (board[i][j].isWalkway()) {
-					if (i > 0 && board[i - 1][j].isWalkway()) {
-						adjList.add(board[i - 1][j]);
-					} else if (i > 0 && board[i - 1][j].isDoorway()) {
-						if (((RoomCell) board[i - 1][j]).getDoorDirection() == RoomCell.DoorDirection.DOWN)
-							adjList.add(board[i - 1][j]);
+				} else if (board[row][column].isWalkway()) {
+					if (row > 0 && board[row - 1][column].isWalkway()) {
+						adjList.add(board[row - 1][column]);
+					} else if (row > 0 && board[row - 1][column].isDoorway()) {
+						if (((RoomCell) board[row - 1][column]).getDoorDirection() == RoomCell.DoorDirection.DOWN)
+							adjList.add(board[row - 1][column]);
 					}
-					if (i < numRows - 1 && board[i + 1][j].isWalkway()) {
-						adjList.add(board[i + 1][j]);
-					} else if (i < numRows - 1 && board[i + 1][j].isDoorway()) {
-						if (((RoomCell) board[i + 1][j]).getDoorDirection() == RoomCell.DoorDirection.UP)
-							adjList.add(board[i + 1][j]);
+					if (row < numRows - 1 && board[row + 1][column].isWalkway()) {
+						adjList.add(board[row + 1][column]);
+					} else if (row < numRows - 1 && board[row + 1][column].isDoorway()) {
+						if (((RoomCell) board[row + 1][column]).getDoorDirection() == RoomCell.DoorDirection.UP)
+							adjList.add(board[row + 1][column]);
 					}
-					if (j > 0 && board[i][j - 1].isWalkway()) {
-						adjList.add(board[i][j - 1]);
-					} else if (j > 0 && board[i][j - 1].isDoorway()) {
-						if (((RoomCell) board[i][j - 1]).getDoorDirection() == RoomCell.DoorDirection.RIGHT)
-							adjList.add(board[i][j - 1]);
+					if (column > 0 && board[row][column - 1].isWalkway()) {
+						adjList.add(board[row][column - 1]);
+					} else if (column > 0 && board[row][column - 1].isDoorway()) {
+						if (((RoomCell) board[row][column - 1]).getDoorDirection() == RoomCell.DoorDirection.RIGHT)
+							adjList.add(board[row][column - 1]);
 					}
-					if (j < numColumns - 1 && board[i][j + 1].isWalkway()) {
-						adjList.add(board[i][j + 1]);
-					} else if (j < numColumns - 1 && board[i][j + 1].isDoorway()) {
-						if (((RoomCell) board[i][j + 1]).getDoorDirection() == RoomCell.DoorDirection.LEFT) {
-							adjList.add(board[i][j + 1]);
+					if (column < numColumns - 1 && board[row][column + 1].isWalkway()) {
+						adjList.add(board[row][column + 1]);
+					} else if (column < numColumns - 1 && board[row][column + 1].isDoorway()) {
+						if (((RoomCell) board[row][column + 1]).getDoorDirection() == RoomCell.DoorDirection.LEFT) {
+							adjList.add(board[row][column + 1]);
 						}
 					}
 				} else {
 					
 				}
-				adjMtx.put(board[i][j], adjList);
+				adjMtx.put(board[row][column], adjList);
 			}
 		}		
 	}
@@ -194,15 +194,15 @@ public class Board extends JPanel {
 			targetHelper(current.getRow(), current.getColumn(), steps);
 	}
 	
-	public void targetHelper(int i, int j, int steps) {
+	public void targetHelper(int row, int column, int steps) {
 		if (steps == 0) {
-			if (!targets.contains(board[i][j]))
-				targets.add(board[i][j]);
-		} else if (board[i][j].isDoorway() && board[i][j]!=current) {
-			if (!targets.contains(board[i][j]))
-				targets.add(board[i][j]);
+			if (!targets.contains(board[row][column]))
+				targets.add(board[row][column]);
+		} else if (board[row][column].isDoorway() && board[row][column]!=current) {
+			if (!targets.contains(board[row][column]))
+				targets.add(board[row][column]);
 		} else { 
-			LinkedList<BoardCell> nextList = adjMtx.get(board[i][j]);
+			LinkedList<BoardCell> nextList = adjMtx.get(board[row][column]);
 			for (BoardCell cell : nextList) {
 				if (!visited.contains(cell) && !cell.equals(current)) {
 					visited.add(cell);

@@ -13,8 +13,8 @@ public class RoomCell extends BoardCell {
 	private boolean isNameCell = false;
 	public static final int DOOR_WIDTH = 7;
 	
-	public RoomCell(int r, int c, String status) {
-		super(r, c);
+	public RoomCell(int row, int column, String status) {
+		super(row, column);
 		roomInitial = status.charAt(0);
 		if (status.length() == 1) {
 			doorDirection = DoorDirection.NONE;
