@@ -1,5 +1,10 @@
 package clueGame;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -10,10 +15,18 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 public class ClueGame extends JFrame {
 	private Map<Character, String> rooms;
@@ -33,6 +46,13 @@ public class ClueGame extends JFrame {
 	public static final int NUM_WEAPONS = 6;
 	public static final int NUM_PEOPLE = 6;
 	private DetectiveNotes dN;
+	private boolean isTurnOver;
+	private JTextField dieField;
+	private JTextField guessField;
+	private JTextField turnField;
+	private JTextField guessResultField;
+	private int currentPlayer = 0;
+	private static final int die = 5;
 	
 	public ClueGame() {
 		layoutFile = "ClueLayout.csv";
@@ -54,11 +74,16 @@ public class ClueGame extends JFrame {
 		players = new ArrayList<Player>();
 		deck = new ArrayList<Card>();
 		seen = new ArrayList<Card>();
-		add(theBoard);
+		isTurnOver = true;
+		
+		setLayout(new BorderLayout());
 		setSize(WINDOW_SIZE, WINDOW_SIZE);
+		add(theBoard, BorderLayout.CENTER);
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
+		
+		add(createControlPanel(), BorderLayout.SOUTH);
 	}
 	
 	public void loadRoomConfig() throws FileNotFoundException, BadConfigFormatException {
@@ -248,6 +273,154 @@ public class ClueGame extends JFrame {
 		}
 		item.addActionListener(new MenuItemListener());
 		return item;
+	}
+	
+	private JPanel createControlPanel() {
+		JPanel controlPanel = new JPanel();
+		//controlPanel.setPreferredSize(new Dimension(200, 800));
+		controlPanel.setLayout(new BorderLayout());
+		JPanel panel = createInfoPanel();
+		controlPanel.add(panel, BorderLayout.CENTER);
+		panel = createTopPanel();
+		controlPanel.add(panel, BorderLayout.NORTH);
+		
+		return controlPanel;
+	}
+
+	//Creates the bottom panel with the three information areas
+	private JPanel createInfoPanel() {
+		JPanel panel = new JPanel();
+
+		//panel.setLayout(new GridLayout(1, 3));
+		//panel.setPreferredSize(new Dimension (1000, 60));
+		
+		JPanel smallPanel = createDiePanel();
+		panel.add(smallPanel, BorderLayout.WEST);
+		
+		smallPanel = createGuessPanel();
+		panel.add(smallPanel, BorderLayout.CENTER);
+		
+		smallPanel = createResultPanel();
+		panel.add(smallPanel, BorderLayout.EAST);
+
+		return panel;
+	}
+	
+	//Creates top panel with turn panel and two buttons
+	private JPanel createTopPanel() {
+		JPanel panel = new JPanel();
+		//panel.setPreferredSize(new Dimension (1000, 120));
+		panel.setLayout(new GridLayout(1, 3));
+		
+		JPanel smallPanel = createTurnPanel();
+		panel.add(smallPanel);
+		
+		JButton next = new JButton("Next Player");
+		next.setForeground(Color.GRAY);
+		next.setFont(new Font("TimesRoman", Font.BOLD, 20));
+		next.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (isTurnOver) {
+					nextTurn();
+				} else {
+					//TODO display error message
+				}
+			} 
+		});
+
+		JButton accuse = new JButton("Make an Accusation");
+		accuse.setForeground(Color.GRAY);
+		accuse.setFont(new Font("TimesRoman", Font.BOLD, 20));
+		
+		panel.add(next);
+		panel.add(accuse);
+		
+		return panel;
+	}
+
+	//Created Die panel
+	private JPanel createDiePanel() {
+		JPanel panel = new JPanel();
+		panel.setPreferredSize(new Dimension (150, 50));
+		JLabel nameLabel = new JLabel("Roll");
+		dieField = new JTextField(20);
+		dieField.setEditable(false);
+		panel.setLayout(new GridLayout(1, 2));
+		panel.add(nameLabel);
+		panel.add(dieField);
+		panel.setBorder(new TitledBorder (new EtchedBorder(), "Die"));
+		return panel;
+	}
+	
+	//Creates Guess Panel
+	private JPanel createGuessPanel() {
+		JPanel panel = new JPanel();
+		//panel.setPreferredSize(new Dimension (450, 70));
+		JLabel nameLabel = new JLabel("Guess");
+		guessField = new JTextField(20);
+		guessField.setEditable(false);
+		panel.setLayout(new GridLayout(2, 1));
+		panel.add(nameLabel);
+		panel.add(guessField);
+		panel.setBorder(new TitledBorder (new EtchedBorder(), "Guess"));
+		return panel;
+	}
+	
+	//Creates Guess Result panel
+	private JPanel createResultPanel() {
+		JPanel panel = new JPanel();
+		panel.setPreferredSize(new Dimension (300, 50));
+		JLabel nameLabel = new JLabel("Response");
+		guessResultField = new JTextField(30);
+		guessResultField.setEditable(false);
+		panel.setLayout(new GridLayout(1, 2));
+		panel.add(nameLabel);
+		panel.add(guessResultField);
+		panel.setBorder(new TitledBorder (new EtchedBorder(), "GuessResult"));
+		return panel;
+	}
+	
+	//Creates whose turn panel
+	private JPanel createTurnPanel() {
+		JPanel panel = new JPanel();
+		JLabel nameLabel = new JLabel("Whose turn?", SwingConstants.CENTER);
+		nameLabel.setPreferredSize(new Dimension (100, 10));
+		turnField = new JTextField(20);
+		turnField.setEditable(false);
+		panel.add(nameLabel);
+		panel.add(turnField);
+		return panel;
+	}
+	
+	private void nextTurn() {
+		isTurnOver = false;
+		System.out.println(currentPlayer);
+		if (currentPlayer == 0) {
+			humanTurn();
+		} else {
+			computerTurn();
+		}
+		currentPlayer = ++currentPlayer % players.size();
+		isTurnOver = true;
+	}
+	
+	private void humanTurn() {
+		
+	}
+	
+	private void computerTurn() {
+		ComputerPlayer player = (ComputerPlayer) players.get(currentPlayer);
+		theBoard.calcTargets(player.getRow(), player.getCol(), roll());
+		BoardCell cell = player.pickLocation(theBoard.getTargets());
+		player.setRow(cell.getRow());
+		player.setCol(cell.getColumn());
+		theBoard.repaint();
+	}
+	
+	private int roll() {
+		int roll = (int) (Math.random() * die + 1);
+		dieField.setText("" + roll);
+		return roll;
 	}
 	
 	public static void main(String[] args) {
