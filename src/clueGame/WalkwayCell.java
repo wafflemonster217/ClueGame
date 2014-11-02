@@ -21,4 +21,12 @@ public class WalkwayCell extends BoardCell {
 		g.setColor(Color.BLACK);
 		g.drawRect(ClueGame.CELL_SIZE * column, ClueGame.CELL_SIZE * row, ClueGame.CELL_SIZE, ClueGame.CELL_SIZE);
 	}
+	
+	@Override
+	public void drawAsTarget(Graphics g, Board board) {
+		g.setColor(Color.PINK);
+		g.fillRect(ClueGame.CELL_SIZE * column, ClueGame.CELL_SIZE * row, ClueGame.CELL_SIZE, ClueGame.CELL_SIZE);
+		g.setColor(Color.BLACK);
+		g.drawRect(ClueGame.CELL_SIZE * column, ClueGame.CELL_SIZE * row, ClueGame.CELL_SIZE, ClueGame.CELL_SIZE);
+	}
 }

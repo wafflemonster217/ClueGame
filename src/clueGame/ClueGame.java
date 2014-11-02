@@ -46,7 +46,7 @@ public class ClueGame extends JFrame {
 	public static final int NUM_WEAPONS = 6;
 	public static final int NUM_PEOPLE = 6;
 	private DetectiveNotes dN;
-	private boolean isTurnOver;
+	static boolean isTurnOver;
 	private JTextField dieField;
 	private JTextField guessField;
 	private JTextField turnField;
@@ -394,18 +394,20 @@ public class ClueGame extends JFrame {
 	
 	private void nextTurn() {
 		isTurnOver = false;
-		System.out.println(currentPlayer);
+		turnField.setText(players.get(currentPlayer).getName());
 		if (currentPlayer == 0) {
-			humanTurn();
+			startHumanTurn();
 		} else {
 			computerTurn();
 		}
 		currentPlayer = ++currentPlayer % players.size();
-		isTurnOver = true;
 	}
 	
-	private void humanTurn() {
-		
+	private void startHumanTurn() {
+		HumanPlayer player = (HumanPlayer) players.get(currentPlayer);
+		theBoard.calcTargets(player.getRow(), player.getCol(), roll());
+		theBoard.drawTargets();
+		theBoard.repaint();
 	}
 	
 	private void computerTurn() {
@@ -415,6 +417,7 @@ public class ClueGame extends JFrame {
 		player.setRow(cell.getRow());
 		player.setCol(cell.getColumn());
 		theBoard.repaint();
+		isTurnOver = true;
 	}
 	
 	private int roll() {

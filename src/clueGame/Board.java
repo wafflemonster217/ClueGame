@@ -1,6 +1,8 @@
 package clueGame;
 
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ import javax.swing.JPanel;
 //import clue.BoardCell;
 //import clue.IntBoard;
 
-public class Board extends JPanel {
+public class Board extends JPanel implements MouseListener {
 
 	private Map<BoardCell, LinkedList<BoardCell>> adjMtx;
 	private Set<BoardCell> targets;
@@ -29,10 +31,12 @@ public class Board extends JPanel {
 	
 	private int numRows;
 	private int numColumns;
+	private boolean drawTargets = false;
 
 	public Board(String layoutFile) {
 		this.layoutFile = layoutFile;
 		targets = new HashSet<BoardCell>();
+		addMouseListener(this);
 	}
 		
 	public void loadBoardConfig() throws BadConfigFormatException, FileNotFoundException {
@@ -231,7 +235,11 @@ public class Board extends JPanel {
 		super.paintComponent(g);
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numColumns; col++) {
-				board[row][col].draw(g, this);
+				if(drawTargets && targets.contains(getCellAt(row, col))) {
+					board[row][col].drawAsTarget(g, this);
+				} else {
+					board[row][col].draw(g, this);
+				}
 			}
 		}
 		
@@ -239,4 +247,31 @@ public class Board extends JPanel {
 			player.draw(g);
 		}
 	}	
+	
+	public void drawTargets() {
+		this.drawTargets = true;
+	}
+
+	// Must implement all mouse listener events with at least an empty method
+	public void mousePressed(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e)  {
+		BoardCell whichCell = null;
+		for (BoardCell cell : targets) {
+			if (cell.containsClick(e.getX(), e.getY())) {
+				whichCell = cell;
+				break;
+			}
+		}
+		// display some information just to show whether a box was clicked
+		if (whichCell != null) {
+			players.get(0).setRow(whichCell.getRow());
+			players.get(0).setCol(whichCell.getColumn());
+			this.drawTargets = false;
+			this.repaint();
+			ClueGame.isTurnOver = true;
+		}
+	}
 }
