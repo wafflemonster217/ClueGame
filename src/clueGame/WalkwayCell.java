@@ -5,8 +5,8 @@ import java.awt.Graphics;
 
 public class WalkwayCell extends BoardCell {
 	
-	public WalkwayCell(int r, int c) {
-		super(r, c);
+	public WalkwayCell(int row, int col) {
+		super(row, col);
 	}
 
 	@Override
@@ -22,5 +22,11 @@ public class WalkwayCell extends BoardCell {
 		g.drawRect(ClueGame.CELL_SIZE * column, ClueGame.CELL_SIZE * row, ClueGame.CELL_SIZE, ClueGame.CELL_SIZE);
 	}
 	
-	
+	@Override
+	public void drawAsTarget(Graphics g, Board board) {
+		g.setColor(Color.PINK);
+		g.fillRect(ClueGame.CELL_SIZE * column, ClueGame.CELL_SIZE * row, ClueGame.CELL_SIZE, ClueGame.CELL_SIZE);
+		g.setColor(Color.BLACK);
+		g.drawRect(ClueGame.CELL_SIZE * column, ClueGame.CELL_SIZE * row, ClueGame.CELL_SIZE, ClueGame.CELL_SIZE);
+	}
 }

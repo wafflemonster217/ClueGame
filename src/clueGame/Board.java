@@ -1,6 +1,8 @@
 package clueGame;
 
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ import javax.swing.JPanel;
 //import clue.BoardCell;
 //import clue.IntBoard;
 
-public class Board extends JPanel {
+public class Board extends JPanel implements MouseListener {
 
 	private Map<BoardCell, LinkedList<BoardCell>> adjMtx;
 	private Set<BoardCell> targets;
@@ -25,56 +27,59 @@ public class Board extends JPanel {
 	private ArrayList<Player> players;
 	private String layoutFile;
 	private BoardCell[][] board;
-	private Map<Character,String> rooms;
+
+	private Map<Character, String> rooms;
 	
-	int numRows;
-	int numColumns;
+	private int numRows;
+	private int numColumns;
+	private boolean drawTargets = false;
 
 	public Board(String layoutFile) {
 		this.layoutFile = layoutFile;
 		targets = new HashSet<BoardCell>();
+		addMouseListener(this);
 	}
 		
 	public void loadBoardConfig() throws BadConfigFormatException, FileNotFoundException {
 		
 		ArrayList<ArrayList<String>> tempBoard = new ArrayList<ArrayList<String>>();
-		Scanner boardRead = new Scanner( new FileReader(layoutFile));
+		Scanner boardRead = new Scanner(new FileReader(layoutFile));
 		
 		numRows = 0;
-		while(boardRead.hasNextLine()) {
+		while (boardRead.hasNextLine()) {
 			
 			tempBoard.add(new ArrayList<String>());
 			String readLine = boardRead.nextLine();
 			String[] letters = readLine.split(",");
 			
-			for(int i = 0; i < letters.length; i++)
+			for (int i = 0; i < letters.length; i++) {
 				tempBoard.get(numRows).add(letters[i]);
+			}
 		
-			if(numColumns != 0 && numColumns != letters.length){
+			if (numColumns != 0 && numColumns != letters.length) {
 				boardRead.close();
 				throw new BadConfigFormatException("Row lengths are inconsistant in layout config file.");
 			} else {
 				numColumns = letters.length;
 			}
-			
 			numRows++;
 		}
 		boardRead.close();
 		
 		board = new BoardCell[numRows][numColumns];
 		
-		for(int i = 0; i < numRows; i++) {
-			for(int j = 0; j < numColumns; j++) {
-				if(i > tempBoard.size())
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numColumns; j++) {
+				if (i > tempBoard.size())
 					throw new BadConfigFormatException("Temp board row count doesn't match config file");
 				
-				if(j > tempBoard.get(0).size())
+				if (j > tempBoard.get(0).size())
 					throw new BadConfigFormatException("Temp board column count doesn't match config file");
 				
-				if(!rooms.containsKey(tempBoard.get(i).get(j).charAt(0)))
+				if (!rooms.containsKey(tempBoard.get(i).get(j).charAt(0)))
 					throw new BadConfigFormatException("Found undefined key in layout file");
 				
-				switch(tempBoard.get(i).get(j)) {
+				switch (tempBoard.get(i).get(j)) {
 				case "W":
 					board[i][j] = new WalkwayCell(i, j);
 					break;
@@ -89,9 +94,9 @@ public class Board extends JPanel {
 	}
 
 	
-	public void setRooms(Map<Character,String> inRooms) throws BadConfigFormatException {
-		rooms = new HashMap<Character,String>();
-		if(inRooms == null)
+	public void setRooms(Map<Character, String> inRooms) throws BadConfigFormatException {
+		rooms = new HashMap<Character, String>();
+		if (inRooms == null)
 			throw new BadConfigFormatException();
 		else
 			rooms = inRooms;
@@ -105,112 +110,112 @@ public class Board extends JPanel {
 		return rooms;
 	}
 
+	// Dev only
 	public int getNumRows() {
 		return numRows;
 	}
 
+	// Dev only
 	public int getNumColumns() {
 		return numColumns;
 	}
 	
+	// Dev only
 	public RoomCell getRoomCellAt(int r, int c) {
 		return (RoomCell) board[r][c];
 	}
 	
+	// Dev only
 	public BoardCell getCellAt(int r, int c) {
 		return board[r][c];
 	}
 	
-
+	// Dev only
 	public WalkwayCell getWalkwayCellAt(int r, int c) {
 		return (WalkwayCell) board[r][c];
 	}
 
 	public void calcAdjacencies() {
 		adjMtx = new HashMap<BoardCell, LinkedList<BoardCell>>();
-		for(int i=0;i<numRows;i++) {
-			for(int j=0;j<numColumns;j++) {
+		for (int row = 0; row < numRows; row++) {
+			for (int column = 0; column < numColumns; column++) {
 				LinkedList<BoardCell> adjList = new LinkedList<BoardCell>();
-				if(board[i][j].isDoorway()){
-					switch(((RoomCell) board[i][j]).getDoorDirection()) {
+				if (board[row][column].isDoorway()) {
+					switch (((RoomCell) board[row][column]).getDoorDirection()) {
 					case UP:
-						adjList.add(board[i-1][j]);
+						adjList.add(board[row - 1][column]);
 						break;
 					case DOWN:
-						adjList.add(board[i+1][j]);
+						adjList.add(board[row + 1][column]);
 						break;
 					case LEFT:
-						adjList.add(board[i][j-1]);
+						adjList.add(board[row][column - 1]);
 						break;
 					case RIGHT:
-						adjList.add(board[i][j+1]);
+						adjList.add(board[row][column + 1]);
 						break;
 					case NONE:
 						break;
 					}
-				} else if (board[i][j].isWalkway()) {
-					if(i>0 && board[i-1][j].isWalkway()){
-						adjList.add(board[i-1][j]);
-					} else if (i>0 && board[i-1][j].isDoorway()){
-						if( ((RoomCell) board[i-1][j]).getDoorDirection()==RoomCell.DoorDirection.DOWN)
-							adjList.add(board[i-1][j]);
+				} else if (board[row][column].isWalkway()) {
+					if (row > 0 && board[row - 1][column].isWalkway()) {
+						adjList.add(board[row - 1][column]);
+					} else if (row > 0 && board[row - 1][column].isDoorway()) {
+						if (((RoomCell) board[row - 1][column]).getDoorDirection() == RoomCell.DoorDirection.DOWN)
+							adjList.add(board[row - 1][column]);
 					}
-					if(i<numRows-1 && board[i+1][j].isWalkway()){
-						adjList.add(board[i+1][j]);
-					} else if (i<numRows-1 && board[i+1][j].isDoorway()){
-						if( ((RoomCell) board[i+1][j]).getDoorDirection()==RoomCell.DoorDirection.UP)
-							adjList.add(board[i+1][j]);
+					if (row < numRows - 1 && board[row + 1][column].isWalkway()) {
+						adjList.add(board[row + 1][column]);
+					} else if (row < numRows - 1 && board[row + 1][column].isDoorway()) {
+						if (((RoomCell) board[row + 1][column]).getDoorDirection() == RoomCell.DoorDirection.UP)
+							adjList.add(board[row + 1][column]);
 					}
-					if(j>0 && board[i][j-1].isWalkway()){
-						adjList.add(board[i][j-1]);
-					} else if (j>0 && board[i][j-1].isDoorway()){
-						if( ((RoomCell) board[i][j-1]).getDoorDirection()==RoomCell.DoorDirection.RIGHT)
-							adjList.add(board[i][j-1]);
+					if (column > 0 && board[row][column - 1].isWalkway()) {
+						adjList.add(board[row][column - 1]);
+					} else if (column > 0 && board[row][column - 1].isDoorway()) {
+						if (((RoomCell) board[row][column - 1]).getDoorDirection() == RoomCell.DoorDirection.RIGHT)
+							adjList.add(board[row][column - 1]);
 					}
-					if(j<numColumns-1 && board[i][j+1].isWalkway()){
-						adjList.add(board[i][j+1]);
-					} else if (j<numColumns-1 && board[i][j+1].isDoorway()){
-						if( ((RoomCell) board[i][j+1]).getDoorDirection()==RoomCell.DoorDirection.LEFT) {
-							adjList.add(board[i][j+1]);
+					if (column < numColumns - 1 && board[row][column + 1].isWalkway()) {
+						adjList.add(board[row][column + 1]);
+					} else if (column < numColumns - 1 && board[row][column + 1].isDoorway()) {
+						if (((RoomCell) board[row][column + 1]).getDoorDirection() == RoomCell.DoorDirection.LEFT) {
+							adjList.add(board[row][column + 1]);
 						}
 					}
 				} else {
 					
 				}
-				adjMtx.put(board[i][j], adjList);
+				adjMtx.put(board[row][column], adjList);
 			}
-		}
-				
+		}		
 	}
 	
-	public void calcTargets(int i, int j, int steps) {
+	public void calcTargets(int row, int col, int steps) {
 		targets.clear();
-		current = board[i][j];
+		current = board[row][col];
 		visited = new ArrayList<BoardCell>();
-		if(steps > 0 )
+		if (steps > 0)
 			targetHelper(current.getRow(), current.getColumn(), steps);
-
 	}
 	
-	public void targetHelper(int i, int j, int steps) {
-		if(steps == 0) {
-			if (!targets.contains(board[i][j]))
-				targets.add(board[i][j]);
-		} else if(board[i][j].isDoorway() && board[i][j]!=current) {
-			if (!targets.contains(board[i][j]))
-				targets.add(board[i][j]);
+	public void targetHelper(int row, int column, int steps) {
+		if (steps == 0) {
+			if (!targets.contains(board[row][column]))
+				targets.add(board[row][column]);
+		} else if (board[row][column].isDoorway() && board[row][column]!=current) {
+			if (!targets.contains(board[row][column]))
+				targets.add(board[row][column]);
 		} else { 
-			LinkedList<BoardCell> nextList = adjMtx.get(board[i][j]);
-			for(BoardCell e : nextList) {
-				if(!visited.contains(e) && !e.equals(current)){
-					visited.add(e);
-					targetHelper(e.getRow(),e.getColumn(),steps-1);
+			LinkedList<BoardCell> nextList = adjMtx.get(board[row][column]);
+			for (BoardCell cell : nextList) {
+				if (!visited.contains(cell) && !cell.equals(current)) {
+					visited.add(cell);
+					targetHelper(cell.getRow(), cell.getColumn(), steps - 1);
 				}
-				visited.remove(e);
+				visited.remove(cell);
 			}
 		}
-		
-		
 	}
 	
 	public Set<BoardCell> getTargets() {
@@ -229,17 +234,45 @@ public class Board extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for(int row = 0; row < numRows; row++)
-			for(int col = 0; col < numColumns; col++)
-				board[row][col].draw(g, this);
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numColumns; col++) {
+				if(drawTargets && targets.contains(getCellAt(row, col))) {
+					board[row][col].drawAsTarget(g, this);
+				} else {
+					board[row][col].draw(g, this);
+				}
+			}
+		}
 		
-		for(Player player : players) {
+		for (Player player : players) {
 			player.draw(g);
 		}
+	}	
+	
+	public void drawTargets() {
+		this.drawTargets = true;
 	}
-	
-	
 
-
-	
+	// Must implement all mouse listener events with at least an empty method
+	public void mousePressed(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e)  {
+		BoardCell whichCell = null;
+		for (BoardCell cell : targets) {
+			if (cell.containsClick(e.getX(), e.getY())) {
+				whichCell = cell;
+				break;
+			}
+		}
+		// display some information just to show whether a box was clicked
+		if (whichCell != null) {
+			players.get(0).setRow(whichCell.getRow());
+			players.get(0).setCol(whichCell.getColumn());
+			this.drawTargets = false;
+			this.repaint();
+			ClueGame.isTurnOver = true;
+		}
+	}
 }

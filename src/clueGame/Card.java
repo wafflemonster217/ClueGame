@@ -9,6 +9,7 @@ public class Card {
 		this.type = type;
 	}
 	
+	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof Card)) {
 			return false;	
