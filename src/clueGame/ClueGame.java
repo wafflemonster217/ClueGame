@@ -2,9 +2,12 @@ package clueGame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -21,6 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -67,12 +71,13 @@ public class ClueGame extends JFrame {
 	}
 	
 	private void commonCtor() {
-		rooms = new HashMap<Character, String>();
 		playerConfigFile = "CluePlayers.txt";
 		deckConfigFile = "Deck.txt";
 		theBoard = new Board(layoutFile);
-		players = new ArrayList<Player>();
+		
+		rooms = new HashMap<Character, String>();
 		deck = new ArrayList<Card>();
+		players = new ArrayList<Player>();
 		seen = new ArrayList<Card>();
 		isTurnOver = true;
 		
@@ -83,10 +88,12 @@ public class ClueGame extends JFrame {
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
 		
+		add(createMyCardsPanel(), BorderLayout.EAST);
 		add(createControlPanel(), BorderLayout.SOUTH);
 	}
 	
 	public void loadRoomConfig() throws FileNotFoundException, BadConfigFormatException {
+		
 		String line;
 		String[] splitLine;
 		Character tempKey;
@@ -111,7 +118,7 @@ public class ClueGame extends JFrame {
 			tempValue = splitLine[1];
 
 			tempValue = tempValue.trim();
-			rooms.put(tempKey, tempValue);				
+			rooms.put(tempKey, tempValue);
 		}
 
 		scan.close();
@@ -119,6 +126,7 @@ public class ClueGame extends JFrame {
 	}
 	
 	public void loadDeckConfig() throws FileNotFoundException, BadConfigFormatException {
+		
 		String line;
 
 		Scanner scan = new Scanner(new FileReader(deckConfigFile));
@@ -143,6 +151,7 @@ public class ClueGame extends JFrame {
 	}
 	
 	public void loadPlayerConfig() throws FileNotFoundException, BadConfigFormatException {
+		
 		String line;
 		String[] splitLine;
 
@@ -287,6 +296,33 @@ public class ClueGame extends JFrame {
 		return controlPanel;
 	}
 
+	//Creates the panel to the right where player cards are displayed
+	private JPanel createMyCardsPanel() {
+		JPanel panel = new JPanel();
+		
+		panel.add(new JLabel("My Cards"));
+		panel.setLayout(new GridLayout(4, 1));
+		panel.setSize(new Dimension(100, 200));
+		JPanel peoplePanel = new JPanel();
+		JPanel roomsPanel = new JPanel();
+		JPanel weaponsPanel = new JPanel();
+		peoplePanel.setBorder(new TitledBorder(new EtchedBorder(), "People"));
+		peoplePanel.setPreferredSize(new Dimension(100, 50));
+		peoplePanel.add(new JTextField(20));
+		roomsPanel.setBorder(new TitledBorder(new EtchedBorder(), "Weapons"));
+		roomsPanel.setPreferredSize(new Dimension(100, 50));
+		roomsPanel.add(new JTextField(20));
+		weaponsPanel.setBorder(new TitledBorder(new EtchedBorder(), "Rooms"));
+		weaponsPanel.setPreferredSize(new Dimension(100, 50));
+		weaponsPanel.add(new JTextField(20));
+		
+		
+		panel.add(peoplePanel);
+		panel.add(roomsPanel);
+		panel.add(weaponsPanel);
+		return panel;
+	}
+	
 	//Creates the bottom panel with the three information areas
 	private JPanel createInfoPanel() {
 		JPanel panel = new JPanel();
@@ -337,6 +373,7 @@ public class ClueGame extends JFrame {
 		
 		return panel;
 	}
+	
 
 	//Created Die panel
 	private JPanel createDiePanel() {
@@ -435,11 +472,14 @@ public class ClueGame extends JFrame {
 		
 		game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		game.setVisible(true);
+		
 
 		board.setPlayers(game.getPlayers());
 		board.repaint();
 		
 		game.setNotes(new DetectiveNotes(game.getDeck()));
 		game.getNotes().setVisible(false);
+		
+		JOptionPane.showMessageDialog(game, "You are " + game.getPlayers().get(0).getName() + ", press Next Player to begin play ^_^", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 	}
 }
