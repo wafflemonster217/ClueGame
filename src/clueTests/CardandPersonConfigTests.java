@@ -119,6 +119,13 @@ public class CardandPersonConfigTests {
 					allCards.add(card);
 				}
 			}
+
+			for (Card card : deck) {
+				if (card.name.equals(game.getSolution().person) || card.name.equals(game.getSolution().weapon) || card.name.equals(game.getSolution().room)){
+					allCards.add(card);
+					numDealt++;
+				}
+			}
 			
 			//Checks that every card was dealt
 			for(Card card : deck) {
@@ -133,11 +140,19 @@ public class CardandPersonConfigTests {
 		public void noDuplicatesTest() {
 			ArrayList<Player> players = game.getPlayers();
 			HashSet<Card> allCards = new HashSet<Card>();
+			ArrayList<Card> deck = game.getDeck();
 			for(Player player : players) {
 				for(Card card : player.getHand()) {
 					allCards.add(card);
 				}
 			}
+			
+			for (Card card : deck) {
+				if (card.name.equals(game.getSolution().person) || card.name.equals(game.getSolution().weapon) || card.name.equals(game.getSolution().room)){
+					allCards.add(card);
+				}
+			}
+			
 			//The set can't contain duplicates so if the size is still 21, there are no duplicates
 			assertEquals(allCards.size(), 21);
 		}
@@ -146,10 +161,11 @@ public class CardandPersonConfigTests {
 		public void playersHaveSameNumCardsTest() {
 			ArrayList<Player> players = game.getPlayers();
 			ArrayList<Card> deck = game.getDeck();
-			double amountCards = deck.size() / players.size();
+			double amountCards = deck.size() / ( players.size() + 1);
 			for(Player player : players) {
+				System.out.println(player.getHand().size());
 				// shows the number of cards in the hand is equal to average num cards plus or minus 1
-				assertEquals(amountCards, player.getHand().size(), 1);
+				assertEquals(amountCards, player.getHand().size(), .5);
 			}
 		}
 		

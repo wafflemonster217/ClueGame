@@ -2,12 +2,9 @@ package clueGame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -26,7 +23,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
@@ -58,6 +55,10 @@ public class ClueGame extends JFrame {
 	private int currentPlayer = 0;
 	private static final int die = 5;
 	
+	private JTextArea humanPlayerCard;
+	private JTextArea humanWeaponCard;
+	private JTextArea humanRoomCard;
+	
 	public ClueGame() {
 		layoutFile = "ClueLayout.csv";
 		configFile = "ClueLegend.txt";
@@ -88,7 +89,7 @@ public class ClueGame extends JFrame {
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
 		
-		add(createMyCardsPanel(), BorderLayout.EAST);
+		add(createMyCardPanel(), BorderLayout.EAST);
 		add(createControlPanel(), BorderLayout.SOUTH);
 	}
 	
@@ -191,14 +192,66 @@ public class ClueGame extends JFrame {
 	}
 	
 	public void deal() {
+		solution = new Solution();
+		// temporary
+		String player = "",
+				weapon = "",
+				room = "";
+		
 		HashSet<Integer> dealt = new HashSet<Integer>();
 		int random = (int) (Math.random() * deck.size());
+		int currentPlayer = 0;
 		for (int i = 0; i < deck.size(); i++) {
 			while (dealt.contains(random)) {
 				random = (int) (Math.random() * deck.size());
 			}
-			dealt.add(random);
-			players.get(i % players.size()).dealCard(deck.get(random));
+			
+			switch (deck.get(random).type) {
+			case PERSON:
+				if (solution.person == null) {
+					solution.person = deck.get(random).name;
+					dealt.add(random);
+				}
+				break;
+			case WEAPON:
+				if (solution.weapon == null) {
+					solution.weapon = deck.get(random).name;
+					dealt.add(random);
+				}
+				break;
+			case ROOM:
+				if (solution.room == null) {
+					solution.room = deck.get(random).name;
+					dealt.add(random);
+				}
+				break;
+				default:
+					break;
+			}
+			if (!dealt.contains(random)) {
+				dealt.add(random);
+				if (currentPlayer % players.size() == 0) {
+					switch (deck.get(random).type) {
+					case PERSON:
+						player += deck.get(random).name + "\n";
+						break;
+					case WEAPON:
+						weapon += deck.get(random).name + "\n";
+						break;
+					case ROOM:
+						room += deck.get(random).name + "\n";
+						break;
+					default:
+						break;
+					}
+				}
+				players.get(currentPlayer % players.size()).dealCard(deck.get(random));
+				currentPlayer++;
+			}
+			
+			humanPlayerCard.setText(player);
+			humanWeaponCard.setText(weapon);
+			humanRoomCard.setText(room);
 		}
 	}
 	
@@ -297,29 +350,34 @@ public class ClueGame extends JFrame {
 	}
 
 	//Creates the panel to the right where player cards are displayed
-	private JPanel createMyCardsPanel() {
+	private JPanel createMyCardPanel() {
 		JPanel panel = new JPanel();
 		
 		panel.add(new JLabel("My Cards"));
 		panel.setLayout(new GridLayout(4, 1));
 		panel.setSize(new Dimension(100, 200));
-		JPanel peoplePanel = new JPanel();
-		JPanel roomsPanel = new JPanel();
-		JPanel weaponsPanel = new JPanel();
-		peoplePanel.setBorder(new TitledBorder(new EtchedBorder(), "People"));
-		peoplePanel.setPreferredSize(new Dimension(100, 50));
-		peoplePanel.add(new JTextField(20));
-		roomsPanel.setBorder(new TitledBorder(new EtchedBorder(), "Weapons"));
-		roomsPanel.setPreferredSize(new Dimension(100, 50));
-		roomsPanel.add(new JTextField(20));
-		weaponsPanel.setBorder(new TitledBorder(new EtchedBorder(), "Rooms"));
-		weaponsPanel.setPreferredSize(new Dimension(100, 50));
-		weaponsPanel.add(new JTextField(20));
+		
+		humanPlayerCard = new JTextArea();
+		humanRoomCard = new JTextArea();
+		humanWeaponCard = new JTextArea();
 		
 		
-		panel.add(peoplePanel);
-		panel.add(roomsPanel);
-		panel.add(weaponsPanel);
+		panel.add(createMyCardPanel("Players", humanPlayerCard));
+		panel.add(createMyCardPanel("Rooms", humanRoomCard));
+		panel.add(createMyCardPanel("Weapons", humanWeaponCard));
+		return panel;
+	}
+	
+	private JPanel createMyCardPanel(String title, JTextArea textField) {
+		JPanel panel = new JPanel();
+		
+		textField.setEditable(false);
+		
+		textField.setBackground(null);
+		
+		panel.setBorder(new TitledBorder(new EtchedBorder(), title));
+		panel.setPreferredSize(new Dimension(150, 50));
+		panel.add(textField);
 		return panel;
 	}
 	
@@ -461,6 +519,11 @@ public class ClueGame extends JFrame {
 		int roll = (int) (Math.random() * die + 1);
 		dieField.setText("" + roll);
 		return roll;
+	}
+	
+	//DEV only
+	public Solution getSolution() {
+		return solution;
 	}
 	
 	public static void main(String[] args) {

@@ -11,6 +11,12 @@ public class Solution {
 		this.room = room;
 	}
 	
+	public Solution() {
+		person = null;
+		weapon = null;
+		room = null;
+	}
+	
 	public boolean equals(Object obj) {
 		if (!(obj instanceof Solution)) {
 			return false;	
