@@ -27,11 +27,8 @@ public class Board extends JPanel {
 	private BoardCell[][] board;
 	private Map<Character,String> rooms;
 	
-	
 	int numRows;
 	int numColumns;
-	
-	
 
 	public Board(String layoutFile) {
 		this.layoutFile = layoutFile;
