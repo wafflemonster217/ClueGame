@@ -339,10 +339,9 @@ public class ClueGame extends JFrame {
 	
 	private JPanel createControlPanel() {
 		JPanel controlPanel = new JPanel();
-		//controlPanel.setPreferredSize(new Dimension(200, 800));
 		controlPanel.setLayout(new BorderLayout());
 		JPanel panel = createInfoPanel();
-		controlPanel.add(panel, BorderLayout.CENTER);
+		controlPanel.add(panel, BorderLayout.SOUTH);
 		panel = createTopPanel();
 		controlPanel.add(panel, BorderLayout.NORTH);
 		
@@ -479,7 +478,7 @@ public class ClueGame extends JFrame {
 	private JPanel createTurnPanel() {
 		JPanel panel = new JPanel();
 		JLabel nameLabel = new JLabel("Whose turn?", SwingConstants.CENTER);
-		nameLabel.setPreferredSize(new Dimension (100, 10));
+		nameLabel.setSize(new Dimension (100, 10));
 		turnField = new JTextField(20);
 		turnField.setEditable(false);
 		panel.add(nameLabel);
