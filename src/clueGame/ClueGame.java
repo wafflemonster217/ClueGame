@@ -84,12 +84,19 @@ public class ClueGame extends JFrame {
 		
 		setLayout(new BorderLayout());
 		setSize(WINDOW_SIZE, WINDOW_SIZE);
-		add(theBoard, BorderLayout.CENTER);
+		//add(theBoard, BorderLayout.CENTER);
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
 		
-		add(createMyCardPanel(), BorderLayout.EAST);
+		JPanel boardAndCards = new JPanel();
+		JPanel theBoardWrapper = new JPanel();
+		theBoardWrapper.setLayout(new BorderLayout());
+		theBoardWrapper.add(theBoard, BorderLayout.CENTER);
+		theBoardWrapper.setPreferredSize(new Dimension(575, 575));
+		boardAndCards.add(theBoardWrapper);
+		boardAndCards.add(createMyCardPanel());
+		add(boardAndCards);
 		add(createControlPanel(), BorderLayout.SOUTH);
 	}
 	
@@ -339,11 +346,13 @@ public class ClueGame extends JFrame {
 	
 	private JPanel createControlPanel() {
 		JPanel controlPanel = new JPanel();
-		controlPanel.setLayout(new BorderLayout());
+		
+		
+		controlPanel.setLayout(new BorderLayout(0, 5));
 		JPanel panel = createInfoPanel();
+		controlPanel.add(createTopPanel(), BorderLayout.NORTH);
 		controlPanel.add(panel, BorderLayout.SOUTH);
-		panel = createTopPanel();
-		controlPanel.add(panel, BorderLayout.NORTH);
+		
 		
 		return controlPanel;
 	}
@@ -354,7 +363,7 @@ public class ClueGame extends JFrame {
 		
 		panel.add(new JLabel("My Cards"));
 		panel.setLayout(new GridLayout(4, 1));
-		panel.setSize(new Dimension(100, 200));
+		panel.setPreferredSize(new Dimension(100, 300));
 		
 		humanPlayerCard = new JTextArea();
 		humanRoomCard = new JTextArea();
@@ -383,9 +392,6 @@ public class ClueGame extends JFrame {
 	//Creates the bottom panel with the three information areas
 	private JPanel createInfoPanel() {
 		JPanel panel = new JPanel();
-
-		//panel.setLayout(new GridLayout(1, 3));
-		//panel.setPreferredSize(new Dimension (1000, 60));
 		
 		JPanel smallPanel = createDiePanel();
 		panel.add(smallPanel, BorderLayout.WEST);
@@ -402,7 +408,6 @@ public class ClueGame extends JFrame {
 	//Creates top panel with turn panel and two buttons
 	private JPanel createTopPanel() {
 		JPanel panel = new JPanel();
-		//panel.setPreferredSize(new Dimension (1000, 120));
 		panel.setLayout(new GridLayout(1, 3));
 		
 		JPanel smallPanel = createTurnPanel();
@@ -449,7 +454,6 @@ public class ClueGame extends JFrame {
 	//Creates Guess Panel
 	private JPanel createGuessPanel() {
 		JPanel panel = new JPanel();
-		//panel.setPreferredSize(new Dimension (450, 70));
 		JLabel nameLabel = new JLabel("Guess");
 		guessField = new JTextField(20);
 		guessField.setEditable(false);
@@ -477,8 +481,9 @@ public class ClueGame extends JFrame {
 	//Creates whose turn panel
 	private JPanel createTurnPanel() {
 		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(1, 2));
+		panel.setBorder(new EtchedBorder());
 		JLabel nameLabel = new JLabel("Whose turn?", SwingConstants.CENTER);
-		nameLabel.setSize(new Dimension (100, 10));
 		turnField = new JTextField(20);
 		turnField.setEditable(false);
 		panel.add(nameLabel);
