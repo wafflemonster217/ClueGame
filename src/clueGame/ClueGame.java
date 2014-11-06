@@ -93,7 +93,7 @@ public class ClueGame extends JFrame {
 		JPanel theBoardWrapper = new JPanel();
 		theBoardWrapper.setLayout(new BorderLayout());
 		theBoardWrapper.add(theBoard, BorderLayout.CENTER);
-		theBoardWrapper.setPreferredSize(new Dimension(575, 575));
+		theBoardWrapper.setPreferredSize(new Dimension(575, 600));
 		boardAndCards.add(theBoardWrapper);
 		boardAndCards.add(createMyCardPanel());
 		add(boardAndCards);
