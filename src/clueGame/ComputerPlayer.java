@@ -9,8 +9,6 @@ public class ComputerPlayer extends Player {
 		super(name, color, row, col);
 	}
 
-	private char lastRoomVisited;
-
 	public BoardCell pickLocation(Set<BoardCell> targets) {
 		ArrayList<BoardCell> roomCells = new ArrayList<BoardCell>();
 		for (BoardCell cell : targets) {
@@ -48,7 +46,7 @@ public class ComputerPlayer extends Player {
 		String room = null;
 		String weapon = null;
 		
-		while (person == null && weapon == null) {
+		while (person == null || weapon == null) {
 			Card card = deck.get(random);
 			if (person == null && card.type == CardType.PERSON) {
 				if (!seen.contains(card) && !hand.contains(card))
@@ -62,13 +60,5 @@ public class ComputerPlayer extends Player {
 
 		room = legend.get(lastRoomVisited);
 		return new Solution(person, weapon, room);
-	}
-
-	public char getLastRoomVisited() {
-		return lastRoomVisited;
-	}
-
-	public void setLastRoomVisited(char lastRoomVisited) {
-		this.lastRoomVisited = lastRoomVisited;
 	}
 }

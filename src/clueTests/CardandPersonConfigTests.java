@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -29,8 +30,8 @@ public class CardandPersonConfigTests {
 		private static Board board;
 		private LinkedList<BoardCell> adjList;
 
-		@BeforeClass
-		public static void setup() {
+		@Before
+		public void setup() {
 			game = new ClueGame("ourBoardLayout.csv", "ourLegend.csv");
 			game.loadConfigFiles();
 			board = game.getBoard();

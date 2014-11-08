@@ -58,6 +58,8 @@ public class ClueGame extends JFrame {
 	private JTextArea humanPlayerCard;
 	private JTextArea humanWeaponCard;
 	private JTextArea humanRoomCard;
+	private boolean accusationFlag = false;
+	private Solution accusation = null;
 	
 	public ClueGame() {
 		layoutFile = "ClueLayout.csv";
@@ -263,10 +265,23 @@ public class ClueGame extends JFrame {
 	}
 	
 	public Card handleSuggestion(Player suggestee, String person, String room, String weapon) {
+		guessField.setText(person + ", " + room + ", " + weapon);
+		for (Player player : players) {
+			if (player.getName().equals(person)) {
+				player.setRow(suggestee.getRow());
+				player.setCol(suggestee.getCol());
+				player.setLastRoomVisited(suggestee.getLastRoomVisited());
+			}
+		}
+		theBoard.repaint();
 		for (int i = players.indexOf(suggestee) + 1; i < players.indexOf(suggestee) + players.size(); i++) {
 			Card disprove = players.get(i % players.size()).disproveSuggestion(person, room, weapon);
-			if (disprove != null)
+			if (disprove != null) {
+				seen.add(disprove);
+				guessResultField.setText(disprove.name);
+				theBoard.repaint();
 				return disprove;
+			}
 		}
 		//No one can disprove so return null
 		return null;
@@ -511,11 +526,32 @@ public class ClueGame extends JFrame {
 	
 	private void computerTurn() {
 		ComputerPlayer player = (ComputerPlayer) players.get(currentPlayer);
+		
+		if (accusationFlag) {
+			accusationFlag = false;
+			if (checkAccusation(this.accusation)) {
+				//TODO set player as winner
+			} else {
+				isTurnOver = true;
+				return;
+			}
+		}
+		
 		theBoard.calcTargets(player.getRow(), player.getCol(), roll());
 		BoardCell cell = player.pickLocation(theBoard.getTargets());
 		player.setRow(cell.getRow());
 		player.setCol(cell.getColumn());
 		theBoard.repaint();
+		
+		if (cell.isRoom()) {
+			player.setLastRoomVisited(((RoomCell)cell).getInitial());
+			Solution suggestion = player.createSuggestion(seen, deck, rooms);
+			if (handleSuggestion(player, suggestion.person, suggestion.room, suggestion.weapon) == null) {
+				accusationFlag = true;
+				accusation = suggestion;
+			}
+		}
+		
 		isTurnOver = true;
 	}
 	

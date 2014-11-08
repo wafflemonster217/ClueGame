@@ -13,6 +13,7 @@ public class Player {
 	private int row;
 	private int col;
 	protected ArrayList<Card> hand;
+	protected char lastRoomVisited;
 	
 	public Player(String name, String color, int row, int col) {
 		this.name = name;
@@ -100,5 +101,13 @@ public class Player {
 		g2d.fill(circle);
 		g.setColor(Color.BLACK);
 		g.drawOval(ClueGame.CELL_SIZE * col, ClueGame.CELL_SIZE * row, ClueGame.CELL_SIZE, ClueGame.CELL_SIZE);
+	}
+	
+	public char getLastRoomVisited() {
+		return lastRoomVisited;
+	}
+
+	public void setLastRoomVisited(char lastRoomVisited) {
+		this.lastRoomVisited = lastRoomVisited;
 	}
 }
