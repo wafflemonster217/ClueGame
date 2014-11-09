@@ -520,6 +520,19 @@ public class ClueGame extends JFrame {
 	private void startHumanTurn() {
 		HumanPlayer player = (HumanPlayer) players.get(currentPlayer);
 		theBoard.calcTargets(player.getRow(), player.getCol(), roll());
+		
+		//Remove cells corresponding to the last room visited
+		ArrayList<BoardCell> remove = new ArrayList<BoardCell>();
+		for (BoardCell cell : theBoard.getTargets()) {
+			if (cell.isRoom()) {
+				if (((RoomCell)cell).getInitial() == player.getLastRoomVisited()) {
+					remove.add(cell);
+				}
+			}
+		}
+		for (BoardCell cell : remove) {
+			theBoard.getTargets().remove(cell);
+		}
 		theBoard.drawTargets();
 		theBoard.repaint();
 	}

@@ -245,7 +245,7 @@ public class Board extends JPanel implements MouseListener {
 		}
 		
 		for (Player player : players) {
-			player.draw(g);
+			player.draw(g, players);
 		}
 	}	
 	
@@ -270,6 +270,9 @@ public class Board extends JPanel implements MouseListener {
 		if (whichCell != null) {
 			players.get(0).setRow(whichCell.getRow());
 			players.get(0).setCol(whichCell.getColumn());
+			if (this.getCellAt(whichCell.getRow(), whichCell.getColumn()).isRoom()) {
+				players.get(0).setLastRoomVisited(((RoomCell)this.getCellAt(whichCell.getRow(), whichCell.getColumn())).getInitial());
+			}
 			this.drawTargets = false;
 			this.repaint();
 			ClueGame.isTurnOver = true;
