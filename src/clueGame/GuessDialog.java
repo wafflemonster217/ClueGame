@@ -12,8 +12,8 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Accusation extends JDialog {
-	public Accusation(ArrayList<Card> deck, final ClueGame game) {
+public class GuessDialog extends JDialog {
+	public GuessDialog(ArrayList<Card> deck, final ClueGame game) {
 		setTitle("Make an Accusation");
 		setSize((int) (ClueGame.WINDOW_SIZE * .5), (int) (ClueGame.WINDOW_SIZE * .5));
 		setLayout(new GridLayout(4, 2));
