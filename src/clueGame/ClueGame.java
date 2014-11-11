@@ -78,7 +78,7 @@ public class ClueGame extends JFrame {
 	private void commonCtor() {
 		playerConfigFile = "CluePlayers.txt";
 		deckConfigFile = "Deck.txt";
-		theBoard = new Board(layoutFile, gD);
+		theBoard = new Board(layoutFile);
 		
 		rooms = new HashMap<Character, String>();
 		deck = new ArrayList<Card>();
@@ -183,7 +183,7 @@ public class ClueGame extends JFrame {
 			}
 			
 			if (isFirstRound)
-				players.add(new HumanPlayer(splitLine[0], splitLine[1], Integer.valueOf(splitLine[2]), Integer.valueOf(splitLine[3])));
+				players.add(new HumanPlayer(this, splitLine[0], splitLine[1], Integer.valueOf(splitLine[2]), Integer.valueOf(splitLine[3])));
 			else
 				players.add(new ComputerPlayer(splitLine[0], splitLine[1], Integer.valueOf(splitLine[2]), Integer.valueOf(splitLine[3])));
 			
