@@ -12,8 +12,8 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class GuessDialog extends JDialog {
-	public GuessDialog(ArrayList<Card> deck, final ClueGame game) {
+public class AccusationDialog extends JDialog {
+	public AccusationDialog(ArrayList<Card> deck, final ClueGame game) {
 		setTitle("Make an Accusation");
 		setSize((int) (ClueGame.WINDOW_SIZE * .5), (int) (ClueGame.WINDOW_SIZE * .5));
 		setLayout(new GridLayout(4, 2));
@@ -37,13 +37,13 @@ public class GuessDialog extends JDialog {
 						break;
 			}
 		}
-
+		
 		add(new JLabel("Room"));
-
-		final JComboBox<String> roomsDD = new JComboBox<String>();
-		for (String s : rooms)
-			roomsDD.addItem(s);
-		add(roomsDD);
+		JPanel currentRoomPanel = new JPanel();
+		final JLabel currentRoomLabel = new JLabel("test");
+		currentRoomPanel.add(currentRoomLabel);
+		currentRoomPanel.setBackground(Color.decode("#C1C1C1"));
+		add(currentRoomPanel);
 		
 		add(new JLabel("Person"));
 		final JComboBox peopleDD = new JComboBox<String>();
@@ -56,12 +56,12 @@ public class GuessDialog extends JDialog {
 		for (String s : weapons)
 			weaponsDD.addItem(s);
 		add(weaponsDD);
-		
+			
 		
 		JButton submitButton = new JButton("Submit");
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				game.checkAccusation(new Solution((String) peopleDD.getSelectedItem(), (String) weaponsDD.getSelectedItem(), (String) roomsDD.getSelectedItem()));
+				game.checkAccusation(new Solution((String) peopleDD.getSelectedItem(), (String) weaponsDD.getSelectedItem(), currentRoomLabel.getText()));
 			}
 		});
 		add(submitButton);
