@@ -451,7 +451,9 @@ public class ClueGame extends JFrame {
 		JButton accuse = new JButton("Make an Accusation");
 		accuse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				aN.setVisible(true);
+				if (!isTurnOver) {
+					aN.setVisible(true);
+				}
 			}
 		});
 		accuse.setForeground(Color.GRAY);
