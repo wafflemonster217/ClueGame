@@ -39,11 +39,8 @@ public class GuessDialog extends JDialog {
 		}
 		
 		add(new JLabel("Room"));
-		JPanel currentRoomPanel = new JPanel();
 		final JLabel currentRoomLabel = new JLabel(game.getLegend().get(game.getPlayers().get(0).lastRoomVisited));
-		currentRoomPanel.add(currentRoomLabel);
-		currentRoomPanel.setBackground(Color.decode("#C1C1C1"));
-		add(currentRoomPanel);
+		add(currentRoomLabel);
 		
 		add(new JLabel("Person"));
 		final JComboBox peopleDD = new JComboBox<String>();

@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class AccusationDialog extends JDialog {
@@ -61,7 +63,13 @@ public class AccusationDialog extends JDialog {
 		JButton submitButton = new JButton("Submit");
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				game.checkAccusation(new Solution((String) peopleDD.getSelectedItem(), (String) weaponsDD.getSelectedItem(), (String) roomsDD.getSelectedItem()));
+				if (game.checkAccusation(new Solution((String) peopleDD.getSelectedItem(), (String) weaponsDD.getSelectedItem(), (String) roomsDD.getSelectedItem()))) {
+					JFrame frame = new JFrame();
+					JOptionPane.showMessageDialog(frame, "You won the game!", "Congratulations!!!", JOptionPane.OK_OPTION);
+				} else {
+					JFrame frame = new JFrame();
+					JOptionPane.showMessageDialog(frame, "Your accusation was incorrect", "Oops", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		add(submitButton);

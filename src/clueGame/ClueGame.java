@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -445,7 +446,8 @@ public class ClueGame extends JFrame {
 				if (isTurnOver) {
 					nextTurn();
 				} else {
-					//TODO display error message
+					JFrame frame = new JFrame();
+					JOptionPane.showMessageDialog(frame, "You must make a move", "Oops", JOptionPane.INFORMATION_MESSAGE);
 				}
 			} 
 		});
@@ -457,6 +459,9 @@ public class ClueGame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (!isTurnOver) {
 					aD.setVisible(true);
+				} else {
+					JFrame frame = new JFrame();
+					JOptionPane.showMessageDialog(frame, "It is not your turn", "Oops", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -561,9 +566,12 @@ public class ClueGame extends JFrame {
 		if (accusationFlag) {
 			accusationFlag = false;
 			if (checkAccusation(this.accusation)) {
-				//TODO set player as winner
+				JFrame frame = new JFrame();
+				JOptionPane.showMessageDialog(frame, player + " has won the game", "Congratulations!!!", JOptionPane.OK_OPTION);
 			} else {
 				isTurnOver = true;
+				JFrame frame = new JFrame();
+				JOptionPane.showMessageDialog(frame, player + "'s accusation was incorrect", "Oops", JOptionPane.OK_OPTION);
 				return;
 			}
 		}
