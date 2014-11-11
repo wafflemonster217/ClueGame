@@ -25,6 +25,8 @@ public class Board extends JPanel implements MouseListener {
 	private ArrayList<Player> players;
 	private String layoutFile;
 	private BoardCell[][] board;
+	
+	private GuessDialog gD;
 
 	private Map<Character, String> rooms;
 	
@@ -32,10 +34,11 @@ public class Board extends JPanel implements MouseListener {
 	private int numColumns;
 	private boolean drawTargets = false;
 
-	public Board(String layoutFile) {
+	public Board(String layoutFile, GuessDialog gD) {
 		this.layoutFile = layoutFile;
 		targets = new HashSet<BoardCell>();
 		addMouseListener(this);
+		this.gD = gD;
 	}
 		
 	public void loadBoardConfig() throws BadConfigFormatException, FileNotFoundException {
@@ -270,6 +273,7 @@ public class Board extends JPanel implements MouseListener {
 			players.get(0).setCol(whichCell.getColumn());
 			if (this.getCellAt(whichCell.getRow(), whichCell.getColumn()).isRoom()) {
 				players.get(0).setLastRoomVisited(((RoomCell)this.getCellAt(whichCell.getRow(), whichCell.getColumn())).getInitial());
+				
 			}
 			this.drawTargets = false;
 			this.repaint();

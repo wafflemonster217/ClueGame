@@ -48,6 +48,7 @@ public class ClueGame extends JFrame {
 	public static final int NUM_PEOPLE = 6;
 	private DetectiveNotes dN;
 	private AccusationDialog aD;
+	private GuessDialog gD;
 	static boolean isTurnOver;
 	private JTextField dieField;
 	private JTextField guessField;
@@ -77,7 +78,7 @@ public class ClueGame extends JFrame {
 	private void commonCtor() {
 		playerConfigFile = "CluePlayers.txt";
 		deckConfigFile = "Deck.txt";
-		theBoard = new Board(layoutFile);
+		theBoard = new Board(layoutFile, gD);
 		
 		rooms = new HashMap<Character, String>();
 		deck = new ArrayList<Card>();
@@ -87,7 +88,7 @@ public class ClueGame extends JFrame {
 		
 		setLayout(new BorderLayout());
 		setSize(WINDOW_SIZE, WINDOW_SIZE);
-		//add(theBoard, BorderLayout.CENTER);
+		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
@@ -101,6 +102,9 @@ public class ClueGame extends JFrame {
 		boardAndCards.add(createMyCardPanel());
 		add(boardAndCards);
 		add(createControlPanel(), BorderLayout.SOUTH);
+		
+//		gD = new GuessDialog(deck, this);
+		
 	}
 	
 	public void loadRoomConfig() throws FileNotFoundException, BadConfigFormatException {
