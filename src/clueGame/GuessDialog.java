@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 public class GuessDialog extends JDialog {
 	public GuessDialog(ArrayList<Card> deck, final ClueGame game) {
-		setTitle("Make an Accusation");
+		setTitle("Make a guess");
 		setSize((int) (ClueGame.WINDOW_SIZE * .5), (int) (ClueGame.WINDOW_SIZE * .5));
 		setLayout(new GridLayout(4, 2));
 		
@@ -61,7 +61,8 @@ public class GuessDialog extends JDialog {
 		JButton submitButton = new JButton("Submit");
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				game.checkAccusation(new Solution((String) peopleDD.getSelectedItem(), (String) weaponsDD.getSelectedItem(), currentRoomLabel.getText()));
+				game.handleSuggestion(game.getPlayers().get(0), (String) peopleDD.getSelectedItem(), (String) weaponsDD.getSelectedItem(), currentRoomLabel.getText());
+				setVisible(false);
 			}
 		});
 		add(submitButton);
