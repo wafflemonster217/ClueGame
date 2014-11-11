@@ -15,8 +15,6 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
-//import clue.BoardCell;
-//import clue.IntBoard;
 
 public class Board extends JPanel implements MouseListener {
 
