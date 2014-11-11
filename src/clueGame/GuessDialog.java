@@ -20,6 +20,7 @@ public class GuessDialog extends JDialog {
 		
 		ArrayList<String> people = new ArrayList<String>();
 		ArrayList<String> weapons = new ArrayList<String>();
+		ArrayList<String> rooms = new ArrayList<String>();
 		
 		for (Card card : deck) {
 			switch (card.type) {
@@ -29,18 +30,21 @@ public class GuessDialog extends JDialog {
 				case WEAPON:
 					weapons.add(card.name);
 					break;
+				case ROOM:
+					rooms.add(card.name);
+					break;
 					default:
 						break;
 			}
 		}
 		
-		add(new JLabel("Your room"));
-		JPanel currentRoomPanel = new JPanel();
-		final JLabel currentRoomLabel = new JLabel("test");
-		currentRoomPanel.add(currentRoomLabel);
-		currentRoomPanel.setBackground(Color.decode("#C1C1C1"));
+		add(new JLabel("Room"));
+
+		final JComboBox<String> roomsDD = new JComboBox<String>();
+		for (String s : rooms)
+			roomsDD.addItem(s);
+		add(roomsDD);
 		
-		add(currentRoomPanel);
 		add(new JLabel("Person"));
 		final JComboBox peopleDD = new JComboBox<String>();
 		for (String s : people)
@@ -57,7 +61,7 @@ public class GuessDialog extends JDialog {
 		JButton submitButton = new JButton("Submit");
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				game.checkAccusation(new Solution((String) peopleDD.getSelectedItem(), (String) weaponsDD.getSelectedItem(), currentRoomLabel.getText()));
+				game.checkAccusation(new Solution((String) peopleDD.getSelectedItem(), (String) weaponsDD.getSelectedItem(), (String) roomsDD.getSelectedItem()));
 			}
 		});
 		add(submitButton);
