@@ -70,6 +70,7 @@ public class AccusationDialog extends JDialog {
 					JFrame frame = new JFrame();
 					JOptionPane.showMessageDialog(frame, "Your accusation was incorrect", "Oops", JOptionPane.ERROR_MESSAGE);
 				}
+				setVisible(false);
 			}
 		});
 		add(submitButton);

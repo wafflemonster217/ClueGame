@@ -567,11 +567,11 @@ public class ClueGame extends JFrame {
 			accusationFlag = false;
 			if (checkAccusation(this.accusation)) {
 				JFrame frame = new JFrame();
-				JOptionPane.showMessageDialog(frame, player + " has won the game", "Congratulations!!!", JOptionPane.OK_OPTION);
+				JOptionPane.showMessageDialog(frame, player.getName() + " has won the game", "Congratulations!!!", JOptionPane.OK_OPTION);
 			} else {
 				isTurnOver = true;
 				JFrame frame = new JFrame();
-				JOptionPane.showMessageDialog(frame, player + "'s accusation was incorrect", "Oops", JOptionPane.OK_OPTION);
+				JOptionPane.showMessageDialog(frame, player.getName() + "'s accusation was incorrect", "Oops", JOptionPane.OK_OPTION);
 				return;
 			}
 		}
