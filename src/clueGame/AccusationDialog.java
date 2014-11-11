@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 
 public class AccusationDialog extends JDialog {
 	public AccusationDialog(ArrayList<Card> deck, final ClueGame game) {
-		setTitle("Make a Guess");
+		setTitle("Make an Accusation");
 		setSize((int) (ClueGame.WINDOW_SIZE * .5), (int) (ClueGame.WINDOW_SIZE * .5));
 		setLayout(new GridLayout(4, 2));
 		
