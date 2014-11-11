@@ -250,6 +250,10 @@ public class Board extends JPanel implements MouseListener {
 	public void drawTargets() {
 		this.drawTargets = true;
 	}
+	
+	public void removeTargets() {
+		this.drawTargets = false;
+	}
 
 	// Must implement all mouse listener events with at least an empty method
 	public void mousePressed(MouseEvent e) {}

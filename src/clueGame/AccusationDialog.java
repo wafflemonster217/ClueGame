@@ -71,6 +71,9 @@ public class AccusationDialog extends JDialog {
 					JOptionPane.showMessageDialog(frame, "Your accusation was incorrect", "Oops", JOptionPane.ERROR_MESSAGE);
 				}
 				setVisible(false);
+				game.getBoard().removeTargets();
+				game.getBoard().repaint();
+				ClueGame.isTurnOver = true;
 			}
 		});
 		add(submitButton);
