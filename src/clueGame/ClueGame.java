@@ -47,7 +47,7 @@ public class ClueGame extends JFrame {
 	public static final int NUM_WEAPONS = 6;
 	public static final int NUM_PEOPLE = 6;
 	private DetectiveNotes dN;
-	private GuessDialog aN;
+	private AccusationDialog aD;
 	static boolean isTurnOver;
 	private JTextField dieField;
 	private JTextField guessField;
@@ -331,8 +331,8 @@ public class ClueGame extends JFrame {
 		this.dN = dN;
 	}
 	
-	public void setAccusation(GuessDialog aN) {
-		this.aN = aN;
+	public void setAccusation(AccusationDialog aD) {
+		this.aD = aD;
 	}
 	
 	private JMenu createFileMenu() {
@@ -452,7 +452,7 @@ public class ClueGame extends JFrame {
 		accuse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!isTurnOver) {
-					aN.setVisible(true);
+					aD.setVisible(true);
 				}
 			}
 		});
@@ -608,7 +608,7 @@ public class ClueGame extends JFrame {
 		board.repaint();
 		
 		game.setNotes(new DetectiveNotes(game.getDeck()));
-		game.setAccusation(new GuessDialog(game.getDeck(), game));
+		game.setAccusation(new AccusationDialog(game.getDeck(), game));
 		game.getNotes().setVisible(false);
 		
 		JOptionPane.showMessageDialog(game, "You are " + game.getPlayers().get(0).getName() + ", press Next Player to begin play ^_^", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
